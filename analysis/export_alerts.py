@@ -122,6 +122,7 @@ def main() -> None:
     ap.add_argument("--out", default=str(DATA), help="dossier de sortie (défaut : analysis/data)")
     ap.add_argument("--sca-file", default="sca.json", help="nom du fichier SCA (ex. sca_apres.json)")
     ap.add_argument("--no-alerts", action="store_true", help="n'exporter que les résultats SCA")
+    ap.add_argument("--no-sca", action="store_true", help="n'exporter que les alertes (ex. campagnes répétées)")
     args = ap.parse_args()
     if args.ground_truth:
         args.since, args.until = window_from_ground_truth(Path(args.ground_truth))
@@ -136,6 +137,8 @@ def main() -> None:
         (out / "alerts.json").write_text(json.dumps(alerts, ensure_ascii=False, indent=1))
         print(f"{len(alerts)} alertes exportées -> {out / 'alerts.json'}")
 
+    if args.no_sca:
+        return
     sca = export_sca(args.agent)
     (out / args.sca_file).write_text(json.dumps(sca, ensure_ascii=False, indent=1))
     n = sum(len(v) for v in sca.get("checks", {}).values())

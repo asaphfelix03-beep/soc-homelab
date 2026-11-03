@@ -146,7 +146,10 @@ def baseline_results(alerts: pd.DataFrame, scen: pd.DataFrame) -> pd.DataFrame:
             "description": s["description"],
             "alerts": len(a),
             "alerts_triage_level": int((a["level"] >= TRIAGE_LEVEL).sum()),
-            "custom_false_positives": int(a["custom"].sum()),
+            # Faux positif = alerte d'une règle maison au-dessus du seuil de triage pendant une activité normale.
+            # Les alertes maison de niveau < 7 (ex. 100120, bruit réduit) sont journalisées mais non triées.
+            "custom_false_positives": int((a["custom"] & (a["level"] >= TRIAGE_LEVEL)).sum()),
+            "noise_reduced": int((a["rule_id"] == 100120).sum()),
             "max_level": int(a["level"].max()) if len(a) else 0,
             "rules": "; ".join(sorted(set(a["description"]))),
         })
@@ -184,6 +187,37 @@ def sca_summary(path: Path = DATA / "sca.json") -> dict:
             "failed_examples": examples}
 
 
+def repeatability(res_ref: pd.DataFrame, base_ref: pd.DataFrame):
+    """Stabilité sur toutes les campagnes : la référence + tests/results/repetitions/run_<k>.csv."""
+    runs = [("1", res_ref, base_ref)]
+    rep_dir = ROOT / "tests" / "results" / "repetitions"
+    for gt in sorted(rep_dir.glob("run_*.csv")) if rep_dir.exists() else []:
+        k = gt.stem.split("_")[1]
+        alerts_path = DATA / "repetitions" / f"run_{k}" / "alerts.json"
+        if not alerts_path.exists():
+            print(f"Alertes absentes pour la campagne {k} : ignorée.")
+            continue
+        sc = load_scenarios(gt)
+        al = attribute(load_alerts(alerts_path), sc)
+        runs.append((k, scenario_results(al, sc), baseline_results(al, sc)))
+    rows = []
+    for sid in res_ref["scenario_id"]:
+        per = [r[1].set_index("scenario_id").loc[sid] for r in runs]
+        ttd = pd.Series([p["ttd_seconds"] for p in per], dtype="float").dropna()
+        rows.append({
+            "scenario_id": sid,
+            "runs": len(per),
+            "detected_runs": int(sum(bool(p["detected"]) for p in per)),
+            "ttd_median": round(float(ttd.median()), 2) if len(ttd) else None,
+            "ttd_min": round(float(ttd.min()), 2) if len(ttd) else None,
+            "ttd_max": round(float(ttd.max()), 2) if len(ttd) else None,
+            "ttd_all": ";".join(f"{v:g}" for v in ttd),
+        })
+    rep = pd.DataFrame(rows)
+    fps = [int(r[2]["custom_false_positives"].sum()) for r in runs]
+    return rep, len(runs), fps
+
+
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     DASH.mkdir(parents=True, exist_ok=True)
@@ -193,10 +227,14 @@ def main() -> None:
     ctrl_gt_path = ROOT / "tests" / "results" / "ground_truth_builtin_only.csv"
     if ctrl_alerts_path.exists() and ctrl_gt_path.exists():
         ctrl_scen = load_scenarios(ctrl_gt_path)
-        ctrl = control_results(attribute(load_alerts(ctrl_alerts_path), ctrl_scen), ctrl_scen)
+        ctrl_alerts = attribute(load_alerts(ctrl_alerts_path), ctrl_scen)
+        ctrl = control_results(ctrl_alerts, ctrl_scen)
+        ctrl_base = baseline_results(ctrl_alerts, ctrl_scen)
+        ctrl_base.to_csv(OUT / "baseline_results_builtin_only.csv", index=False)
         res = res.merge(ctrl, on="scenario_id", how="left")
     else:
         print("Campagne témoin absente : comparaison règles natives ignorée.")
+        ctrl_base = pd.DataFrame(columns=["scenario_id", "alerts_triage_level"])
         for c in ["max_level_builtin", "builtin_triaged", "builtin_ttd_seconds", "builtin_alerts", "top_builtin_rule",
                   "top_builtin_mitre", "builtin_mitre_match"]:
             res[c] = None
@@ -207,6 +245,8 @@ def main() -> None:
     # Format d'horodatage explicite : le CSV reste identique quelle que soit la version de pandas
     alerts.assign(timestamp=alerts["timestamp"].dt.strftime("%Y-%m-%dT%H:%M:%S.%fZ")).to_csv(OUT / "alerts_enriched.csv", index=False)
     res.to_csv(OUT / "scenario_results.csv", index=False)
+    rep, n_runs, rep_fps = repeatability(res, base)
+    rep.to_csv(OUT / "repeatability.csv", index=False)
     base.to_csv(OUT / "baseline_results.csv", index=False)
 
     ops = alerts[~alerts["posture"] & (alerts["phase"] != "cleanup")]   # hors audit CIS et hors nettoyage
@@ -242,6 +282,8 @@ def main() -> None:
             "baseline_alerts": int(base["alerts"].sum()) if len(base) else 0,
             "baseline_triage_alerts": int(base["alerts_triage_level"].sum()) if len(base) else 0,
             "custom_false_positives": int(base["custom_false_positives"].sum()) if len(base) else 0,
+            "builtin_baseline_triage_alerts": int(ctrl_base["alerts_triage_level"].sum()) if len(ctrl_base) else None,
+            "builtin_baseline_detail": json.loads(ctrl_base.to_json(orient="records")) if len(ctrl_base) else [],
             "test_alerts": int(len(tests)),
             "test_alerts_triage": int((tests["level"] >= TRIAGE_LEVEL).sum()),
         },
@@ -254,6 +296,17 @@ def main() -> None:
                                .to_json(orient="records")),
         "sca": sca,
         "sca_after": sca_after,
+        "repeatability": {
+            "runs": n_runs,
+            "all_detected_every_run": int((rep["detected_runs"] == rep["runs"]).sum()),
+            "custom_false_positives_per_run": rep_fps,
+            "ttd_all_median_s": (round(float(pd.to_numeric(rep["ttd_all"].str.split(";").explode(), errors="coerce").median()), 2)
+                                 if len(rep) else None),
+            # Scénarios détectés par la FIM temps réel (fichiers) : S04 à S09
+            "ttd_fim_median_s": (round(float(pd.to_numeric(rep[rep["scenario_id"].isin(["S04", "S05", "S06", "S07", "S08", "S09"])]["ttd_all"]
+                                                           .str.split(";").explode(), errors="coerce").median()), 2) if len(rep) else None),
+            "scenarios": json.loads(rep.to_json(orient="records")),
+        },
     }
     (OUT / "metrics.json").write_text(json.dumps(metrics, ensure_ascii=False, indent=1, default=str))
     (DASH / "data.js").write_text("window.SOC_DATA = " + json.dumps(metrics, ensure_ascii=False, default=str) + ";\n")

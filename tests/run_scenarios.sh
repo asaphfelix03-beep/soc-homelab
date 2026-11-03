@@ -41,9 +41,12 @@ wait_gap
 run B01 "Commandes sudo légitimes" as_analyste \
   "echo '$PASS' | sudo -S -k ls /root >/dev/null; echo '$PASS' | sudo -S -k cat /etc/hostname >/dev/null"
 wait_gap
-run B02 "Édition de documents utilisateur" as_analyste \
+run B02 "Création d'un document utilisateur" as_analyste \
   "mkdir -p ~/rapports && echo 'Rapport hebdo' > ~/rapports/semaine45.txt && echo 'suite' >> ~/rapports/semaine45.txt"
-wait_gap 90   # > 120 s depuis B03 pour ne pas mélanger les échecs d'authentification
+wait_gap
+run B04 "Modification d'un document existant" as_analyste \
+  "echo 'Conclusion : RAS' >> ~/rapports/semaine45.txt"
+wait_gap 60   # > 120 s depuis B03 pour ne pas mélanger les échecs d'authentification
 
 # ---------- Scénarios mappés MITRE ATT&CK ----------
 run S01 "T1110.001 - 6 mots de passe sudo erronés puis succès" as_analyste \
@@ -84,7 +87,10 @@ run C01 "Nettoyage du poste" as_root "
   userdel -r support_it 2>/dev/null || true
   rm -f /etc/sudoers.d/90-support /etc/cron.d/maintenance /etc/systemd/system/update-helper.service /usr/sbin/sshd-update
   sed -i 's/^PermitRootLogin yes/#PermitRootLogin prohibit-password/' /etc/ssh/sshd_config
-  sed -i '/test-lab$/d' /home/analyste/.ssh/authorized_keys"
-wait_gap 30
+  sed -i '/test-lab$/d' /home/analyste/.ssh/authorized_keys
+  rm -rf /home/analyste/rapports"
+# La surveillance des ports tourne toutes les 120 s : on attend qu'elle constate la fermeture
+# du port 2222, sinon l'alerte tomberait dans la campagne suivante.
+wait_gap 150
 
 echo "Terminé. Vérité terrain : $GT"

@@ -68,7 +68,17 @@ cd ..
 ./tests/run_scenarios.sh
 ```
 
-La campagne dure environ 15 minutes. Elle écrit la vérité terrain dans `tests/results/ground_truth.csv` et remet le poste dans son état initial à la fin.
+La campagne dure environ 16 minutes. Elle écrit la vérité terrain dans `tests/results/ground_truth.csv` et remet le poste dans son état initial à la fin.
+
+### Facultatif : répéter la campagne
+
+Pour mesurer la stabilité des détections, remplace `run_scenarios.sh` par :
+
+```bash
+RUNS=3 ./tests/run_repeated.sh
+```
+
+La 1ʳᵉ campagne écrit `tests/results/ground_truth.csv`, les suivantes `tests/results/repetitions/run_<k>.csv` (environ 18 minutes par campagne).
 
 ## 6. Lancer la campagne témoin (test A/B)
 
@@ -78,7 +88,7 @@ Même campagne, avec les règles personnalisées désactivées. Le script les re
 ./tests/run_control.sh
 ```
 
-Environ 16 minutes. Vérité terrain : `tests/results/ground_truth_builtin_only.csv`.
+Environ 17 minutes. Vérité terrain : `tests/results/ground_truth_builtin_only.csv`.
 
 ## 7. Exporter et analyser
 
@@ -94,7 +104,17 @@ Exporte les deux campagnes. L'export lit la fenêtre de temps dans le fichier de
 
 ```bash
 python analysis/export_alerts.py --ground-truth tests/results/ground_truth.csv
-python analysis/export_alerts.py --ground-truth tests/results/ground_truth_builtin_only.csv --out analysis/data/builtin_only --sca-file sca_temoin.json
+python analysis/export_alerts.py --ground-truth tests/results/ground_truth_builtin_only.csv --out analysis/data/builtin_only --no-sca
+python analysis/analyze.py
+```
+
+Si tu as répété la campagne, exporte aussi chaque répétition avant de lancer l'analyse :
+
+```bash
+for f in tests/results/repetitions/run_*.csv; do
+  k=$(basename "$f" .csv)
+  python analysis/export_alerts.py --ground-truth "$f" --out "analysis/data/repetitions/$k" --no-sca
+done
 python analysis/analyze.py
 ```
 
@@ -110,6 +130,7 @@ Attends 1 à 2 minutes (fin du scan SCA), puis exporte le score **après** durci
 ```bash
 python analysis/export_alerts.py --no-alerts --sca-file sca_apres.json
 python analysis/analyze.py
+python analysis/report_results.py   # régénère la section « Résultats » de docs/rapport.md
 ```
 
 ## 9. Ouvrir le dashboard

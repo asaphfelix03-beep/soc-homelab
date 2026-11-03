@@ -1,38 +1,82 @@
 {
- "generated_at": "2026-11-03T08:08:53+00:00",
+ "generated_at": "2026-11-03T13:05:08+00:00",
  "period": {
-  "start": "2026-11-03T03:43:13.651000+00:00",
-  "end": "2026-11-03T03:55:50.872000+00:00"
+  "start": "2026-11-03T11:44:34.602000+00:00",
+  "end": "2026-11-03T11:57:29.117000+00:00"
  },
  "totals": {
-  "alerts": 58,
-  "alerts_operational": 45,
+  "alerts": 60,
+  "alerts_operational": 46,
   "alerts_posture": 0,
-  "custom_alerts": 11
+  "custom_alerts": 13
  },
  "detection": {
   "scenarios": 10,
   "detected": 10,
   "fully_detected": 10,
   "rate": 100.0,
-  "builtin_triaged": 5,
-  "builtin_rate": 50.0,
+  "builtin_triaged": 4,
+  "builtin_rate": 40.0,
   "mitre_match": 10,
   "builtin_mitre_match": 2,
   "builtin_ttd_median_s": 0.1,
-  "ttd_median_s": 0.15,
-  "ttd_max_s": 106.4
+  "ttd_median_s": 0.1,
+  "ttd_max_s": 47.1
  },
  "noise": {
-  "baseline_alerts": 13,
+  "baseline_alerts": 14,
   "baseline_triage_alerts": 0,
   "custom_false_positives": 0,
+  "builtin_baseline_triage_alerts": 1,
+  "builtin_baseline_detail": [
+   {
+    "scenario_id": "B03",
+    "description": "Une seule faute de frappe sur le mot de passe sudo",
+    "alerts": 6,
+    "alerts_triage_level": 0,
+    "custom_false_positives": 0,
+    "noise_reduced": 0,
+    "max_level": 5,
+    "rules": "Failed attempt to run sudo.; File added to the system.; PAM: Login session closed.; PAM: Login session opened.; PAM: User login failed.; Successful sudo to ROOT executed."
+   },
+   {
+    "scenario_id": "B01",
+    "description": "Commandes sudo légitimes de l'administrateur",
+    "alerts": 6,
+    "alerts_triage_level": 0,
+    "custom_false_positives": 0,
+    "noise_reduced": 0,
+    "max_level": 3,
+    "rules": "PAM: Login session closed.; PAM: Login session opened.; Successful sudo to ROOT executed."
+   },
+   {
+    "scenario_id": "B02",
+    "description": "Création d'un document dans /home/analyste",
+    "alerts": 1,
+    "alerts_triage_level": 0,
+    "custom_false_positives": 0,
+    "noise_reduced": 0,
+    "max_level": 5,
+    "rules": "File added to the system."
+   },
+   {
+    "scenario_id": "B04",
+    "description": "Modification d'un document existant dans /home/analyste",
+    "alerts": 1,
+    "alerts_triage_level": 1,
+    "custom_false_positives": 0,
+    "noise_reduced": 0,
+    "max_level": 7,
+    "rules": "Integrity checksum changed."
+   }
+  ],
   "test_alerts": 32,
   "test_alerts_triage": 17
  },
  "level_distribution": {
-  "3": 10,
-  "5": 18,
+  "3": 11,
+  "4": 1,
+  "5": 17,
   "7": 4,
   "8": 3,
   "10": 5,
@@ -52,11 +96,6 @@
    "count": 6
   },
   {
-   "rule_id": 554,
-   "description": "File added to the system.",
-   "count": 5
-  },
-  {
    "rule_id": 550,
    "description": "Integrity checksum changed.",
    "count": 4
@@ -67,6 +106,11 @@
    "count": 4
   },
   {
+   "rule_id": 554,
+   "description": "File added to the system.",
+   "count": 4
+  },
+  {
    "rule_id": 5501,
    "description": "PAM: Login session opened.",
    "count": 3
@@ -74,7 +118,7 @@
   {
    "rule_id": 5402,
    "description": "Successful sudo to ROOT executed.",
-   "count": 3
+   "count": 2
   },
   {
    "rule_id": 100114,
@@ -82,13 +126,13 @@
    "count": 2
   },
   {
-   "rule_id": 5901,
-   "description": "New group added to the system.",
-   "count": 1
+   "rule_id": 100120,
+   "description": "[SOC] Document utilisateur créé ou modifié (bruit réduit) : /home/analyste/rapports/semaine45.txt",
+   "count": 2
   },
   {
-   "rule_id": 100100,
-   "description": "[SOC] Fichier sudoers créé ou modifié : /etc/sudoers.d/90-support",
+   "rule_id": 5403,
+   "description": "First time user executed sudo.",
    "count": 1
   }
  ],
@@ -102,7 +146,7 @@
    "fired_expected": "100113;100114",
    "detected": true,
    "fully_detected": true,
-   "ttd_seconds": 16.9,
+   "ttd_seconds": 17.1,
    "alerts_in_window": 15,
    "max_level_custom": 13,
    "max_level_in_run": 13,
@@ -124,7 +168,7 @@
    "fired_expected": "5902",
    "detected": true,
    "fully_detected": true,
-   "ttd_seconds": 0.5,
+   "ttd_seconds": 1.1,
    "alerts_in_window": 8,
    "max_level_custom": 0,
    "max_level_in_run": 8,
@@ -146,7 +190,7 @@
    "fired_expected": "100112",
    "detected": true,
    "fully_detected": true,
-   "ttd_seconds": 0.4,
+   "ttd_seconds": 0.9,
    "alerts_in_window": 2,
    "max_level_custom": 14,
    "max_level_in_run": 14,
@@ -195,12 +239,12 @@
    "max_level_custom": 10,
    "max_level_in_run": 10,
    "mitre_match": true,
-   "max_level_builtin": 7,
-   "builtin_triaged": true,
-   "builtin_ttd_seconds": 0.1,
+   "max_level_builtin": 5,
+   "builtin_triaged": false,
+   "builtin_ttd_seconds": null,
    "builtin_alerts": 1,
-   "top_builtin_rule": "550 · Integrity checksum changed.",
-   "top_builtin_mitre": "T1565.001",
+   "top_builtin_rule": "554 · File added to the system.",
+   "top_builtin_mitre": "",
    "builtin_mitre_match": false
   },
   {
@@ -278,7 +322,7 @@
    "fired_expected": "100106",
    "detected": true,
    "fully_detected": true,
-   "ttd_seconds": 0.2,
+   "ttd_seconds": 0.1,
    "alerts_in_window": 1,
    "max_level_custom": 8,
    "max_level_in_run": 8,
@@ -300,14 +344,14 @@
    "fired_expected": "100116",
    "detected": true,
    "fully_detected": true,
-   "ttd_seconds": 106.4,
+   "ttd_seconds": 47.1,
    "alerts_in_window": 1,
    "max_level_custom": 10,
    "max_level_in_run": 10,
    "mitre_match": true,
    "max_level_builtin": 7,
    "builtin_triaged": true,
-   "builtin_ttd_seconds": 32.5,
+   "builtin_ttd_seconds": 46.7,
    "builtin_alerts": 1,
    "top_builtin_rule": "533 · Listened ports status (netstat) changed (new port opened or closed).",
    "top_builtin_mitre": "",
@@ -321,8 +365,9 @@
    "alerts": 6,
    "alerts_triage_level": 0,
    "custom_false_positives": 0,
+   "noise_reduced": 0,
    "max_level": 5,
-   "rules": "Failed attempt to run sudo.; File added to the system.; PAM: Login session closed.; PAM: Login session opened.; PAM: User login failed.; Successful sudo to ROOT executed."
+   "rules": "Failed attempt to run sudo.; File added to the system.; First time user executed sudo.; PAM: Login session closed.; PAM: Login session opened.; PAM: User login failed."
   },
   {
    "scenario_id": "B01",
@@ -330,22 +375,34 @@
    "alerts": 6,
    "alerts_triage_level": 0,
    "custom_false_positives": 0,
+   "noise_reduced": 0,
    "max_level": 3,
    "rules": "PAM: Login session closed.; PAM: Login session opened.; Successful sudo to ROOT executed."
   },
   {
    "scenario_id": "B02",
-   "description": "Édition de documents dans /home/analyste",
+   "description": "Création d'un document dans /home/analyste",
    "alerts": 1,
    "alerts_triage_level": 0,
    "custom_false_positives": 0,
-   "max_level": 5,
-   "rules": "File added to the system."
+   "noise_reduced": 1,
+   "max_level": 3,
+   "rules": "[SOC] Document utilisateur créé ou modifié (bruit réduit) : /home/analyste/rapports/semaine45.txt"
+  },
+  {
+   "scenario_id": "B04",
+   "description": "Modification d'un document existant dans /home/analyste",
+   "alerts": 1,
+   "alerts_triage_level": 0,
+   "custom_false_positives": 0,
+   "noise_reduced": 1,
+   "max_level": 3,
+   "rules": "[SOC] Document utilisateur créé ou modifié (bruit réduit) : /home/analyste/rapports/semaine45.txt"
   }
  ],
  "timeline": [
   {
-   "timestamp": "03:43:14",
+   "timestamp": "11:44:35",
    "rule_id": 5503,
    "level": 5,
    "description": "PAM: User login failed.",
@@ -353,7 +410,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:43:15",
+   "timestamp": "11:44:37",
    "rule_id": 554,
    "level": 5,
    "description": "File added to the system.",
@@ -361,7 +418,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:43:16",
+   "timestamp": "11:44:37",
    "rule_id": 5401,
    "level": 5,
    "description": "Failed attempt to run sudo.",
@@ -369,15 +426,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:44:46",
-   "rule_id": 554,
-   "level": 5,
-   "description": "File added to the system.",
-   "scenario_id": "B02",
-   "custom": false
-  },
-  {
-   "timestamp": "03:46:17",
+   "timestamp": "11:47:53",
    "rule_id": 5503,
    "level": 5,
    "description": "PAM: User login failed.",
@@ -385,7 +434,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:46:19",
+   "timestamp": "11:47:55",
    "rule_id": 5401,
    "level": 5,
    "description": "Failed attempt to run sudo.",
@@ -393,7 +442,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:46:21",
+   "timestamp": "11:47:57",
    "rule_id": 5503,
    "level": 5,
    "description": "PAM: User login failed.",
@@ -401,7 +450,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:46:23",
+   "timestamp": "11:47:59",
    "rule_id": 5401,
    "level": 5,
    "description": "Failed attempt to run sudo.",
@@ -409,7 +458,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:46:25",
+   "timestamp": "11:48:01",
    "rule_id": 5503,
    "level": 5,
    "description": "PAM: User login failed.",
@@ -417,7 +466,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:46:27",
+   "timestamp": "11:48:03",
    "rule_id": 5401,
    "level": 5,
    "description": "Failed attempt to run sudo.",
@@ -425,7 +474,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:46:29",
+   "timestamp": "11:48:05",
    "rule_id": 5503,
    "level": 5,
    "description": "PAM: User login failed.",
@@ -433,7 +482,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:46:31",
+   "timestamp": "11:48:07",
    "rule_id": 5401,
    "level": 5,
    "description": "Failed attempt to run sudo.",
@@ -441,7 +490,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:46:33",
+   "timestamp": "11:48:09",
    "rule_id": 100113,
    "level": 10,
    "description": "[SOC] 5 échecs d'authentification ou plus en 2 minutes",
@@ -449,7 +498,7 @@
    "custom": true
   },
   {
-   "timestamp": "03:46:35",
+   "timestamp": "11:48:11",
    "rule_id": 5401,
    "level": 5,
    "description": "Failed attempt to run sudo.",
@@ -457,7 +506,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:46:37",
+   "timestamp": "11:48:13",
    "rule_id": 5503,
    "level": 5,
    "description": "PAM: User login failed.",
@@ -465,7 +514,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:46:39",
+   "timestamp": "11:48:15",
    "rule_id": 5401,
    "level": 5,
    "description": "Failed attempt to run sudo.",
@@ -473,7 +522,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:46:41",
+   "timestamp": "11:48:17",
    "rule_id": 100114,
    "level": 13,
    "description": "[SOC][CORRELATION] Authentification réussie après une série d'échecs",
@@ -481,7 +530,7 @@
    "custom": true
   },
   {
-   "timestamp": "03:46:41",
+   "timestamp": "11:48:17",
    "rule_id": 100114,
    "level": 13,
    "description": "[SOC][CORRELATION] Authentification réussie après une série d'échecs",
@@ -489,7 +538,7 @@
    "custom": true
   },
   {
-   "timestamp": "03:47:24",
+   "timestamp": "11:49:02",
    "rule_id": 550,
    "level": 7,
    "description": "Integrity checksum changed.",
@@ -497,7 +546,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:47:24",
+   "timestamp": "11:49:02",
    "rule_id": 550,
    "level": 7,
    "description": "Integrity checksum changed.",
@@ -505,7 +554,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:47:24",
+   "timestamp": "11:49:02",
    "rule_id": 550,
    "level": 7,
    "description": "Integrity checksum changed.",
@@ -513,7 +562,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:47:24",
+   "timestamp": "11:49:02",
    "rule_id": 554,
    "level": 5,
    "description": "File added to the system.",
@@ -521,7 +570,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:47:24",
+   "timestamp": "11:49:02",
    "rule_id": 554,
    "level": 5,
    "description": "File added to the system.",
@@ -529,7 +578,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:47:24",
+   "timestamp": "11:49:02",
    "rule_id": 554,
    "level": 5,
    "description": "File added to the system.",
@@ -537,7 +586,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:47:25",
+   "timestamp": "11:49:03",
    "rule_id": 5902,
    "level": 8,
    "description": "New user added to the system.",
@@ -545,7 +594,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:47:25",
+   "timestamp": "11:49:03",
    "rule_id": 5901,
    "level": 8,
    "description": "New group added to the system.",
@@ -553,7 +602,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:47:34",
+   "timestamp": "11:49:13",
    "rule_id": 550,
    "level": 7,
    "description": "Integrity checksum changed.",
@@ -561,7 +610,7 @@
    "custom": false
   },
   {
-   "timestamp": "03:47:35",
+   "timestamp": "11:49:13",
    "rule_id": 100112,
    "level": 14,
    "description": "[SOC][CORRELATION] Nouveau compte créé puis promu administrateur en moins de 10 min",
@@ -569,7 +618,7 @@
    "custom": true
   },
   {
-   "timestamp": "03:48:19",
+   "timestamp": "11:49:58",
    "rule_id": 100100,
    "level": 12,
    "description": "[SOC] Fichier sudoers créé ou modifié : /etc/sudoers.d/90-support",
@@ -577,7 +626,7 @@
    "custom": true
   },
   {
-   "timestamp": "03:49:05",
+   "timestamp": "11:50:43",
    "rule_id": 100101,
    "level": 10,
    "description": "[SOC] Clé SSH autorisée ajoutée ou modifiée : /home/analyste/.ssh/authorized_keys",
@@ -585,7 +634,7 @@
    "custom": true
   },
   {
-   "timestamp": "03:49:50",
+   "timestamp": "11:51:28",
    "rule_id": 100102,
    "level": 10,
    "description": "[SOC] Tâche cron créée ou modifiée : /etc/cron.d/maintenance",
@@ -593,7 +642,7 @@
    "custom": true
   },
   {
-   "timestamp": "03:50:35",
+   "timestamp": "11:52:13",
    "rule_id": 100103,
    "level": 10,
    "description": "[SOC] Service systemd créé ou modifié : /etc/systemd/system/update-helper.service",
@@ -601,7 +650,7 @@
    "custom": true
   },
   {
-   "timestamp": "03:51:20",
+   "timestamp": "11:52:58",
    "rule_id": 100104,
    "level": 12,
    "description": "[SOC] Nouveau binaire dans un répertoire système : /usr/sbin/sshd-update",
@@ -609,7 +658,7 @@
    "custom": true
   },
   {
-   "timestamp": "03:52:05",
+   "timestamp": "11:53:43",
    "rule_id": 100106,
    "level": 8,
    "description": "[SOC] Configuration du serveur SSH modifiée",
@@ -617,10 +666,10 @@
    "custom": true
   },
   {
-   "timestamp": "03:54:37",
+   "timestamp": "11:55:15",
    "rule_id": 100116,
    "level": 10,
-   "description": "[SOC] Nouveau port en écoute détecté sur le poste",
+   "description": "[SOC] Ports en écoute modifiés sur le poste (ouverture ou fermeture)",
    "scenario_id": "S10",
    "custom": true
   }
@@ -824,6 +873,109 @@
    {
     "id": 35525,
     "title": "Ensure nodev option set on /var/tmp partition."
+   }
+  ]
+ },
+ "repeatability": {
+  "runs": 3,
+  "all_detected_every_run": 10,
+  "custom_false_positives_per_run": [
+   0,
+   0,
+   0
+  ],
+  "ttd_all_median_s": 0.1,
+  "ttd_fim_median_s": 0.1,
+  "scenarios": [
+   {
+    "scenario_id": "S01",
+    "runs": 3,
+    "detected_runs": 3,
+    "ttd_median": 17.1,
+    "ttd_min": 16.8,
+    "ttd_max": 17.5,
+    "ttd_all": "17.1;16.8;17.5"
+   },
+   {
+    "scenario_id": "S02",
+    "runs": 3,
+    "detected_runs": 3,
+    "ttd_median": 1.2,
+    "ttd_min": 1.1,
+    "ttd_max": 2.0,
+    "ttd_all": "1.1;1.2;2"
+   },
+   {
+    "scenario_id": "S03",
+    "runs": 3,
+    "detected_runs": 3,
+    "ttd_median": 1.1,
+    "ttd_min": 0.9,
+    "ttd_max": 1.9,
+    "ttd_all": "0.9;1.1;1.9"
+   },
+   {
+    "scenario_id": "S04",
+    "runs": 3,
+    "detected_runs": 3,
+    "ttd_median": 0.1,
+    "ttd_min": 0.1,
+    "ttd_max": 0.1,
+    "ttd_all": "0.1;0.1;0.1"
+   },
+   {
+    "scenario_id": "S05",
+    "runs": 3,
+    "detected_runs": 3,
+    "ttd_median": 0.1,
+    "ttd_min": 0.1,
+    "ttd_max": 0.1,
+    "ttd_all": "0.1;0.1;0.1"
+   },
+   {
+    "scenario_id": "S06",
+    "runs": 3,
+    "detected_runs": 3,
+    "ttd_median": 0.1,
+    "ttd_min": 0.1,
+    "ttd_max": 0.1,
+    "ttd_all": "0.1;0.1;0.1"
+   },
+   {
+    "scenario_id": "S07",
+    "runs": 3,
+    "detected_runs": 3,
+    "ttd_median": 0.1,
+    "ttd_min": 0.1,
+    "ttd_max": 0.1,
+    "ttd_all": "0.1;0.1;0.1"
+   },
+   {
+    "scenario_id": "S08",
+    "runs": 3,
+    "detected_runs": 3,
+    "ttd_median": 0.1,
+    "ttd_min": 0.1,
+    "ttd_max": 0.1,
+    "ttd_all": "0.1;0.1;0.1"
+   },
+   {
+    "scenario_id": "S09",
+    "runs": 3,
+    "detected_runs": 3,
+    "ttd_median": 0.1,
+    "ttd_min": 0.1,
+    "ttd_max": 0.1,
+    "ttd_all": "0.1;0.1;0.1"
+   },
+   {
+    "scenario_id": "S10",
+    "runs": 3,
+    "detected_runs": 3,
+    "ttd_median": 53.3,
+    "ttd_min": 47.1,
+    "ttd_max": 60.1,
+    "ttd_all": "47.1;53.3;60.1"
    }
   ]
  }

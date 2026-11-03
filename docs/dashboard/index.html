@@ -86,7 +86,7 @@ footer a{color:var(--accent)}
     </div>
     <div class="card">
       <h2>Temps de détection</h2>
-      <p class="desc">Secondes entre le début du scénario et la première alerte attendue.</p>
+      <p class="desc" id="ttdDesc">Secondes entre le début du scénario et la première alerte attendue.</p>
       <div class="chart tall"><canvas id="ttd" role="img" aria-label="Temps de détection par scénario en secondes"></canvas></div>
     </div>
   </section>
@@ -113,7 +113,7 @@ footer a{color:var(--accent)}
   <section class="grid2">
     <div class="card">
       <h2>Bruit pendant l'activité normale</h2>
-      <p class="desc">Actions légitimes d'un administrateur : aucune règle personnalisée ne doit se déclencher.</p>
+      <p class="desc">Actions légitimes d'un administrateur : aucune règle personnalisée ne doit dépasser le seuil de triage. La règle 100120 ramène les documents modifiés au niveau 3.</p>
       <div class="scroll"><table id="baseline"></table></div>
     </div>
     <div class="card">
@@ -142,7 +142,7 @@ footer a{color:var(--accent)}
   const root = document.documentElement;
   const css = n => getComputedStyle(root).getPropertyValue(n).trim();
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-  const fmtS = v => v == null ? "—" : (v < 1 ? v.toFixed(2) + " s" : v < 120 ? v.toFixed(1) + " s" : (v/60).toFixed(1) + " min");
+  const fmtS = v => v == null ? "—" : (v < 1 ? v.toFixed(2) + " s" : v < 120 ? v.toFixed(1) + " s" : (v/60).toFixed(1) + " min").replace(".", ",");
 
   // ---------- thème
   try { const t = localStorage.getItem("soc-theme"); if (t) root.dataset.theme = t; } catch(e){}
@@ -160,9 +160,12 @@ footer a{color:var(--accent)}
   document.getElementById("gen").textContent = "Généré le " + D.generated_at.slice(0,10);
   const det = D.detection, noise = D.noise, sca = D.sca || {};
   const kpis = [
-    ["Détection, règles personnalisées", det.detected + "/" + det.scenarios, det.rate + " % des techniques testées"],
+    ["Détection, règles personnalisées", det.detected + "/" + det.scenarios,
+      (D.repeatability && D.repeatability.runs > 1) ? "stable sur " + D.repeatability.runs + " campagnes (" + D.repeatability.all_detected_every_run + "/" + det.scenarios + " à chaque fois)" : det.rate + " % des techniques testées"],
     ["Détection, règles natives seules", det.builtin_triaged + "/" + det.scenarios, "campagne témoin, alerte de niveau 7 ou plus"],
-    ["Temps de détection médian", fmtS(det.ttd_median_s), "max " + fmtS(det.ttd_max_s)],
+    (D.repeatability && D.repeatability.runs > 1)
+      ? ["Temps de détection médian", fmtS(D.repeatability.ttd_all_median_s), "sur " + D.repeatability.runs + " campagnes · max " + fmtS(Math.max(...D.repeatability.scenarios.map(r => r.ttd_max || 0)))]
+      : ["Temps de détection médian", fmtS(det.ttd_median_s), "max " + fmtS(det.ttd_max_s)],
     ["Faux positifs des règles maison", String(noise.custom_false_positives), "pendant l'activité normale"],
     D.sca_after && D.sca_after.score != null
       ? ["Score CIS après durcissement", D.sca_after.score + " %", "contre " + sca.score + " % avant (+" + (D.sca_after.passed - sca.passed) + " contrôles réussis)"]
@@ -173,19 +176,25 @@ footer a{color:var(--accent)}
 
   // ---------- tableaux
   const S = D.scenarios;
+  const R = D.repeatability || {runs: 1, scenarios: []};
+  const RB = Object.fromEntries((R.scenarios || []).map(r => [r.scenario_id, r]));
+  const multi = R.runs > 1;
+  const ttdOf = s => multi && RB[s.scenario_id] ? RB[s.scenario_id].ttd_median : s.ttd_seconds;
   document.getElementById("mitre").innerHTML =
-    "<thead><tr><th>Scénario</th><th>Technique</th><th>Règle attendue</th><th>Résultat</th><th>TTD</th><th>Règles natives seules (témoin)</th></tr></thead><tbody>" +
+    `<thead><tr><th>Scénario</th><th>Technique</th><th>Règle attendue</th><th>Résultat</th><th>${multi ? "Stabilité" : ""}</th><th>${multi ? "TTD médian (min–max)" : "TTD"}</th><th>Règles natives seules (témoin)</th></tr></thead><tbody>` +
     S.map(s => `<tr><td class="mono">${esc(s.scenario_id)}</td>
       <td><span class="mono">${esc(s.mitre_id)}</span> ${esc(s.technique)}<br><span style="color:var(--text-muted)">${esc(s.description)}</span></td>
       <td class="mono">${esc(s.expected_rules)}</td>
       <td>${s.detected ? `<span class="tag ok">✓ Détecté</span><br><span class="mono">${esc(s.fired_expected)}</span>` : `<span class="tag ko">✗ Non détecté</span>`}</td>
-      <td class="num">${fmtS(s.ttd_seconds)}</td>
+      <td class="num">${multi && RB[s.scenario_id] ? (RB[s.scenario_id].detected_runs === RB[s.scenario_id].runs ? '<span class="tag ok">✓ ' : '<span class="tag ko">✗ ') + RB[s.scenario_id].detected_runs + "/" + RB[s.scenario_id].runs + "</span>" : ""}</td>
+      <td class="num">${fmtS(ttdOf(s))}${multi && RB[s.scenario_id] ? '<br><span style="color:var(--text-muted)">' + (RB[s.scenario_id].ttd_min === RB[s.scenario_id].ttd_max ? "identique" : fmtS(RB[s.scenario_id].ttd_min) + " – " + fmtS(RB[s.scenario_id].ttd_max)) + "</span>" : ""}</td>
       <td>${s.top_builtin_rule ? `${s.builtin_triaged ? '<span class="tag ok">✓ niv. ' + s.max_level_builtin + '</span>' : '<span class="tag ko">✗ niv. ' + s.max_level_builtin + '</span>'}<br>${esc(s.top_builtin_rule)}` : "—"}</td></tr>`).join("") + "</tbody>";
 
   document.getElementById("baseline").innerHTML =
-    "<thead><tr><th>Activité</th><th>Alertes</th><th>Niveau ≥ 7</th><th>Faux positifs maison</th></tr></thead><tbody>" +
+    "<thead><tr><th>Activité</th><th>Alertes</th><th>Niveau ≥ 7</th><th>Bruit réduit (niv. 3)</th><th>Faux positifs maison</th></tr></thead><tbody>" +
     D.baseline.map(b => `<tr><td><span class="mono">${esc(b.scenario_id)}</span> ${esc(b.description)}</td><td class="num">${b.alerts}</td>
-      <td class="num">${b.alerts_triage_level}</td><td class="num">${b.custom_false_positives === 0 ? '<span class="tag ok">✓ 0</span>' : '<span class="tag ko">✗ ' + b.custom_false_positives + '</span>'}</td></tr>`).join("") + "</tbody>";
+      <td class="num">${b.alerts_triage_level}</td><td class="num">${b.noise_reduced ?? 0}</td>
+      <td class="num">${b.custom_false_positives === 0 ? '<span class="tag ok">✓ 0</span>' : '<span class="tag ko">✗ ' + b.custom_false_positives + '</span>'}</td></tr>`).join("") + "</tbody>";
 
   document.getElementById("top").innerHTML =
     "<thead><tr><th>Règle</th><th>Description</th><th>Alertes</th></tr></thead><tbody>" +
@@ -200,6 +209,9 @@ footer a{color:var(--accent)}
   if (sca.policy) document.getElementById("scaDesc").textContent = after.score != null
     ? `Contrôles réussis par section. Score ${sca.score} % → ${after.score} % après hardening/harden.sh (${sca.passed} → ${after.passed} réussis, ${sca.na} non applicables dans un conteneur).`
     : `${sca.policy} : ${sca.passed} réussis, ${sca.failed} échoués, ${sca.na} non applicables (conteneur).`;
+
+  if (multi) document.getElementById("ttdDesc").textContent =
+    `Secondes entre le début du scénario et la première alerte attendue : médiane sur ${R.runs} campagnes, trait = minimum–maximum.`;
 
   // ---------- graphiques
   const charts = [];
@@ -225,7 +237,24 @@ footer a{color:var(--accent)}
   // Valeur écrite au bout de chaque barre (les barres de 0,1 s sont sinon invisibles)
   const valueLabels = {id: "valueLabels", afterDatasetsDraw(c){
     const g = c.ctx; g.save(); g.fillStyle = css("--text-secondary"); g.font = "12px 'JetBrains Mono', monospace"; g.textBaseline = "middle";
-    c.getDatasetMeta(0).data.forEach((bar, i) => { const v = c.data.datasets[0].data[i]; if (v != null) g.fillText(fmtS(v), bar.x + 6, bar.y); });
+    c.getDatasetMeta(0).data.forEach((bar, i) => {
+      const v = c.data.datasets[0].data[i]; if (v == null) return;
+      const r = multi ? RB[S[i].scenario_id] : null;
+      const xEnd = r && r.ttd_max != null ? Math.max(bar.x, c.scales.x.getPixelForValue(r.ttd_max)) : bar.x;
+      g.fillText(fmtS(v), xEnd + 6, bar.y);
+    });
+    g.restore();
+  }};
+
+  // Fourchette min–max des temps de détection (campagnes répétées)
+  const whiskers = {id: "whiskers", afterDatasetsDraw(c){
+    if (!multi) return;
+    const g = c.ctx, x = c.scales.x; g.save(); g.strokeStyle = css("--text-primary"); g.lineWidth = 1.5;
+    c.getDatasetMeta(0).data.forEach((bar, i) => {
+      const r = RB[S[i].scenario_id]; if (!r || r.ttd_min == null) return;
+      const x1 = x.getPixelForValue(r.ttd_min), x2 = x.getPixelForValue(r.ttd_max), y = bar.y;
+      g.beginPath(); g.moveTo(x1, y); g.lineTo(x2, y); g.moveTo(x1, y - 4); g.lineTo(x1, y + 4); g.moveTo(x2, y - 4); g.lineTo(x2, y + 4); g.stroke();
+    });
     g.restore();
   }};
 
@@ -245,11 +274,14 @@ footer a{color:var(--accent)}
           tooltip: {...tooltip(), callbacks: {afterTitle: i => S[i[0].dataIndex].technique}}}}
     }));
     charts.push(new Chart(document.getElementById("ttd"), {
-      type: "bar", plugins: [valueLabels],
-      data: {labels, datasets: [{label: "Temps de détection (s)", data: S.map(s => s.ttd_seconds), ...bar(css("--series-1"))}]},
+      type: "bar", plugins: [whiskers, valueLabels],
+      data: {labels, datasets: [{label: multi ? "Temps de détection médian (s)" : "Temps de détection (s)", data: S.map(ttdOf), ...bar(css("--series-1"))}]},
       options: {indexAxis: "y", maintainAspectRatio: false,
         layout: {padding: {right: 56}}, scales: {x: {beginAtZero: true, title: {display: true, text: "secondes"}}, y: {grid: {display: false}}},
-        plugins: {legend: {display: false}, tooltip: {...tooltip(), callbacks: {label: i => " " + fmtS(i.raw) + " · règle " + (S[i.dataIndex].fired_expected || "—")}}}}
+        plugins: {legend: {display: false}, tooltip: {...tooltip(), callbacks: {label: i => {
+          const r = RB[S[i.dataIndex].scenario_id];
+          return multi && r ? ` médiane ${fmtS(r.ttd_median)} · min ${fmtS(r.ttd_min)} · max ${fmtS(r.ttd_max)} (${r.runs} campagnes)` : " " + fmtS(i.raw) + " · règle " + (S[i.dataIndex].fired_expected || "—");
+        }}}}}
     }));
     const lv = Object.keys(D.level_distribution).map(Number).sort((a,b) => a-b);
     charts.push(new Chart(document.getElementById("levels"), {

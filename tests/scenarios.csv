@@ -10,5 +10,6 @@ S08,test,T1036.005,Match Legitimate Resource Name or Location,"Binaire copié da
 S09,test,T1021.004,SSH,"PermitRootLogin activé dans sshd_config","100106"
 S10,test,T1571,Non-Standard Port,"Deuxième serveur SSH lancé sur le port 2222","100116"
 B01,baseline,,Activité normale,"Commandes sudo légitimes de l'administrateur","none"
-B02,baseline,,Activité normale,"Édition de documents dans /home/analyste","none"
+B02,baseline,,Activité normale,"Création d'un document dans /home/analyste","none"
 B03,baseline,,Activité normale,"Une seule faute de frappe sur le mot de passe sudo","none"
+B04,baseline,,Activité normale,"Modification d'un document existant dans /home/analyste","none"

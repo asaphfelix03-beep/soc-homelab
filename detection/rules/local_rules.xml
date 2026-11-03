@@ -53,6 +53,18 @@
     <group>defense_evasion,</group>
   </rule>
 
+  <!-- Réduction du bruit : documents utilisateur dans /home.
+       Les règles natives 550/554 lèvent une alerte de niveau 5 à 7 à chaque
+       document modifié. On les ramène au niveau 3 (journalisé, non trié).
+       Exclus : tout chemin contenant un dossier ou fichier caché (.ssh/, .bashrc...),
+       qui reste signalé normalement. -->
+  <rule id="100120" level="3">
+    <if_sid>550,554</if_sid>
+    <field name="file" type="pcre2">^/home/[^/]+/(?:[^/.][^/]*/)*[^/.][^/]*\.(?:txt|md|csv|pdf|docx?|xlsx?|pptx?|odt|ods|odp|png|jpe?g)$</field>
+    <description>[SOC] Document utilisateur créé ou modifié (bruit réduit) : $(file)</description>
+    <group>fim_noise_reduction,</group>
+  </rule>
+
   <!-- T1021.004 : configuration du serveur SSH modifiée -->
   <rule id="100106" level="8">
     <if_sid>550</if_sid>
@@ -113,10 +125,10 @@
 <!-- ===================== Réseau ===================== -->
 <group name="local,soc_homelab,network,">
 
-  <!-- T1571 : nouveau port en écoute sur le poste -->
+  <!-- T1571 : port ouvert (ou fermé) sur le poste, hors configuration habituelle -->
   <rule id="100116" level="10">
     <if_sid>533</if_sid>
-    <description>[SOC] Nouveau port en écoute détecté sur le poste</description>
+    <description>[SOC] Ports en écoute modifiés sur le poste (ouverture ou fermeture)</description>
     <mitre><id>T1571</id></mitre>
     <group>command_and_control,</group>
   </rule>

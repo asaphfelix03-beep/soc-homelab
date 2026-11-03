@@ -1,4 +1,5 @@
-scenario_id,description,alerts,alerts_triage_level,custom_false_positives,max_level,rules
-B03,Une seule faute de frappe sur le mot de passe sudo,6,0,0,5,Failed attempt to run sudo.; File added to the system.; PAM: Login session closed.; PAM: Login session opened.; PAM: User login failed.; Successful sudo to ROOT executed.
-B01,Commandes sudo légitimes de l'administrateur,6,0,0,3,PAM: Login session closed.; PAM: Login session opened.; Successful sudo to ROOT executed.
-B02,Édition de documents dans /home/analyste,1,0,0,5,File added to the system.
+scenario_id,description,alerts,alerts_triage_level,custom_false_positives,noise_reduced,max_level,rules
+B03,Une seule faute de frappe sur le mot de passe sudo,6,0,0,0,5,Failed attempt to run sudo.; File added to the system.; First time user executed sudo.; PAM: Login session closed.; PAM: Login session opened.; PAM: User login failed.
+B01,Commandes sudo légitimes de l'administrateur,6,0,0,0,3,PAM: Login session closed.; PAM: Login session opened.; Successful sudo to ROOT executed.
+B02,Création d'un document dans /home/analyste,1,0,0,1,3,[SOC] Document utilisateur créé ou modifié (bruit réduit) : /home/analyste/rapports/semaine45.txt
+B04,Modification d'un document existant dans /home/analyste,1,0,0,1,3,[SOC] Document utilisateur créé ou modifié (bruit réduit) : /home/analyste/rapports/semaine45.txt

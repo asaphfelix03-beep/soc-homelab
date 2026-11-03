@@ -2,10 +2,10 @@
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:43:13.859224+00:00"
+   "timestamp": "2026-11-03T11:44:34.768522+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -68,19 +68,19 @@
   "decoder": {
    "name": "pam"
   },
-  "full_log": "2026-11-03T03:43:13.859224+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste",
+  "full_log": "2026-11-03T11:44:34.768522+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:43:14.978Z",
+  "@timestamp": "2026-11-03T11:44:35.733Z",
   "location": "/var/log/auth.log",
-  "id": "1793677394.4353682",
-  "timestamp": "2026-11-03T03:43:14.978+0000"
+  "id": "1793706275.1893673",
+  "timestamp": "2026-11-03T11:44:35.733+0000"
  },
  {
   "syscheck": {
    "uname_after": "analyste",
-   "mtime_after": "2026-11-03T03:43:15",
+   "mtime_after": "2026-11-03T11:44:37",
    "size_after": "0",
    "gid_after": "1001",
    "mode": "realtime",
@@ -92,10 +92,10 @@
    "event": "added",
    "md5_after": "d41d8cd98f00b204e9800998ecf8427e",
    "sha256_after": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "inode_after": 1254642
+   "inode_after": 1245646
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -146,18 +146,18 @@
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:43:15.749Z",
+  "@timestamp": "2026-11-03T11:44:37.186Z",
   "location": "syscheck",
-  "id": "1793677395.4354219",
-  "timestamp": "2026-11-03T03:43:15.749+0000"
+  "id": "1793706277.1894210",
+  "timestamp": "2026-11-03T11:44:37.186+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:43:15.693575+00:00"
+   "timestamp": "2026-11-03T11:44:37.126257+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -222,22 +222,22 @@
    "name": "sudo",
    "ftscomment": "First time user executed the sudo command"
   },
-  "full_log": "2026-11-03T03:43:15.693575+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true",
+  "full_log": "2026-11-03T11:44:37.126257+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:43:16.981Z",
+  "@timestamp": "2026-11-03T11:44:37.735Z",
   "location": "/var/log/auth.log",
-  "id": "1793677396.4354946",
-  "timestamp": "2026-11-03T03:43:16.981+0000"
+  "id": "1793706277.1894937",
+  "timestamp": "2026-11-03T11:44:37.735+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:43:15.742379+00:00"
+   "timestamp": "2026-11-03T11:44:37.178974+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -251,34 +251,14 @@
    "command": "/usr/bin/true"
   },
   "rule": {
+   "firedtimes": 1,
    "mail": false,
-   "level": 3,
-   "pci_dss": [
-    "10.2.5",
-    "10.2.2"
-   ],
-   "hipaa": [
-    "164.312.b"
-   ],
-   "tsc": [
-    "CC6.8",
-    "CC7.2",
-    "CC7.3"
-   ],
-   "description": "Successful sudo to ROOT executed.",
+   "level": 4,
+   "description": "First time user executed sudo.",
    "groups": [
     "syslog",
     "sudo"
    ],
-   "nist_800_53": [
-    "AU.14",
-    "AC.7",
-    "AC.6"
-   ],
-   "gdpr": [
-    "IV_32.2"
-   ],
-   "firedtimes": 1,
    "mitre": {
     "technique": [
      "Sudo and Sudo Caching"
@@ -291,34 +271,29 @@
      "Defense Evasion"
     ]
    },
-   "id": "5402",
-   "gpg13": [
-    "7.6",
-    "7.8",
-    "7.13"
-   ]
+   "id": "5403"
   },
   "decoder": {
    "parent": "sudo",
    "name": "sudo",
    "ftscomment": "First time user executed the sudo command"
   },
-  "full_log": "2026-11-03T03:43:15.742379+00:00 endpoint-ubuntu sudo: analyste : PWD=/ ; USER=root ; COMMAND=/usr/bin/true",
+  "full_log": "2026-11-03T11:44:37.178974+00:00 endpoint-ubuntu sudo: analyste : PWD=/ ; USER=root ; COMMAND=/usr/bin/true",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:43:16.983Z",
+  "@timestamp": "2026-11-03T11:44:37.738Z",
   "location": "/var/log/auth.log",
-  "id": "1793677396.4355446",
-  "timestamp": "2026-11-03T03:43:16.983+0000"
+  "id": "1793706277.1895437",
+  "timestamp": "2026-11-03T11:44:37.738+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:43:15.742761+00:00"
+   "timestamp": "2026-11-03T11:44:37.179428+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -381,22 +356,22 @@
    "parent": "pam",
    "name": "pam"
   },
-  "full_log": "2026-11-03T03:43:15.742761+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1001)",
+  "full_log": "2026-11-03T11:44:37.179428+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1001)",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:43:16.985Z",
+  "@timestamp": "2026-11-03T11:44:37.740Z",
   "location": "/var/log/auth.log",
-  "id": "1793677396.4355934",
-  "timestamp": "2026-11-03T03:43:16.985+0000"
+  "id": "1793706277.1895750",
+  "timestamp": "2026-11-03T11:44:37.740+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:43:15.745370+00:00"
+   "timestamp": "2026-11-03T11:44:37.181969+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -443,22 +418,22 @@
    "parent": "pam",
    "name": "pam"
   },
-  "full_log": "2026-11-03T03:43:15.745370+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session closed for user root",
+  "full_log": "2026-11-03T11:44:37.181969+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session closed for user root",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:43:16.987Z",
+  "@timestamp": "2026-11-03T11:44:37.742Z",
   "location": "/var/log/auth.log",
-  "id": "1793677396.4356395",
-  "timestamp": "2026-11-03T03:43:16.987+0000"
+  "id": "1793706277.1896211",
+  "timestamp": "2026-11-03T11:44:37.742+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:44:00.930546+00:00"
+   "timestamp": "2026-11-03T11:45:22.335289+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -499,7 +474,7 @@
    "gdpr": [
     "IV_32.2"
    ],
-   "firedtimes": 2,
+   "firedtimes": 1,
    "mitre": {
     "technique": [
      "Sudo and Sudo Caching"
@@ -524,224 +499,22 @@
    "name": "sudo",
    "ftscomment": "First time user executed the sudo command"
   },
-  "full_log": "2026-11-03T03:44:00.930546+00:00 endpoint-ubuntu sudo: analyste : PWD=/ ; USER=root ; COMMAND=/usr/bin/ls /root",
+  "full_log": "2026-11-03T11:45:22.335289+00:00 endpoint-ubuntu sudo: analyste : PWD=/ ; USER=root ; COMMAND=/usr/bin/ls /root",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:44:00.984Z",
+  "@timestamp": "2026-11-03T11:45:23.738Z",
   "location": "/var/log/auth.log",
-  "id": "1793677440.4356802",
-  "timestamp": "2026-11-03T03:44:00.984+0000"
+  "id": "1793706323.1896618",
+  "timestamp": "2026-11-03T11:45:23.738+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:44:00.934717+00:00"
+   "timestamp": "2026-11-03T11:45:22.335648+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
-   "name": "endpoint-ubuntu",
-   "id": "001"
-  },
-  "manager": {
-   "name": "wazuh.manager"
-  },
-  "data": {
-   "dstuser": "root"
-  },
-  "rule": {
-   "firedtimes": 3,
-   "mail": false,
-   "level": 3,
-   "pci_dss": [
-    "10.2.5"
-   ],
-   "hipaa": [
-    "164.312.b"
-   ],
-   "tsc": [
-    "CC6.8",
-    "CC7.2",
-    "CC7.3"
-   ],
-   "description": "PAM: Login session closed.",
-   "groups": [
-    "pam",
-    "syslog"
-   ],
-   "id": "5502",
-   "nist_800_53": [
-    "AU.14",
-    "AC.7"
-   ],
-   "gpg13": [
-    "7.8",
-    "7.9"
-   ],
-   "gdpr": [
-    "IV_32.2"
-   ]
-  },
-  "decoder": {
-   "parent": "pam",
-   "name": "pam"
-  },
-  "full_log": "2026-11-03T03:44:00.934717+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session closed for user root",
-  "input": {
-   "type": "log"
-  },
-  "@timestamp": "2026-11-03T03:44:01.024Z",
-  "location": "/var/log/auth.log",
-  "id": "1793677441.4357812",
-  "timestamp": "2026-11-03T03:44:01.024+0000"
- },
- {
-  "predecoder": {
-   "program_name": "sudo",
-   "timestamp": "2026-11-03T03:44:00.993824+00:00"
-  },
-  "agent": {
-   "ip": "172.19.0.5",
-   "name": "endpoint-ubuntu",
-   "id": "001"
-  },
-  "manager": {
-   "name": "wazuh.manager"
-  },
-  "data": {
-   "dstuser": "root"
-  },
-  "rule": {
-   "firedtimes": 2,
-   "mail": false,
-   "level": 3,
-   "pci_dss": [
-    "10.2.5"
-   ],
-   "hipaa": [
-    "164.312.b"
-   ],
-   "tsc": [
-    "CC6.8",
-    "CC7.2",
-    "CC7.3"
-   ],
-   "description": "PAM: Login session closed.",
-   "groups": [
-    "pam",
-    "syslog"
-   ],
-   "id": "5502",
-   "nist_800_53": [
-    "AU.14",
-    "AC.7"
-   ],
-   "gpg13": [
-    "7.8",
-    "7.9"
-   ],
-   "gdpr": [
-    "IV_32.2"
-   ]
-  },
-  "decoder": {
-   "parent": "pam",
-   "name": "pam"
-  },
-  "full_log": "2026-11-03T03:44:00.993824+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session closed for user root",
-  "input": {
-   "type": "log"
-  },
-  "@timestamp": "2026-11-03T03:44:01.024Z",
-  "location": "/var/log/auth.log",
-  "id": "1793677441.4358219",
-  "timestamp": "2026-11-03T03:44:01.024+0000"
- },
- {
-  "predecoder": {
-   "program_name": "sudo",
-   "timestamp": "2026-11-03T03:44:00.930917+00:00"
-  },
-  "agent": {
-   "ip": "172.19.0.5",
-   "name": "endpoint-ubuntu",
-   "id": "001"
-  },
-  "manager": {
-   "name": "wazuh.manager"
-  },
-  "data": {
-   "uid": "1001",
-   "dstuser": "root"
-  },
-  "rule": {
-   "mail": false,
-   "level": 3,
-   "pci_dss": [
-    "10.2.5"
-   ],
-   "hipaa": [
-    "164.312.b"
-   ],
-   "tsc": [
-    "CC6.8",
-    "CC7.2",
-    "CC7.3"
-   ],
-   "description": "PAM: Login session opened.",
-   "groups": [
-    "pam",
-    "syslog",
-    "authentication_success"
-   ],
-   "nist_800_53": [
-    "AU.14",
-    "AC.7"
-   ],
-   "gdpr": [
-    "IV_32.2"
-   ],
-   "firedtimes": 3,
-   "mitre": {
-    "technique": [
-     "Valid Accounts"
-    ],
-    "id": [
-     "T1078"
-    ],
-    "tactic": [
-     "Defense Evasion",
-     "Persistence",
-     "Privilege Escalation",
-     "Initial Access"
-    ]
-   },
-   "id": "5501",
-   "gpg13": [
-    "7.8",
-    "7.9"
-   ]
-  },
-  "decoder": {
-   "parent": "pam",
-   "name": "pam"
-  },
-  "full_log": "2026-11-03T03:44:00.930917+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1001)",
-  "input": {
-   "type": "log"
-  },
-  "@timestamp": "2026-11-03T03:44:01.024Z",
-  "location": "/var/log/auth.log",
-  "id": "1793677441.4359087",
-  "timestamp": "2026-11-03T03:44:01.024+0000"
- },
- {
-  "predecoder": {
-   "program_name": "sudo",
-   "timestamp": "2026-11-03T03:44:00.990455+00:00"
-  },
-  "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -804,22 +577,84 @@
    "parent": "pam",
    "name": "pam"
   },
-  "full_log": "2026-11-03T03:44:00.990455+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1001)",
+  "full_log": "2026-11-03T11:45:22.335648+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1001)",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:44:01.024Z",
+  "@timestamp": "2026-11-03T11:45:23.738Z",
   "location": "/var/log/auth.log",
-  "id": "1793677441.4358626",
-  "timestamp": "2026-11-03T03:44:01.024+0000"
+  "id": "1793706323.1897114",
+  "timestamp": "2026-11-03T11:45:23.738+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:44:00.990052+00:00"
+   "timestamp": "2026-11-03T11:45:22.347173+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
+   "name": "endpoint-ubuntu",
+   "id": "001"
+  },
+  "manager": {
+   "name": "wazuh.manager"
+  },
+  "data": {
+   "dstuser": "root"
+  },
+  "rule": {
+   "firedtimes": 2,
+   "mail": false,
+   "level": 3,
+   "pci_dss": [
+    "10.2.5"
+   ],
+   "hipaa": [
+    "164.312.b"
+   ],
+   "tsc": [
+    "CC6.8",
+    "CC7.2",
+    "CC7.3"
+   ],
+   "description": "PAM: Login session closed.",
+   "groups": [
+    "pam",
+    "syslog"
+   ],
+   "id": "5502",
+   "nist_800_53": [
+    "AU.14",
+    "AC.7"
+   ],
+   "gpg13": [
+    "7.8",
+    "7.9"
+   ],
+   "gdpr": [
+    "IV_32.2"
+   ]
+  },
+  "decoder": {
+   "parent": "pam",
+   "name": "pam"
+  },
+  "full_log": "2026-11-03T11:45:22.347173+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session closed for user root",
+  "input": {
+   "type": "log"
+  },
+  "@timestamp": "2026-11-03T11:45:23.741Z",
+  "location": "/var/log/auth.log",
+  "id": "1793706323.1897575",
+  "timestamp": "2026-11-03T11:45:23.741+0000"
+ },
+ {
+  "predecoder": {
+   "program_name": "sudo",
+   "timestamp": "2026-11-03T11:45:22.401317+00:00"
+  },
+  "agent": {
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -860,7 +695,7 @@
    "gdpr": [
     "IV_32.2"
    ],
-   "firedtimes": 3,
+   "firedtimes": 2,
    "mitre": {
     "technique": [
      "Sudo and Sudo Caching"
@@ -885,19 +720,159 @@
    "name": "sudo",
    "ftscomment": "First time user executed the sudo command"
   },
-  "full_log": "2026-11-03T03:44:00.990052+00:00 endpoint-ubuntu sudo: analyste : PWD=/ ; USER=root ; COMMAND=/usr/bin/cat /etc/hostname",
+  "full_log": "2026-11-03T11:45:22.401317+00:00 endpoint-ubuntu sudo: analyste : PWD=/ ; USER=root ; COMMAND=/usr/bin/cat /etc/hostname",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:44:01.024Z",
+  "@timestamp": "2026-11-03T11:45:23.743Z",
   "location": "/var/log/auth.log",
-  "id": "1793677441.4357298",
-  "timestamp": "2026-11-03T03:44:01.024+0000"
+  "id": "1793706323.1897982",
+  "timestamp": "2026-11-03T11:45:23.743+0000"
+ },
+ {
+  "predecoder": {
+   "program_name": "sudo",
+   "timestamp": "2026-11-03T11:45:22.401655+00:00"
+  },
+  "agent": {
+   "ip": "172.19.0.4",
+   "name": "endpoint-ubuntu",
+   "id": "001"
+  },
+  "manager": {
+   "name": "wazuh.manager"
+  },
+  "data": {
+   "uid": "1001",
+   "dstuser": "root"
+  },
+  "rule": {
+   "mail": false,
+   "level": 3,
+   "pci_dss": [
+    "10.2.5"
+   ],
+   "hipaa": [
+    "164.312.b"
+   ],
+   "tsc": [
+    "CC6.8",
+    "CC7.2",
+    "CC7.3"
+   ],
+   "description": "PAM: Login session opened.",
+   "groups": [
+    "pam",
+    "syslog",
+    "authentication_success"
+   ],
+   "nist_800_53": [
+    "AU.14",
+    "AC.7"
+   ],
+   "gdpr": [
+    "IV_32.2"
+   ],
+   "firedtimes": 3,
+   "mitre": {
+    "technique": [
+     "Valid Accounts"
+    ],
+    "id": [
+     "T1078"
+    ],
+    "tactic": [
+     "Defense Evasion",
+     "Persistence",
+     "Privilege Escalation",
+     "Initial Access"
+    ]
+   },
+   "id": "5501",
+   "gpg13": [
+    "7.8",
+    "7.9"
+   ]
+  },
+  "decoder": {
+   "parent": "pam",
+   "name": "pam"
+  },
+  "full_log": "2026-11-03T11:45:22.401655+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1001)",
+  "input": {
+   "type": "log"
+  },
+  "@timestamp": "2026-11-03T11:45:23.745Z",
+  "location": "/var/log/auth.log",
+  "id": "1793706323.1898496",
+  "timestamp": "2026-11-03T11:45:23.745+0000"
+ },
+ {
+  "predecoder": {
+   "program_name": "sudo",
+   "timestamp": "2026-11-03T11:45:22.404735+00:00"
+  },
+  "agent": {
+   "ip": "172.19.0.4",
+   "name": "endpoint-ubuntu",
+   "id": "001"
+  },
+  "manager": {
+   "name": "wazuh.manager"
+  },
+  "data": {
+   "dstuser": "root"
+  },
+  "rule": {
+   "firedtimes": 3,
+   "mail": false,
+   "level": 3,
+   "pci_dss": [
+    "10.2.5"
+   ],
+   "hipaa": [
+    "164.312.b"
+   ],
+   "tsc": [
+    "CC6.8",
+    "CC7.2",
+    "CC7.3"
+   ],
+   "description": "PAM: Login session closed.",
+   "groups": [
+    "pam",
+    "syslog"
+   ],
+   "id": "5502",
+   "nist_800_53": [
+    "AU.14",
+    "AC.7"
+   ],
+   "gpg13": [
+    "7.8",
+    "7.9"
+   ],
+   "gdpr": [
+    "IV_32.2"
+   ]
+  },
+  "decoder": {
+   "parent": "pam",
+   "name": "pam"
+  },
+  "full_log": "2026-11-03T11:45:22.404735+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session closed for user root",
+  "input": {
+   "type": "log"
+  },
+  "@timestamp": "2026-11-03T11:45:23.747Z",
+  "location": "/var/log/auth.log",
+  "id": "1793706323.1898957",
+  "timestamp": "2026-11-03T11:45:23.747+0000"
  },
  {
   "syscheck": {
    "uname_after": "analyste",
-   "mtime_after": "2026-11-03T03:44:46",
+   "mtime_after": "2026-11-03T11:46:07",
    "size_after": "20",
    "gid_after": "1001",
    "mode": "realtime",
@@ -909,10 +884,10 @@
    "event": "added",
    "md5_after": "124506f8288e529d512c4533f2ddc23f",
    "sha256_after": "d6bcc9af9627af8896861f03b9b2134a04477460f2deafbe7a3f585b96eb9ab4",
-   "inode_after": 1254227
+   "inode_after": 1277975
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -920,41 +895,17 @@
    "name": "wazuh.manager"
   },
   "rule": {
-   "firedtimes": 2,
+   "firedtimes": 1,
    "mail": false,
-   "level": 5,
-   "pci_dss": [
-    "11.5"
-   ],
-   "hipaa": [
-    "164.312.c.1",
-    "164.312.c.2"
-   ],
-   "tsc": [
-    "PI1.4",
-    "PI1.5",
-    "CC6.1",
-    "CC6.8",
-    "CC7.2",
-    "CC7.3"
-   ],
-   "description": "File added to the system.",
+   "level": 3,
+   "description": "[SOC] Document utilisateur créé ou modifié (bruit réduit) : /home/analyste/rapports/semaine45.txt",
    "groups": [
-    "ossec",
-    "syscheck",
-    "syscheck_entry_added",
-    "syscheck_file"
+    "local",
+    "soc_homelab",
+    "fim",
+    "fim_noise_reduction"
    ],
-   "id": "554",
-   "nist_800_53": [
-    "SI.7"
-   ],
-   "gpg13": [
-    "4.11"
-   ],
-   "gdpr": [
-    "II_5.1.f"
-   ]
+   "id": "100120"
   },
   "decoder": {
    "name": "syscheck_new_entry"
@@ -963,18 +914,80 @@
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:44:46.136Z",
+  "@timestamp": "2026-11-03T11:46:07.547Z",
   "location": "syscheck",
-  "id": "1793677486.4359548",
-  "timestamp": "2026-11-03T03:44:46.136+0000"
+  "id": "1793706367.1899364",
+  "timestamp": "2026-11-03T11:46:07.547+0000"
+ },
+ {
+  "syscheck": {
+   "size_before": "20",
+   "uname_after": "analyste",
+   "mtime_after": "2026-11-03T11:46:52",
+   "size_after": "37",
+   "gid_after": "1001",
+   "md5_before": "124506f8288e529d512c4533f2ddc23f",
+   "sha256_before": "d6bcc9af9627af8896861f03b9b2134a04477460f2deafbe7a3f585b96eb9ab4",
+   "mtime_before": "2026-11-03T11:46:07",
+   "mode": "realtime",
+   "path": "/home/analyste/rapports/semaine45.txt",
+   "sha1_after": "740092e87520f2a9e64b6421aa02020f7ae0fc86",
+   "changed_attributes": [
+    "size",
+    "mtime",
+    "md5",
+    "sha1",
+    "sha256"
+   ],
+   "gname_after": "analyste",
+   "uid_after": "1001",
+   "perm_after": "rw-rw-rw-",
+   "event": "modified",
+   "md5_after": "cc007171aa426f23853d388e83e92224",
+   "sha1_before": "e360191bc4d0d02d0403d195209f431803d2147b",
+   "sha256_after": "5e1d0957a6ba2fdd4e8a2b6278a012993aefbfcac146ff72cf9985285ddd00f8",
+   "inode_after": 1277975
+  },
+  "agent": {
+   "ip": "172.19.0.4",
+   "name": "endpoint-ubuntu",
+   "id": "001"
+  },
+  "manager": {
+   "name": "wazuh.manager"
+  },
+  "rule": {
+   "firedtimes": 2,
+   "mail": false,
+   "level": 3,
+   "description": "[SOC] Document utilisateur créé ou modifié (bruit réduit) : /home/analyste/rapports/semaine45.txt",
+   "groups": [
+    "local",
+    "soc_homelab",
+    "fim",
+    "fim_noise_reduction"
+   ],
+   "id": "100120"
+  },
+  "decoder": {
+   "name": "syscheck_integrity_changed"
+  },
+  "full_log": "File '/home/analyste/rapports/semaine45.txt' modified\nMode: realtime\nChanged attributes: size,mtime,md5,sha1,sha256\nSize changed from '20' to '37'\nOld modification time was: '1793706367', now it is '1793706412'\nOld md5sum was: '124506f8288e529d512c4533f2ddc23f'\nNew md5sum is : 'cc007171aa426f23853d388e83e92224'\nOld sha1sum was: 'e360191bc4d0d02d0403d195209f431803d2147b'\nNew sha1sum is : '740092e87520f2a9e64b6421aa02020f7ae0fc86'\nOld sha256sum was: 'd6bcc9af9627af8896861f03b9b2134a04477460f2deafbe7a3f585b96eb9ab4'\nNew sha256sum is : '5e1d0957a6ba2fdd4e8a2b6278a012993aefbfcac146ff72cf9985285ddd00f8'\n",
+  "input": {
+   "type": "log"
+  },
+  "@timestamp": "2026-11-03T11:46:52.687Z",
+  "location": "syscheck",
+  "id": "1793706412.1900009",
+  "timestamp": "2026-11-03T11:46:52.687+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:46:16.306395+00:00"
+   "timestamp": "2026-11-03T11:47:52.873538+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -1037,22 +1050,22 @@
   "decoder": {
    "name": "pam"
   },
-  "full_log": "2026-11-03T03:46:16.306395+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste",
+  "full_log": "2026-11-03T11:47:52.873538+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:46:17.000Z",
+  "@timestamp": "2026-11-03T11:47:53.756Z",
   "location": "/var/log/auth.log",
-  "id": "1793677577.4360273",
-  "timestamp": "2026-11-03T03:46:17.000+0000"
+  "id": "1793706473.1901193",
+  "timestamp": "2026-11-03T11:47:53.756+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:46:17.931620+00:00"
+   "timestamp": "2026-11-03T11:47:55.082257+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -1117,22 +1130,22 @@
    "name": "sudo",
    "ftscomment": "First time user executed the sudo command"
   },
-  "full_log": "2026-11-03T03:46:17.931620+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true",
+  "full_log": "2026-11-03T11:47:55.082257+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:46:19.003Z",
+  "@timestamp": "2026-11-03T11:47:55.798Z",
   "location": "/var/log/auth.log",
-  "id": "1793677579.4360810",
-  "timestamp": "2026-11-03T03:46:19.003+0000"
+  "id": "1793706475.1901730",
+  "timestamp": "2026-11-03T11:47:55.798+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:46:19.996089+00:00"
+   "timestamp": "2026-11-03T11:47:57.140146+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -1195,22 +1208,22 @@
   "decoder": {
    "name": "pam"
   },
-  "full_log": "2026-11-03T03:46:19.996089+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste",
+  "full_log": "2026-11-03T11:47:57.140146+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:46:21.001Z",
+  "@timestamp": "2026-11-03T11:47:57.758Z",
   "location": "/var/log/auth.log",
-  "id": "1793677581.4361310",
-  "timestamp": "2026-11-03T03:46:21.001+0000"
+  "id": "1793706477.1902230",
+  "timestamp": "2026-11-03T11:47:57.758+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:46:21.701342+00:00"
+   "timestamp": "2026-11-03T11:47:58.701512+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -1275,22 +1288,22 @@
    "name": "sudo",
    "ftscomment": "First time user executed the sudo command"
   },
-  "full_log": "2026-11-03T03:46:21.701342+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true",
+  "full_log": "2026-11-03T11:47:58.701512+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:46:23.003Z",
+  "@timestamp": "2026-11-03T11:47:59.760Z",
   "location": "/var/log/auth.log",
-  "id": "1793677583.4361847",
-  "timestamp": "2026-11-03T03:46:23.003+0000"
+  "id": "1793706479.1902767",
+  "timestamp": "2026-11-03T11:47:59.760+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:46:23.760522+00:00"
+   "timestamp": "2026-11-03T11:48:00.765691+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -1353,22 +1366,22 @@
   "decoder": {
    "name": "pam"
   },
-  "full_log": "2026-11-03T03:46:23.760522+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste",
+  "full_log": "2026-11-03T11:48:00.765691+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:46:25.001Z",
+  "@timestamp": "2026-11-03T11:48:01.760Z",
   "location": "/var/log/auth.log",
-  "id": "1793677585.4362347",
-  "timestamp": "2026-11-03T03:46:25.001+0000"
+  "id": "1793706481.1903267",
+  "timestamp": "2026-11-03T11:48:01.760+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:46:26.011602+00:00"
+   "timestamp": "2026-11-03T11:48:02.738314+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -1433,22 +1446,22 @@
    "name": "sudo",
    "ftscomment": "First time user executed the sudo command"
   },
-  "full_log": "2026-11-03T03:46:26.011602+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true",
+  "full_log": "2026-11-03T11:48:02.738314+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:46:27.004Z",
+  "@timestamp": "2026-11-03T11:48:03.761Z",
   "location": "/var/log/auth.log",
-  "id": "1793677587.4362884",
-  "timestamp": "2026-11-03T03:46:27.004+0000"
+  "id": "1793706483.1903804",
+  "timestamp": "2026-11-03T11:48:03.761+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:46:28.069428+00:00"
+   "timestamp": "2026-11-03T11:48:04.794740+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -1511,22 +1524,22 @@
   "decoder": {
    "name": "pam"
   },
-  "full_log": "2026-11-03T03:46:28.069428+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste",
+  "full_log": "2026-11-03T11:48:04.794740+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:46:29.002Z",
+  "@timestamp": "2026-11-03T11:48:05.759Z",
   "location": "/var/log/auth.log",
-  "id": "1793677589.4363384",
-  "timestamp": "2026-11-03T03:46:29.002+0000"
+  "id": "1793706485.1904304",
+  "timestamp": "2026-11-03T11:48:05.759+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:46:29.675079+00:00"
+   "timestamp": "2026-11-03T11:48:06.983480+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -1591,18 +1604,18 @@
    "name": "sudo",
    "ftscomment": "First time user executed the sudo command"
   },
-  "full_log": "2026-11-03T03:46:29.675079+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true",
+  "full_log": "2026-11-03T11:48:06.983480+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:46:31.004Z",
+  "@timestamp": "2026-11-03T11:48:07.762Z",
   "location": "/var/log/auth.log",
-  "id": "1793677591.4363921",
-  "timestamp": "2026-11-03T03:46:31.004+0000"
+  "id": "1793706487.1904841",
+  "timestamp": "2026-11-03T11:48:07.762+0000"
  },
  {
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -1637,14 +1650,14 @@
    "id": "100113",
    "frequency": 5
   },
-  "full_log": "2026-11-03T03:46:31.742793+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste",
-  "id": "1793677593.4364421",
-  "timestamp": "2026-11-03T03:46:33.003+0000",
+  "full_log": "2026-11-03T11:48:09.044848+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste",
+  "id": "1793706489.1905341",
+  "timestamp": "2026-11-03T11:48:09.759+0000",
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:46:31.742793+00:00"
+   "timestamp": "2026-11-03T11:48:09.044848+00:00"
   },
-  "previous_output": "2026-11-03T03:46:28.069428+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste\n2026-11-03T03:46:23.760522+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste\n2026-11-03T03:46:19.996089+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste\n2026-11-03T03:46:16.306395+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste",
+  "previous_output": "2026-11-03T11:48:04.794740+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste\n2026-11-03T11:48:00.765691+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste\n2026-11-03T11:47:57.140146+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste\n2026-11-03T11:47:52.873538+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste",
   "manager": {
    "name": "wazuh.manager"
   },
@@ -1654,16 +1667,16 @@
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:46:33.003Z",
+  "@timestamp": "2026-11-03T11:48:09.759Z",
   "location": "/var/log/auth.log"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:46:33.428015+00:00"
+   "timestamp": "2026-11-03T11:48:11.117923+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -1728,22 +1741,22 @@
    "name": "sudo",
    "ftscomment": "First time user executed the sudo command"
   },
-  "full_log": "2026-11-03T03:46:33.428015+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true",
+  "full_log": "2026-11-03T11:48:11.117923+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:46:35.044Z",
+  "@timestamp": "2026-11-03T11:48:11.762Z",
   "location": "/var/log/auth.log",
-  "id": "1793677595.4365514",
-  "timestamp": "2026-11-03T03:46:35.044+0000"
+  "id": "1793706491.1906434",
+  "timestamp": "2026-11-03T11:48:11.762+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:46:35.486285+00:00"
+   "timestamp": "2026-11-03T11:48:13.180487+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -1806,22 +1819,22 @@
   "decoder": {
    "name": "pam"
   },
-  "full_log": "2026-11-03T03:46:35.486285+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste",
+  "full_log": "2026-11-03T11:48:13.180487+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:46:37.003Z",
+  "@timestamp": "2026-11-03T11:48:13.761Z",
   "location": "/var/log/auth.log",
-  "id": "1793677597.4366014",
-  "timestamp": "2026-11-03T03:46:37.003+0000"
+  "id": "1793706493.1906934",
+  "timestamp": "2026-11-03T11:48:13.761+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:46:37.387384+00:00"
+   "timestamp": "2026-11-03T11:48:15.603696+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -1886,22 +1899,22 @@
    "name": "sudo",
    "ftscomment": "First time user executed the sudo command"
   },
-  "full_log": "2026-11-03T03:46:37.387384+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true",
+  "full_log": "2026-11-03T11:48:15.603696+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:46:39.006Z",
+  "@timestamp": "2026-11-03T11:48:15.803Z",
   "location": "/var/log/auth.log",
-  "id": "1793677599.4366551",
-  "timestamp": "2026-11-03T03:46:39.006+0000"
+  "id": "1793706495.1907471",
+  "timestamp": "2026-11-03T11:48:15.803+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:46:39.462757+00:00"
+   "timestamp": "2026-11-03T11:48:17.662346+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -1951,22 +1964,22 @@
    "name": "sudo",
    "ftscomment": "First time user executed the sudo command"
   },
-  "full_log": "2026-11-03T03:46:39.462757+00:00 endpoint-ubuntu sudo: analyste : PWD=/ ; USER=root ; COMMAND=/usr/bin/true",
+  "full_log": "2026-11-03T11:48:17.662346+00:00 endpoint-ubuntu sudo: analyste : PWD=/ ; USER=root ; COMMAND=/usr/bin/true",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:46:41.004Z",
+  "@timestamp": "2026-11-03T11:48:17.761Z",
   "location": "/var/log/auth.log",
-  "id": "1793677601.4367051",
-  "timestamp": "2026-11-03T03:46:41.004+0000"
+  "id": "1793706497.1907971",
+  "timestamp": "2026-11-03T11:48:17.761+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:46:39.463365+00:00"
+   "timestamp": "2026-11-03T11:48:17.662735+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -2013,22 +2026,22 @@
    "parent": "pam",
    "name": "pam"
   },
-  "full_log": "2026-11-03T03:46:39.463365+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1001)",
+  "full_log": "2026-11-03T11:48:17.662735+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1001)",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:46:41.004Z",
+  "@timestamp": "2026-11-03T11:48:17.761Z",
   "location": "/var/log/auth.log",
-  "id": "1793677601.4367627",
-  "timestamp": "2026-11-03T03:46:41.004+0000"
+  "id": "1793706497.1908547",
+  "timestamp": "2026-11-03T11:48:17.761+0000"
  },
  {
   "predecoder": {
    "program_name": "sudo",
-   "timestamp": "2026-11-03T03:46:39.466367+00:00"
+   "timestamp": "2026-11-03T11:48:17.665522+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -2075,127 +2088,27 @@
    "parent": "pam",
    "name": "pam"
   },
-  "full_log": "2026-11-03T03:46:39.466367+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session closed for user root",
+  "full_log": "2026-11-03T11:48:17.665522+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session closed for user root",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:46:41.007Z",
+  "@timestamp": "2026-11-03T11:48:17.763Z",
   "location": "/var/log/auth.log",
-  "id": "1793677601.4368204",
-  "timestamp": "2026-11-03T03:46:41.007+0000"
- },
- {
-  "syscheck": {
-   "size_before": "636",
-   "uname_after": "root",
-   "mtime_after": "2026-11-03T03:47:24",
-   "inode_before": 1254178,
-   "size_after": "655",
-   "gid_after": "0",
-   "md5_before": "c0a5e3a0e6ba4d53b4b78868fc921804",
-   "diff": "46a47\n> support_it:x:1002:\n",
-   "sha256_before": "3a04e704db490d1d2b04263306c9d1dfafeca8611c4b06dd2c3aa281d92ee212",
-   "mtime_before": "2026-11-03T03:42:10",
-   "mode": "realtime",
-   "path": "/etc/group",
-   "sha1_after": "1edd02406fcdd4b11e1d34fa4ea125107a5f7b5a",
-   "changed_attributes": [
-    "size",
-    "inode",
-    "mtime",
-    "md5",
-    "sha1",
-    "sha256"
-   ],
-   "gname_after": "root",
-   "uid_after": "0",
-   "perm_after": "rw-r--r--",
-   "event": "modified",
-   "md5_after": "34c027f9dfb93f965029cd0a785425dd",
-   "sha1_before": "8a4b2560fa7c2e5fbac3c345cacc016f85032a2f",
-   "sha256_after": "aa0dfa440006a021d2a764f0edb9c88466dfc7aedcb7b5daf031a88abaa4c289",
-   "inode_after": 1253969
-  },
-  "agent": {
-   "ip": "172.19.0.5",
-   "name": "endpoint-ubuntu",
-   "id": "001"
-  },
-  "manager": {
-   "name": "wazuh.manager"
-  },
-  "rule": {
-   "mail": false,
-   "level": 7,
-   "pci_dss": [
-    "11.5"
-   ],
-   "hipaa": [
-    "164.312.c.1",
-    "164.312.c.2"
-   ],
-   "tsc": [
-    "PI1.4",
-    "PI1.5",
-    "CC6.1",
-    "CC6.8",
-    "CC7.2",
-    "CC7.3"
-   ],
-   "description": "Integrity checksum changed.",
-   "groups": [
-    "ossec",
-    "syscheck",
-    "syscheck_entry_modified",
-    "syscheck_file"
-   ],
-   "nist_800_53": [
-    "SI.7"
-   ],
-   "gdpr": [
-    "II_5.1.f"
-   ],
-   "firedtimes": 3,
-   "mitre": {
-    "technique": [
-     "Stored Data Manipulation"
-    ],
-    "id": [
-     "T1565.001"
-    ],
-    "tactic": [
-     "Impact"
-    ]
-   },
-   "id": "550",
-   "gpg13": [
-    "4.11"
-   ]
-  },
-  "decoder": {
-   "name": "syscheck_integrity_changed"
-  },
-  "full_log": "File '/etc/group' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '636' to '655'\nOld modification time was: '1793677330', now it is '1793677644'\nOld inode was: '1254178', now it is '1253969'\nOld md5sum was: 'c0a5e3a0e6ba4d53b4b78868fc921804'\nNew md5sum is : '34c027f9dfb93f965029cd0a785425dd'\nOld sha1sum was: '8a4b2560fa7c2e5fbac3c345cacc016f85032a2f'\nNew sha1sum is : '1edd02406fcdd4b11e1d34fa4ea125107a5f7b5a'\nOld sha256sum was: '3a04e704db490d1d2b04263306c9d1dfafeca8611c4b06dd2c3aa281d92ee212'\nNew sha256sum is : 'aa0dfa440006a021d2a764f0edb9c88466dfc7aedcb7b5daf031a88abaa4c289'\n",
-  "input": {
-   "type": "log"
-  },
-  "@timestamp": "2026-11-03T03:47:24.632Z",
-  "location": "syscheck",
-  "id": "1793677644.4368611",
-  "timestamp": "2026-11-03T03:47:24.632+0000"
+  "id": "1793706497.1909124",
+  "timestamp": "2026-11-03T11:48:17.763+0000"
  },
  {
   "syscheck": {
    "size_before": "1145",
    "uname_after": "root",
-   "mtime_after": "2026-11-03T03:47:24",
-   "inode_before": 1254195,
+   "mtime_after": "2026-11-03T11:49:02",
+   "inode_before": 1067217,
    "size_after": "1196",
    "gid_after": "0",
    "md5_before": "33604841db68247f2a06dc632b4a3ba0",
    "diff": "24a25\n> support_it:x:1002:1002::/home/support_it:/bin/bash\n",
    "sha256_before": "4922ee1fb5ad039addab37804a18b238940d97c98b7940a625dd15c425a93c96",
-   "mtime_before": "2026-11-03T03:42:54",
+   "mtime_before": "2026-11-03T03:07:05",
    "mode": "realtime",
    "path": "/etc/passwd",
    "sha1_after": "5f0b01079d2ba6658724886c0869d8b9e67d1821",
@@ -2214,10 +2127,10 @@
    "md5_after": "0be2627aefd02f977d8374a48815ab78",
    "sha1_before": "4815d2e77d8db8fef63fca5d6200e319290bd301",
    "sha256_after": "b996451c3825f98418844efef875dfc53eb466aefef8560c604a192b28fc3333",
-   "inode_after": 1253984
+   "inode_after": 1246752
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -2255,7 +2168,7 @@
    "gdpr": [
     "II_5.1.f"
    ],
-   "firedtimes": 4,
+   "firedtimes": 1,
    "mitre": {
     "technique": [
      "Stored Data Manipulation"
@@ -2275,27 +2188,127 @@
   "decoder": {
    "name": "syscheck_integrity_changed"
   },
-  "full_log": "File '/etc/passwd' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '1145' to '1196'\nOld modification time was: '1793677374', now it is '1793677644'\nOld inode was: '1254195', now it is '1253984'\nOld md5sum was: '33604841db68247f2a06dc632b4a3ba0'\nNew md5sum is : '0be2627aefd02f977d8374a48815ab78'\nOld sha1sum was: '4815d2e77d8db8fef63fca5d6200e319290bd301'\nNew sha1sum is : '5f0b01079d2ba6658724886c0869d8b9e67d1821'\nOld sha256sum was: '4922ee1fb5ad039addab37804a18b238940d97c98b7940a625dd15c425a93c96'\nNew sha256sum is : 'b996451c3825f98418844efef875dfc53eb466aefef8560c604a192b28fc3333'\n",
+  "full_log": "File '/etc/passwd' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '1145' to '1196'\nOld modification time was: '1793675225', now it is '1793706542'\nOld inode was: '1067217', now it is '1246752'\nOld md5sum was: '33604841db68247f2a06dc632b4a3ba0'\nNew md5sum is : '0be2627aefd02f977d8374a48815ab78'\nOld sha1sum was: '4815d2e77d8db8fef63fca5d6200e319290bd301'\nNew sha1sum is : '5f0b01079d2ba6658724886c0869d8b9e67d1821'\nOld sha256sum was: '4922ee1fb5ad039addab37804a18b238940d97c98b7940a625dd15c425a93c96'\nNew sha256sum is : 'b996451c3825f98418844efef875dfc53eb466aefef8560c604a192b28fc3333'\n",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:47:24.676Z",
+  "@timestamp": "2026-11-03T11:49:02.860Z",
   "location": "syscheck",
-  "id": "1793677644.4369937",
-  "timestamp": "2026-11-03T03:47:24.676+0000"
+  "id": "1793706542.1909531",
+  "timestamp": "2026-11-03T11:49:02.860+0000"
+ },
+ {
+  "syscheck": {
+   "size_before": "636",
+   "uname_after": "root",
+   "mtime_after": "2026-11-03T11:49:02",
+   "inode_before": 1067213,
+   "size_after": "655",
+   "gid_after": "0",
+   "md5_before": "c0a5e3a0e6ba4d53b4b78868fc921804",
+   "diff": "46a47\n> support_it:x:1002:\n",
+   "sha256_before": "3a04e704db490d1d2b04263306c9d1dfafeca8611c4b06dd2c3aa281d92ee212",
+   "mtime_before": "2026-11-03T03:07:05",
+   "mode": "realtime",
+   "path": "/etc/group",
+   "sha1_after": "1edd02406fcdd4b11e1d34fa4ea125107a5f7b5a",
+   "changed_attributes": [
+    "size",
+    "inode",
+    "mtime",
+    "md5",
+    "sha1",
+    "sha256"
+   ],
+   "gname_after": "root",
+   "uid_after": "0",
+   "perm_after": "rw-r--r--",
+   "event": "modified",
+   "md5_after": "34c027f9dfb93f965029cd0a785425dd",
+   "sha1_before": "8a4b2560fa7c2e5fbac3c345cacc016f85032a2f",
+   "sha256_after": "aa0dfa440006a021d2a764f0edb9c88466dfc7aedcb7b5daf031a88abaa4c289",
+   "inode_after": 1247677
+  },
+  "agent": {
+   "ip": "172.19.0.4",
+   "name": "endpoint-ubuntu",
+   "id": "001"
+  },
+  "manager": {
+   "name": "wazuh.manager"
+  },
+  "rule": {
+   "mail": false,
+   "level": 7,
+   "pci_dss": [
+    "11.5"
+   ],
+   "hipaa": [
+    "164.312.c.1",
+    "164.312.c.2"
+   ],
+   "tsc": [
+    "PI1.4",
+    "PI1.5",
+    "CC6.1",
+    "CC6.8",
+    "CC7.2",
+    "CC7.3"
+   ],
+   "description": "Integrity checksum changed.",
+   "groups": [
+    "ossec",
+    "syscheck",
+    "syscheck_entry_modified",
+    "syscheck_file"
+   ],
+   "nist_800_53": [
+    "SI.7"
+   ],
+   "gdpr": [
+    "II_5.1.f"
+   ],
+   "firedtimes": 2,
+   "mitre": {
+    "technique": [
+     "Stored Data Manipulation"
+    ],
+    "id": [
+     "T1565.001"
+    ],
+    "tactic": [
+     "Impact"
+    ]
+   },
+   "id": "550",
+   "gpg13": [
+    "4.11"
+   ]
+  },
+  "decoder": {
+   "name": "syscheck_integrity_changed"
+  },
+  "full_log": "File '/etc/group' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '636' to '655'\nOld modification time was: '1793675225', now it is '1793706542'\nOld inode was: '1067213', now it is '1247677'\nOld md5sum was: 'c0a5e3a0e6ba4d53b4b78868fc921804'\nNew md5sum is : '34c027f9dfb93f965029cd0a785425dd'\nOld sha1sum was: '8a4b2560fa7c2e5fbac3c345cacc016f85032a2f'\nNew sha1sum is : '1edd02406fcdd4b11e1d34fa4ea125107a5f7b5a'\nOld sha256sum was: '3a04e704db490d1d2b04263306c9d1dfafeca8611c4b06dd2c3aa281d92ee212'\nNew sha256sum is : 'aa0dfa440006a021d2a764f0edb9c88466dfc7aedcb7b5daf031a88abaa4c289'\n",
+  "input": {
+   "type": "log"
+  },
+  "@timestamp": "2026-11-03T11:49:02.902Z",
+  "location": "syscheck",
+  "id": "1793706542.1910893",
+  "timestamp": "2026-11-03T11:49:02.902+0000"
  },
  {
   "syscheck": {
    "size_before": "695",
    "uname_after": "root",
-   "mtime_after": "2026-11-03T03:47:24",
-   "inode_before": 1253969,
+   "mtime_after": "2026-11-03T11:49:02",
+   "inode_before": 1067219,
    "size_after": "727",
    "gid_after": "42",
    "md5_before": "68c25afa4dd4251c1bcbb37218630d29",
    "diff": "Diff truncated due to 'nodiff' configuration detected for this file.",
    "sha256_before": "34cafc25bd39f17bd29f6496db09c1b325ce86a0cc9c7b0e426b34ac20fbfa13",
-   "mtime_before": "2026-11-03T03:42:10",
+   "mtime_before": "2026-11-03T03:07:05",
    "mode": "realtime",
    "path": "/etc/shadow",
    "sha1_after": "f3404d1ebbaeba0544dab388312761c75eef0ddc",
@@ -2314,10 +2327,10 @@
    "md5_after": "4741078350cae53ec1b43c19e4420b4b",
    "sha1_before": "1102229e16496c254cd74322d5c11fea6977bdcf",
    "sha256_after": "d6afbc97e5b580eb9342f24ac2b7df265e51602a1b8e40810fe6e0dc2ce47b31",
-   "inode_after": 1253988
+   "inode_after": 1247576
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -2355,7 +2368,7 @@
    "gdpr": [
     "II_5.1.f"
    ],
-   "firedtimes": 5,
+   "firedtimes": 3,
    "mitre": {
     "technique": [
      "Stored Data Manipulation"
@@ -2375,88 +2388,14 @@
   "decoder": {
    "name": "syscheck_integrity_changed"
   },
-  "full_log": "File '/etc/shadow' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '695' to '727'\nOld modification time was: '1793677330', now it is '1793677644'\nOld inode was: '1253969', now it is '1253988'\nOld md5sum was: '68c25afa4dd4251c1bcbb37218630d29'\nNew md5sum is : '4741078350cae53ec1b43c19e4420b4b'\nOld sha1sum was: '1102229e16496c254cd74322d5c11fea6977bdcf'\nNew sha1sum is : 'f3404d1ebbaeba0544dab388312761c75eef0ddc'\nOld sha256sum was: '34cafc25bd39f17bd29f6496db09c1b325ce86a0cc9c7b0e426b34ac20fbfa13'\nNew sha256sum is : 'd6afbc97e5b580eb9342f24ac2b7df265e51602a1b8e40810fe6e0dc2ce47b31'\n",
+  "full_log": "File '/etc/shadow' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '695' to '727'\nOld modification time was: '1793675225', now it is '1793706542'\nOld inode was: '1067219', now it is '1247576'\nOld md5sum was: '68c25afa4dd4251c1bcbb37218630d29'\nNew md5sum is : '4741078350cae53ec1b43c19e4420b4b'\nOld sha1sum was: '1102229e16496c254cd74322d5c11fea6977bdcf'\nNew sha1sum is : 'f3404d1ebbaeba0544dab388312761c75eef0ddc'\nOld sha256sum was: '34cafc25bd39f17bd29f6496db09c1b325ce86a0cc9c7b0e426b34ac20fbfa13'\nNew sha256sum is : 'd6afbc97e5b580eb9342f24ac2b7df265e51602a1b8e40810fe6e0dc2ce47b31'\n",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:47:24.676Z",
+  "@timestamp": "2026-11-03T11:49:02.912Z",
   "location": "syscheck",
-  "id": "1793677644.4371299",
-  "timestamp": "2026-11-03T03:47:24.676+0000"
- },
- {
-  "syscheck": {
-   "uname_after": "support_it",
-   "mtime_after": "2024-03-31T08:41:03",
-   "size_after": "3771",
-   "gid_after": "1002",
-   "mode": "realtime",
-   "path": "/home/support_it/.bashrc",
-   "sha1_after": "c4d853993e323432cb84359de2c319b9a767b729",
-   "gname_after": "support_it",
-   "uid_after": "1002",
-   "perm_after": "rw-r--r--",
-   "event": "added",
-   "md5_after": "1f98b8f3f3c8f8927eca945d59dcc1c6",
-   "sha256_after": "342099da4dd28c394d3f8782d90d7465cb2eaa611193f8f378d6918261cb9bb8",
-   "inode_after": 1253979
-  },
-  "agent": {
-   "ip": "172.19.0.5",
-   "name": "endpoint-ubuntu",
-   "id": "001"
-  },
-  "manager": {
-   "name": "wazuh.manager"
-  },
-  "rule": {
-   "firedtimes": 3,
-   "mail": false,
-   "level": 5,
-   "pci_dss": [
-    "11.5"
-   ],
-   "hipaa": [
-    "164.312.c.1",
-    "164.312.c.2"
-   ],
-   "tsc": [
-    "PI1.4",
-    "PI1.5",
-    "CC6.1",
-    "CC6.8",
-    "CC7.2",
-    "CC7.3"
-   ],
-   "description": "File added to the system.",
-   "groups": [
-    "ossec",
-    "syscheck",
-    "syscheck_entry_added",
-    "syscheck_file"
-   ],
-   "id": "554",
-   "nist_800_53": [
-    "SI.7"
-   ],
-   "gpg13": [
-    "4.11"
-   ],
-   "gdpr": [
-    "II_5.1.f"
-   ]
-  },
-  "decoder": {
-   "name": "syscheck_new_entry"
-  },
-  "full_log": "File '/home/support_it/.bashrc' added\nMode: realtime\n",
-  "input": {
-   "type": "log"
-  },
-  "@timestamp": "2026-11-03T03:47:24.708Z",
-  "location": "syscheck",
-  "id": "1793677644.4372670",
-  "timestamp": "2026-11-03T03:47:24.708+0000"
+  "id": "1793706542.1912219",
+  "timestamp": "2026-11-03T11:49:02.912+0000"
  },
  {
   "syscheck": {
@@ -2473,10 +2412,10 @@
    "event": "added",
    "md5_after": "22bfb8c1dd94b5f3813a2b25da67463f",
    "sha256_after": "26882b79471c25f945c970f8233d8ce29d54e9d5eedcd2884f88affa84a18f56",
-   "inode_after": 1253980
+   "inode_after": 1278000
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -2484,7 +2423,7 @@
    "name": "wazuh.manager"
   },
   "rule": {
-   "firedtimes": 4,
+   "firedtimes": 3,
    "mail": false,
    "level": 5,
    "pci_dss": [
@@ -2527,10 +2466,84 @@
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:47:24.708Z",
+  "@timestamp": "2026-11-03T11:49:02.947Z",
   "location": "syscheck",
-  "id": "1793677644.4373388",
-  "timestamp": "2026-11-03T03:47:24.708+0000"
+  "id": "1793706542.1914308",
+  "timestamp": "2026-11-03T11:49:02.947+0000"
+ },
+ {
+  "syscheck": {
+   "uname_after": "support_it",
+   "mtime_after": "2024-03-31T08:41:03",
+   "size_after": "3771",
+   "gid_after": "1002",
+   "mode": "realtime",
+   "path": "/home/support_it/.bashrc",
+   "sha1_after": "c4d853993e323432cb84359de2c319b9a767b729",
+   "gname_after": "support_it",
+   "uid_after": "1002",
+   "perm_after": "rw-r--r--",
+   "event": "added",
+   "md5_after": "1f98b8f3f3c8f8927eca945d59dcc1c6",
+   "sha256_after": "342099da4dd28c394d3f8782d90d7465cb2eaa611193f8f378d6918261cb9bb8",
+   "inode_after": 1277985
+  },
+  "agent": {
+   "ip": "172.19.0.4",
+   "name": "endpoint-ubuntu",
+   "id": "001"
+  },
+  "manager": {
+   "name": "wazuh.manager"
+  },
+  "rule": {
+   "firedtimes": 2,
+   "mail": false,
+   "level": 5,
+   "pci_dss": [
+    "11.5"
+   ],
+   "hipaa": [
+    "164.312.c.1",
+    "164.312.c.2"
+   ],
+   "tsc": [
+    "PI1.4",
+    "PI1.5",
+    "CC6.1",
+    "CC6.8",
+    "CC7.2",
+    "CC7.3"
+   ],
+   "description": "File added to the system.",
+   "groups": [
+    "ossec",
+    "syscheck",
+    "syscheck_entry_added",
+    "syscheck_file"
+   ],
+   "id": "554",
+   "nist_800_53": [
+    "SI.7"
+   ],
+   "gpg13": [
+    "4.11"
+   ],
+   "gdpr": [
+    "II_5.1.f"
+   ]
+  },
+  "decoder": {
+   "name": "syscheck_new_entry"
+  },
+  "full_log": "File '/home/support_it/.bashrc' added\nMode: realtime\n",
+  "input": {
+   "type": "log"
+  },
+  "@timestamp": "2026-11-03T11:49:02.947Z",
+  "location": "syscheck",
+  "id": "1793706542.1913590",
+  "timestamp": "2026-11-03T11:49:02.947+0000"
  },
  {
   "syscheck": {
@@ -2547,10 +2560,10 @@
    "event": "added",
    "md5_after": "f4e81ade7d6f9fb342541152d08e7a97",
    "sha256_after": "28b4a453b68dde64f814e94bab14ee651f4f162e15dd9920490aa1d49f05d2a4",
-   "inode_after": 1253981
+   "inode_after": 1278001
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -2558,7 +2571,7 @@
    "name": "wazuh.manager"
   },
   "rule": {
-   "firedtimes": 5,
+   "firedtimes": 4,
    "mail": false,
    "level": 5,
    "pci_dss": [
@@ -2601,18 +2614,18 @@
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:47:24.710Z",
+  "@timestamp": "2026-11-03T11:49:02.949Z",
   "location": "syscheck",
-  "id": "1793677644.4374110",
-  "timestamp": "2026-11-03T03:47:24.710+0000"
+  "id": "1793706542.1915030",
+  "timestamp": "2026-11-03T11:49:02.949+0000"
  },
  {
   "predecoder": {
    "program_name": "useradd",
-   "timestamp": "2026-11-03T03:47:24.600406+00:00"
+   "timestamp": "2026-11-03T11:49:02.834093+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -2680,22 +2693,22 @@
    "parent": "useradd",
    "name": "useradd"
   },
-  "full_log": "2026-11-03T03:47:24.600406+00:00 endpoint-ubuntu useradd[2029]: new user: name=support_it, UID=1002, GID=1002, home=/home/support_it, shell=/bin/bash, from=none",
+  "full_log": "2026-11-03T11:49:02.834093+00:00 endpoint-ubuntu useradd[1978]: new user: name=support_it, UID=1002, GID=1002, home=/home/support_it, shell=/bin/bash, from=none",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:47:25.010Z",
+  "@timestamp": "2026-11-03T11:49:03.766Z",
   "location": "/var/log/auth.log",
-  "id": "1793677645.4375335",
-  "timestamp": "2026-11-03T03:47:25.010+0000"
+  "id": "1793706543.1916255",
+  "timestamp": "2026-11-03T11:49:03.766+0000"
  },
  {
   "predecoder": {
    "program_name": "useradd",
-   "timestamp": "2026-11-03T03:47:24.600208+00:00"
+   "timestamp": "2026-11-03T11:49:02.833972+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -2744,27 +2757,27 @@
   "decoder": {
    "name": "useradd"
   },
-  "full_log": "2026-11-03T03:47:24.600208+00:00 endpoint-ubuntu useradd[2029]: new group: name=support_it, GID=1002",
+  "full_log": "2026-11-03T11:49:02.833972+00:00 endpoint-ubuntu useradd[1978]: new group: name=support_it, GID=1002",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:47:25.010Z",
+  "@timestamp": "2026-11-03T11:49:03.766Z",
   "location": "/var/log/auth.log",
-  "id": "1793677645.4374828",
-  "timestamp": "2026-11-03T03:47:25.010+0000"
+  "id": "1793706543.1915748",
+  "timestamp": "2026-11-03T11:49:03.766+0000"
  },
  {
   "syscheck": {
    "size_before": "655",
    "uname_after": "root",
-   "mtime_after": "2026-11-03T03:47:34",
-   "inode_before": 1253969,
+   "mtime_after": "2026-11-03T11:49:13",
+   "inode_before": 1247677,
    "size_after": "666",
    "gid_after": "0",
    "md5_before": "34c027f9dfb93f965029cd0a785425dd",
    "diff": "21c21\n< sudo:x:27:ubuntu,analyste\n---\n> sudo:x:27:ubuntu,analyste,support_it\n",
    "sha256_before": "aa0dfa440006a021d2a764f0edb9c88466dfc7aedcb7b5daf031a88abaa4c289",
-   "mtime_before": "2026-11-03T03:47:24",
+   "mtime_before": "2026-11-03T11:49:02",
    "mode": "realtime",
    "path": "/etc/group",
    "sha1_after": "b22df9ac17dd0c56b243daaedbf86c3f9d58b4dc",
@@ -2783,10 +2796,10 @@
    "md5_after": "e809c0d758472e5c061f887f3f11de45",
    "sha1_before": "1edd02406fcdd4b11e1d34fa4ea125107a5f7b5a",
    "sha256_after": "24725de93d13d6efd2abfa8659384bb82bdb7e44ee3c87f67296474a81694bb1",
-   "inode_after": 1254079
+   "inode_after": 1247804
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -2824,7 +2837,7 @@
    "gdpr": [
     "II_5.1.f"
    ],
-   "firedtimes": 6,
+   "firedtimes": 4,
    "mitre": {
     "technique": [
      "Stored Data Manipulation"
@@ -2844,22 +2857,22 @@
   "decoder": {
    "name": "syscheck_integrity_changed"
   },
-  "full_log": "File '/etc/group' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '655' to '666'\nOld modification time was: '1793677644', now it is '1793677654'\nOld inode was: '1253969', now it is '1254079'\nOld md5sum was: '34c027f9dfb93f965029cd0a785425dd'\nNew md5sum is : 'e809c0d758472e5c061f887f3f11de45'\nOld sha1sum was: '1edd02406fcdd4b11e1d34fa4ea125107a5f7b5a'\nNew sha1sum is : 'b22df9ac17dd0c56b243daaedbf86c3f9d58b4dc'\nOld sha256sum was: 'aa0dfa440006a021d2a764f0edb9c88466dfc7aedcb7b5daf031a88abaa4c289'\nNew sha256sum is : '24725de93d13d6efd2abfa8659384bb82bdb7e44ee3c87f67296474a81694bb1'\n",
+  "full_log": "File '/etc/group' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '655' to '666'\nOld modification time was: '1793706542', now it is '1793706553'\nOld inode was: '1247677', now it is '1247804'\nOld md5sum was: '34c027f9dfb93f965029cd0a785425dd'\nNew md5sum is : 'e809c0d758472e5c061f887f3f11de45'\nOld sha1sum was: '1edd02406fcdd4b11e1d34fa4ea125107a5f7b5a'\nNew sha1sum is : 'b22df9ac17dd0c56b243daaedbf86c3f9d58b4dc'\nOld sha256sum was: 'aa0dfa440006a021d2a764f0edb9c88466dfc7aedcb7b5daf031a88abaa4c289'\nNew sha256sum is : '24725de93d13d6efd2abfa8659384bb82bdb7e44ee3c87f67296474a81694bb1'\n",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:47:34.759Z",
+  "@timestamp": "2026-11-03T11:49:13.040Z",
   "location": "syscheck",
-  "id": "1793677654.4375979",
-  "timestamp": "2026-11-03T03:47:34.759+0000"
+  "id": "1793706553.1916899",
+  "timestamp": "2026-11-03T11:49:13.040+0000"
  },
  {
   "predecoder": {
    "program_name": "usermod",
-   "timestamp": "2026-11-03T03:47:34.744185+00:00"
+   "timestamp": "2026-11-03T11:49:13.021259+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -2896,19 +2909,19 @@
    "frequency": 2
   },
   "decoder": {},
-  "full_log": "2026-11-03T03:47:34.744185+00:00 endpoint-ubuntu usermod[2046]: add 'support_it' to group 'sudo'",
+  "full_log": "2026-11-03T11:49:13.021259+00:00 endpoint-ubuntu usermod[1995]: add 'support_it' to group 'sudo'",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:47:35.015Z",
+  "@timestamp": "2026-11-03T11:49:13.768Z",
   "location": "/var/log/auth.log",
-  "id": "1793677655.4377355",
-  "timestamp": "2026-11-03T03:47:35.015+0000"
+  "id": "1793706553.1918275",
+  "timestamp": "2026-11-03T11:49:13.768+0000"
  },
  {
   "syscheck": {
    "uname_after": "root",
-   "mtime_after": "2026-11-03T03:48:19",
+   "mtime_after": "2026-11-03T11:49:58",
    "size_after": "34",
    "gid_after": "0",
    "mode": "realtime",
@@ -2920,10 +2933,10 @@
    "event": "added",
    "md5_after": "bafddd5ccd7650836e87ab927ed72a60",
    "sha256_after": "1fd364573b98f68c5d7eefccc1899f2bb39c4ccd3871a2aa81a0b8c81d95390b",
-   "inode_after": 1254104
+   "inode_after": 1278010
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -2962,30 +2975,42 @@
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:48:19.890Z",
+  "@timestamp": "2026-11-03T11:49:58.157Z",
   "location": "syscheck",
-  "id": "1793677699.4377901",
-  "timestamp": "2026-11-03T03:48:19.890+0000"
+  "id": "1793706598.1918821",
+  "timestamp": "2026-11-03T11:49:58.157+0000"
  },
  {
   "syscheck": {
+   "size_before": "0",
    "uname_after": "analyste",
-   "mtime_after": "2026-11-03T03:49:05",
+   "mtime_after": "2026-11-03T11:50:43",
    "size_after": "90",
    "gid_after": "1001",
+   "md5_before": "d41d8cd98f00b204e9800998ecf8427e",
+   "sha256_before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "mtime_before": "2026-11-03T11:42:12",
    "mode": "realtime",
    "path": "/home/analyste/.ssh/authorized_keys",
-   "sha1_after": "622f56c1da8cbc6b8495a3fa558aa7ed7582462e",
+   "sha1_after": "3e5e97d9571aa251e54ef7219856875926d44bbc",
+   "changed_attributes": [
+    "size",
+    "mtime",
+    "md5",
+    "sha1",
+    "sha256"
+   ],
    "gname_after": "analyste",
    "uid_after": "1001",
    "perm_after": "rw-rw-rw-",
-   "event": "added",
-   "md5_after": "b7a2ce3264bb59942deb95ad782ab18c",
-   "sha256_after": "f23887ce12dafa6f1f8a82cc591df6ede4514686b3f69429d5fd5118d7889945",
-   "inode_after": 1254138
+   "event": "modified",
+   "md5_after": "649ab5875344164302d697501124f105",
+   "sha1_before": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+   "sha256_after": "5482ad32110cb35250c28aa815f2fb9107c3cbdfe85a127f647d6e43ccd4f16d",
+   "inode_after": 1245485
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -3017,21 +3042,21 @@
    "id": "100101"
   },
   "decoder": {
-   "name": "syscheck_new_entry"
+   "name": "syscheck_integrity_changed"
   },
-  "full_log": "File '/home/analyste/.ssh/authorized_keys' added\nMode: realtime\n",
+  "full_log": "File '/home/analyste/.ssh/authorized_keys' modified\nMode: realtime\nChanged attributes: size,mtime,md5,sha1,sha256\nSize changed from '0' to '90'\nOld modification time was: '1793706132', now it is '1793706643'\nOld md5sum was: 'd41d8cd98f00b204e9800998ecf8427e'\nNew md5sum is : '649ab5875344164302d697501124f105'\nOld sha1sum was: 'da39a3ee5e6b4b0d3255bfef95601890afd80709'\nNew sha1sum is : '3e5e97d9571aa251e54ef7219856875926d44bbc'\nOld sha256sum was: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'\nNew sha256sum is : '5482ad32110cb35250c28aa815f2fb9107c3cbdfe85a127f647d6e43ccd4f16d'\n",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:49:05.032Z",
+  "@timestamp": "2026-11-03T11:50:43.297Z",
   "location": "syscheck",
-  "id": "1793677745.4378495",
-  "timestamp": "2026-11-03T03:49:05.032+0000"
+  "id": "1793706643.1919415",
+  "timestamp": "2026-11-03T11:50:43.297+0000"
  },
  {
   "syscheck": {
    "uname_after": "root",
-   "mtime_after": "2026-11-03T03:49:50",
+   "mtime_after": "2026-11-03T11:51:28",
    "size_after": "46",
    "gid_after": "0",
    "mode": "realtime",
@@ -3043,10 +3068,10 @@
    "event": "added",
    "md5_after": "5b0fb29371a54c8fee54a73e7f3045d2",
    "sha256_after": "668698cc3abacd689c850aefceccfb32e3b86965fe5d7be425c4c8f999fcb162",
-   "inode_after": 1254117
+   "inode_after": 1277982
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -3086,15 +3111,15 @@
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:49:50.152Z",
+  "@timestamp": "2026-11-03T11:51:28.437Z",
   "location": "syscheck",
-  "id": "1793677790.4379115",
-  "timestamp": "2026-11-03T03:49:50.152+0000"
+  "id": "1793706688.1920573",
+  "timestamp": "2026-11-03T11:51:28.437+0000"
  },
  {
   "syscheck": {
    "uname_after": "root",
-   "mtime_after": "2026-11-03T03:50:35",
+   "mtime_after": "2026-11-03T11:52:13",
    "size_after": "104",
    "gid_after": "0",
    "mode": "realtime",
@@ -3106,10 +3131,10 @@
    "event": "added",
    "md5_after": "0f99ce71a7ad30b92786218a112f34d5",
    "sha256_after": "f8e046cc04816ee5a3da1008323d242f932ddd6930b7edd645349d4f5c036555",
-   "inode_after": 1254185
+   "inode_after": 1277986
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -3148,15 +3173,15 @@
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:50:35.287Z",
+  "@timestamp": "2026-11-03T11:52:13.563Z",
   "location": "syscheck",
-  "id": "1793677835.4379688",
-  "timestamp": "2026-11-03T03:50:35.287+0000"
+  "id": "1793706733.1921146",
+  "timestamp": "2026-11-03T11:52:13.563+0000"
  },
  {
   "syscheck": {
    "uname_after": "root",
-   "mtime_after": "2026-11-03T03:51:20",
+   "mtime_after": "2026-11-03T11:52:58",
    "size_after": "26936",
    "gid_after": "0",
    "mode": "realtime",
@@ -3168,10 +3193,10 @@
    "event": "added",
    "md5_after": "7aaf1ee17c032a6fc4fc7f2310dffecd",
    "sha256_after": "8a63c98320173f79e263115e10cefc170155e47d1fd4b5a70e4429d2699cae28",
-   "inode_after": 1254131
+   "inode_after": 1277989
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -3209,23 +3234,23 @@
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:51:20.437Z",
+  "@timestamp": "2026-11-03T11:52:58.681Z",
   "location": "syscheck",
-  "id": "1793677880.4380300",
-  "timestamp": "2026-11-03T03:51:20.437+0000"
+  "id": "1793706778.1921758",
+  "timestamp": "2026-11-03T11:52:58.681+0000"
  },
  {
   "syscheck": {
    "size_before": "3517",
    "uname_after": "root",
-   "mtime_after": "2026-11-03T03:52:05",
-   "inode_before": 1254352,
+   "mtime_after": "2026-11-03T11:53:43",
+   "inode_before": 1155826,
    "size_after": "3502",
    "gid_after": "0",
    "md5_before": "0a12ef5cc3580c2e0533fba58dba866d",
    "diff": "42c42\n< #PermitRootLogin prohibit-password\n---\n> PermitRootLogin yes\n",
    "sha256_before": "64325541513d33ea1d2ccd19c77750d458e67e7967fd2e7ef81d92f0aa2ffe21",
-   "mtime_before": "2026-11-03T03:42:02",
+   "mtime_before": "2026-10-08T17:19:18",
    "mode": "realtime",
    "path": "/etc/ssh/sshd_config",
    "sha1_after": "0e50a20bce73e3901a1f35d16e909eb8842304b7",
@@ -3244,10 +3269,10 @@
    "md5_after": "eb86be66ac8c93f39a7150d484752374",
    "sha1_before": "f6bc31820b9b04c820b0f46a55f2d1eed0b65ba9",
    "sha256_after": "59f055912c59db09669d75a91bf0cd36b0fa729331dc60d75ea00013380b9578",
-   "inode_after": 1254167
+   "inode_after": 1277991
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -3255,7 +3280,7 @@
    "name": "wazuh.manager"
   },
   "rule": {
-   "firedtimes": 3,
+   "firedtimes": 1,
    "mail": false,
    "level": 8,
    "description": "[SOC] Configuration du serveur SSH modifiée",
@@ -3281,18 +3306,18 @@
   "decoder": {
    "name": "syscheck_integrity_changed"
   },
-  "full_log": "File '/etc/ssh/sshd_config' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '3517' to '3502'\nOld modification time was: '1793677322', now it is '1793677925'\nOld inode was: '1254352', now it is '1254167'\nOld md5sum was: '0a12ef5cc3580c2e0533fba58dba866d'\nNew md5sum is : 'eb86be66ac8c93f39a7150d484752374'\nOld sha1sum was: 'f6bc31820b9b04c820b0f46a55f2d1eed0b65ba9'\nNew sha1sum is : '0e50a20bce73e3901a1f35d16e909eb8842304b7'\nOld sha256sum was: '64325541513d33ea1d2ccd19c77750d458e67e7967fd2e7ef81d92f0aa2ffe21'\nNew sha256sum is : '59f055912c59db09669d75a91bf0cd36b0fa729331dc60d75ea00013380b9578'\n",
+  "full_log": "File '/etc/ssh/sshd_config' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '3517' to '3502'\nOld modification time was: '1791479958', now it is '1793706823'\nOld inode was: '1155826', now it is '1277991'\nOld md5sum was: '0a12ef5cc3580c2e0533fba58dba866d'\nNew md5sum is : 'eb86be66ac8c93f39a7150d484752374'\nOld sha1sum was: 'f6bc31820b9b04c820b0f46a55f2d1eed0b65ba9'\nNew sha1sum is : '0e50a20bce73e3901a1f35d16e909eb8842304b7'\nOld sha256sum was: '64325541513d33ea1d2ccd19c77750d458e67e7967fd2e7ef81d92f0aa2ffe21'\nNew sha256sum is : '59f055912c59db09669d75a91bf0cd36b0fa729331dc60d75ea00013380b9578'\n",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:52:05.628Z",
+  "@timestamp": "2026-11-03T11:53:43.818Z",
   "location": "syscheck",
-  "id": "1793677925.4380894",
-  "timestamp": "2026-11-03T03:52:05.628+0000"
+  "id": "1793706823.1922352",
+  "timestamp": "2026-11-03T11:53:43.818+0000"
  },
  {
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -3304,7 +3329,7 @@
    "firedtimes": 1,
    "mail": false,
    "level": 10,
-   "description": "[SOC] Nouveau port en écoute détecté sur le poste",
+   "description": "[SOC] Ports en écoute modifiés sur le poste (ouverture ou fermeture)",
    "groups": [
     "local",
     "soc_homelab",
@@ -3332,110 +3357,10 @@
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:54:37.067Z",
+  "@timestamp": "2026-11-03T11:55:15.911Z",
   "location": "netstat listening ports",
-  "id": "1793678077.4382128",
-  "timestamp": "2026-11-03T03:54:37.067+0000"
- },
- {
-  "syscheck": {
-   "size_before": "1196",
-   "uname_after": "root",
-   "mtime_after": "2026-11-03T03:55:50",
-   "inode_before": 1253984,
-   "size_after": "1145",
-   "gid_after": "0",
-   "md5_before": "0be2627aefd02f977d8374a48815ab78",
-   "diff": "25d24\n< support_it:x:1002:1002::/home/support_it:/bin/bash\n",
-   "sha256_before": "b996451c3825f98418844efef875dfc53eb466aefef8560c604a192b28fc3333",
-   "mtime_before": "2026-11-03T03:47:24",
-   "mode": "realtime",
-   "path": "/etc/passwd",
-   "sha1_after": "4815d2e77d8db8fef63fca5d6200e319290bd301",
-   "changed_attributes": [
-    "size",
-    "inode",
-    "mtime",
-    "md5",
-    "sha1",
-    "sha256"
-   ],
-   "gname_after": "root",
-   "uid_after": "0",
-   "perm_after": "rw-r--r--",
-   "event": "modified",
-   "md5_after": "33604841db68247f2a06dc632b4a3ba0",
-   "sha1_before": "5f0b01079d2ba6658724886c0869d8b9e67d1821",
-   "sha256_after": "4922ee1fb5ad039addab37804a18b238940d97c98b7940a625dd15c425a93c96",
-   "inode_after": 1253976
-  },
-  "agent": {
-   "ip": "172.19.0.5",
-   "name": "endpoint-ubuntu",
-   "id": "001"
-  },
-  "manager": {
-   "name": "wazuh.manager"
-  },
-  "rule": {
-   "mail": false,
-   "level": 7,
-   "pci_dss": [
-    "11.5"
-   ],
-   "hipaa": [
-    "164.312.c.1",
-    "164.312.c.2"
-   ],
-   "tsc": [
-    "PI1.4",
-    "PI1.5",
-    "CC6.1",
-    "CC6.8",
-    "CC7.2",
-    "CC7.3"
-   ],
-   "description": "Integrity checksum changed.",
-   "groups": [
-    "ossec",
-    "syscheck",
-    "syscheck_entry_modified",
-    "syscheck_file"
-   ],
-   "nist_800_53": [
-    "SI.7"
-   ],
-   "gdpr": [
-    "II_5.1.f"
-   ],
-   "firedtimes": 7,
-   "mitre": {
-    "technique": [
-     "Stored Data Manipulation"
-    ],
-    "id": [
-     "T1565.001"
-    ],
-    "tactic": [
-     "Impact"
-    ]
-   },
-   "id": "550",
-   "gpg13": [
-    "4.11"
-   ]
-  },
-  "decoder": {
-   "name": "syscheck_integrity_changed"
-  },
-  "full_log": "File '/etc/passwd' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '1196' to '1145'\nOld modification time was: '1793677644', now it is '1793678150'\nOld inode was: '1253984', now it is '1253976'\nOld md5sum was: '0be2627aefd02f977d8374a48815ab78'\nNew md5sum is : '33604841db68247f2a06dc632b4a3ba0'\nOld sha1sum was: '5f0b01079d2ba6658724886c0869d8b9e67d1821'\nNew sha1sum is : '4815d2e77d8db8fef63fca5d6200e319290bd301'\nOld sha256sum was: 'b996451c3825f98418844efef875dfc53eb466aefef8560c604a192b28fc3333'\nNew sha256sum is : '4922ee1fb5ad039addab37804a18b238940d97c98b7940a625dd15c425a93c96'\n",
-  "input": {
-   "type": "log"
-  },
-  "@timestamp": "2026-11-03T03:55:50.862Z",
-  "location": "syscheck",
-  "id": "1793678150.4382818",
-  "timestamp": "2026-11-03T03:55:50.862+0000"
+  "id": "1793706915.1923586",
+  "timestamp": "2026-11-03T11:55:15.911+0000"
  },
  {
   "syscheck": {
@@ -3452,10 +3377,10 @@
    "event": "deleted",
    "md5_after": "22bfb8c1dd94b5f3813a2b25da67463f",
    "sha256_after": "26882b79471c25f945c970f8233d8ce29d54e9d5eedcd2884f88affa84a18f56",
-   "inode_after": 1253980
+   "inode_after": 1278000
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -3520,30 +3445,30 @@
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:55:50.874Z",
+  "@timestamp": "2026-11-03T11:57:29.094Z",
   "location": "syscheck",
-  "id": "1793678150.4384180",
-  "timestamp": "2026-11-03T03:55:50.874+0000"
+  "id": "1793707049.1924294",
+  "timestamp": "2026-11-03T11:57:29.094+0000"
  },
  {
   "syscheck": {
-   "uname_after": "root",
-   "mtime_after": "2026-11-03T03:49:50",
-   "size_after": "46",
-   "gid_after": "0",
+   "uname_after": "support_it",
+   "mtime_after": "2024-03-31T08:41:03",
+   "size_after": "3771",
+   "gid_after": "1002",
    "mode": "realtime",
-   "path": "/etc/cron.d/maintenance",
-   "sha1_after": "cc261253422c540b2378f9f506f894f9e33abc8d",
-   "gname_after": "root",
-   "uid_after": "0",
-   "perm_after": "rw-rw-rw-",
+   "path": "/home/support_it/.bashrc",
+   "sha1_after": "c4d853993e323432cb84359de2c319b9a767b729",
+   "gname_after": "support_it",
+   "uid_after": "1002",
+   "perm_after": "rw-r--r--",
    "event": "deleted",
-   "md5_after": "5b0fb29371a54c8fee54a73e7f3045d2",
-   "sha256_after": "668698cc3abacd689c850aefceccfb32e3b86965fe5d7be425c4c8f999fcb162",
-   "inode_after": 1254117
+   "md5_after": "1f98b8f3f3c8f8927eca945d59dcc1c6",
+   "sha256_after": "342099da4dd28c394d3f8782d90d7465cb2eaa611193f8f378d6918261cb9bb8",
+   "inode_after": 1277985
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -3604,14 +3529,14 @@
   "decoder": {
    "name": "syscheck_deleted"
   },
-  "full_log": "File '/etc/cron.d/maintenance' deleted\nMode: realtime\n",
+  "full_log": "File '/home/support_it/.bashrc' deleted\nMode: realtime\n",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:55:50.874Z",
+  "@timestamp": "2026-11-03T11:57:29.136Z",
   "location": "syscheck",
-  "id": "1793678150.4384894",
-  "timestamp": "2026-11-03T03:55:50.874+0000"
+  "id": "1793707049.1925008",
+  "timestamp": "2026-11-03T11:57:29.136+0000"
  },
  {
   "syscheck": {
@@ -3628,98 +3553,10 @@
    "event": "deleted",
    "md5_after": "f4e81ade7d6f9fb342541152d08e7a97",
    "sha256_after": "28b4a453b68dde64f814e94bab14ee651f4f162e15dd9920490aa1d49f05d2a4",
-   "inode_after": 1253981
+   "inode_after": 1278001
   },
   "agent": {
-   "ip": "172.19.0.5",
-   "name": "endpoint-ubuntu",
-   "id": "001"
-  },
-  "manager": {
-   "name": "wazuh.manager"
-  },
-  "rule": {
-   "mail": false,
-   "level": 7,
-   "pci_dss": [
-    "11.5"
-   ],
-   "hipaa": [
-    "164.312.c.1",
-    "164.312.c.2"
-   ],
-   "tsc": [
-    "PI1.4",
-    "PI1.5",
-    "CC6.1",
-    "CC6.8",
-    "CC7.2",
-    "CC7.3"
-   ],
-   "description": "File deleted.",
-   "groups": [
-    "ossec",
-    "syscheck",
-    "syscheck_entry_deleted",
-    "syscheck_file"
-   ],
-   "nist_800_53": [
-    "SI.7"
-   ],
-   "gdpr": [
-    "II_5.1.f"
-   ],
-   "firedtimes": 4,
-   "mitre": {
-    "technique": [
-     "File Deletion",
-     "Data Destruction"
-    ],
-    "id": [
-     "T1070.004",
-     "T1485"
-    ],
-    "tactic": [
-     "Defense Evasion",
-     "Impact"
-    ]
-   },
-   "id": "553",
-   "gpg13": [
-    "4.11"
-   ]
-  },
-  "decoder": {
-   "name": "syscheck_deleted"
-  },
-  "full_log": "File '/home/support_it/.profile' deleted\nMode: realtime\n",
-  "input": {
-   "type": "log"
-  },
-  "@timestamp": "2026-11-03T03:55:50.874Z",
-  "location": "syscheck",
-  "id": "1793678150.4386293",
-  "timestamp": "2026-11-03T03:55:50.874+0000"
- },
- {
-  "syscheck": {
-   "uname_after": "support_it",
-   "mtime_after": "2024-03-31T08:41:03",
-   "size_after": "3771",
-   "gid_after": "1002",
-   "mode": "realtime",
-   "path": "/home/support_it/.bashrc",
-   "sha1_after": "c4d853993e323432cb84359de2c319b9a767b729",
-   "gname_after": "support_it",
-   "uid_after": "1002",
-   "perm_after": "rw-r--r--",
-   "event": "deleted",
-   "md5_after": "1f98b8f3f3c8f8927eca945d59dcc1c6",
-   "sha256_after": "342099da4dd28c394d3f8782d90d7465cb2eaa611193f8f378d6918261cb9bb8",
-   "inode_after": 1253979
-  },
-  "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -3780,30 +3617,30 @@
   "decoder": {
    "name": "syscheck_deleted"
   },
-  "full_log": "File '/home/support_it/.bashrc' deleted\nMode: realtime\n",
+  "full_log": "File '/home/support_it/.profile' deleted\nMode: realtime\n",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:55:50.874Z",
+  "@timestamp": "2026-11-03T11:57:29.136Z",
   "location": "syscheck",
-  "id": "1793678150.4385583",
-  "timestamp": "2026-11-03T03:55:50.874+0000"
+  "id": "1793707049.1925718",
+  "timestamp": "2026-11-03T11:57:29.136+0000"
  },
  {
   "syscheck": {
-   "size_before": "727",
+   "size_before": "1196",
    "uname_after": "root",
-   "mtime_after": "2026-11-03T03:55:50",
-   "inode_before": 1253988,
-   "size_after": "695",
-   "gid_after": "42",
-   "md5_before": "4741078350cae53ec1b43c19e4420b4b",
-   "diff": "No content changes were found for this file.",
-   "sha256_before": "d6afbc97e5b580eb9342f24ac2b7df265e51602a1b8e40810fe6e0dc2ce47b31",
-   "mtime_before": "2026-11-03T03:47:24",
+   "mtime_after": "2026-11-03T11:57:29",
+   "inode_before": 1246752,
+   "size_after": "1145",
+   "gid_after": "0",
+   "md5_before": "0be2627aefd02f977d8374a48815ab78",
+   "diff": "25d24\n< support_it:x:1002:1002::/home/support_it:/bin/bash\n",
+   "sha256_before": "b996451c3825f98418844efef875dfc53eb466aefef8560c604a192b28fc3333",
+   "mtime_before": "2026-11-03T11:49:02",
    "mode": "realtime",
-   "path": "/etc/shadow",
-   "sha1_after": "1102229e16496c254cd74322d5c11fea6977bdcf",
+   "path": "/etc/passwd",
+   "sha1_after": "4815d2e77d8db8fef63fca5d6200e319290bd301",
    "changed_attributes": [
     "size",
     "inode",
@@ -3812,17 +3649,17 @@
     "sha1",
     "sha256"
    ],
-   "gname_after": "shadow",
+   "gname_after": "root",
    "uid_after": "0",
-   "perm_after": "rw-r-----",
+   "perm_after": "rw-r--r--",
    "event": "modified",
-   "md5_after": "68c25afa4dd4251c1bcbb37218630d29",
-   "sha1_before": "f3404d1ebbaeba0544dab388312761c75eef0ddc",
-   "sha256_after": "34cafc25bd39f17bd29f6496db09c1b325ce86a0cc9c7b0e426b34ac20fbfa13",
-   "inode_after": 1253979
+   "md5_after": "33604841db68247f2a06dc632b4a3ba0",
+   "sha1_before": "5f0b01079d2ba6658724886c0869d8b9e67d1821",
+   "sha256_after": "4922ee1fb5ad039addab37804a18b238940d97c98b7940a625dd15c425a93c96",
+   "inode_after": 1246241
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -3860,7 +3697,7 @@
    "gdpr": [
     "II_5.1.f"
    ],
-   "firedtimes": 9,
+   "firedtimes": 5,
    "mitre": {
     "technique": [
      "Stored Data Manipulation"
@@ -3880,27 +3717,27 @@
   "decoder": {
    "name": "syscheck_integrity_changed"
   },
-  "full_log": "File '/etc/shadow' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '727' to '695'\nOld modification time was: '1793677644', now it is '1793678150'\nOld inode was: '1253988', now it is '1253979'\nOld md5sum was: '4741078350cae53ec1b43c19e4420b4b'\nNew md5sum is : '68c25afa4dd4251c1bcbb37218630d29'\nOld sha1sum was: 'f3404d1ebbaeba0544dab388312761c75eef0ddc'\nNew sha1sum is : '1102229e16496c254cd74322d5c11fea6977bdcf'\nOld sha256sum was: 'd6afbc97e5b580eb9342f24ac2b7df265e51602a1b8e40810fe6e0dc2ce47b31'\nNew sha256sum is : '34cafc25bd39f17bd29f6496db09c1b325ce86a0cc9c7b0e426b34ac20fbfa13'\n",
+  "full_log": "File '/etc/passwd' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '1196' to '1145'\nOld modification time was: '1793706542', now it is '1793707049'\nOld inode was: '1246752', now it is '1246241'\nOld md5sum was: '0be2627aefd02f977d8374a48815ab78'\nNew md5sum is : '33604841db68247f2a06dc632b4a3ba0'\nOld sha1sum was: '5f0b01079d2ba6658724886c0869d8b9e67d1821'\nNew sha1sum is : '4815d2e77d8db8fef63fca5d6200e319290bd301'\nOld sha256sum was: 'b996451c3825f98418844efef875dfc53eb466aefef8560c604a192b28fc3333'\nNew sha256sum is : '4922ee1fb5ad039addab37804a18b238940d97c98b7940a625dd15c425a93c96'\n",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:55:50.920Z",
+  "@timestamp": "2026-11-03T11:57:29.136Z",
   "location": "syscheck",
-  "id": "1793678150.4388406",
-  "timestamp": "2026-11-03T03:55:50.920+0000"
+  "id": "1793707049.1926428",
+  "timestamp": "2026-11-03T11:57:29.136+0000"
  },
  {
   "syscheck": {
    "size_before": "666",
    "uname_after": "root",
-   "mtime_after": "2026-11-03T03:55:50",
-   "inode_before": 1254079,
+   "mtime_after": "2026-11-03T11:57:29",
+   "inode_before": 1247804,
    "size_after": "636",
    "gid_after": "0",
    "md5_before": "e809c0d758472e5c061f887f3f11de45",
    "diff": "21c21\n< sudo:x:27:ubuntu,analyste,support_it\n---\n> sudo:x:27:ubuntu,analyste\n47d46\n< support_it:x:1002:\n",
    "sha256_before": "24725de93d13d6efd2abfa8659384bb82bdb7e44ee3c87f67296474a81694bb1",
-   "mtime_before": "2026-11-03T03:47:34",
+   "mtime_before": "2026-11-03T11:49:13",
    "mode": "realtime",
    "path": "/etc/group",
    "sha1_after": "8a4b2560fa7c2e5fbac3c345cacc016f85032a2f",
@@ -3919,10 +3756,10 @@
    "md5_after": "c0a5e3a0e6ba4d53b4b78868fc921804",
    "sha1_before": "b22df9ac17dd0c56b243daaedbf86c3f9d58b4dc",
    "sha256_after": "3a04e704db490d1d2b04263306c9d1dfafeca8611c4b06dd2c3aa281d92ee212",
-   "inode_after": 1253980
+   "inode_after": 1246103
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -3960,7 +3797,7 @@
    "gdpr": [
     "II_5.1.f"
    ],
-   "firedtimes": 8,
+   "firedtimes": 6,
    "mitre": {
     "technique": [
      "Stored Data Manipulation"
@@ -3980,27 +3817,215 @@
   "decoder": {
    "name": "syscheck_integrity_changed"
   },
-  "full_log": "File '/etc/group' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '666' to '636'\nOld modification time was: '1793677654', now it is '1793678150'\nOld inode was: '1254079', now it is '1253980'\nOld md5sum was: 'e809c0d758472e5c061f887f3f11de45'\nNew md5sum is : 'c0a5e3a0e6ba4d53b4b78868fc921804'\nOld sha1sum was: 'b22df9ac17dd0c56b243daaedbf86c3f9d58b4dc'\nNew sha1sum is : '8a4b2560fa7c2e5fbac3c345cacc016f85032a2f'\nOld sha256sum was: '24725de93d13d6efd2abfa8659384bb82bdb7e44ee3c87f67296474a81694bb1'\nNew sha256sum is : '3a04e704db490d1d2b04263306c9d1dfafeca8611c4b06dd2c3aa281d92ee212'\n",
+  "full_log": "File '/etc/group' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '666' to '636'\nOld modification time was: '1793706553', now it is '1793707049'\nOld inode was: '1247804', now it is '1246103'\nOld md5sum was: 'e809c0d758472e5c061f887f3f11de45'\nNew md5sum is : 'c0a5e3a0e6ba4d53b4b78868fc921804'\nOld sha1sum was: 'b22df9ac17dd0c56b243daaedbf86c3f9d58b4dc'\nNew sha1sum is : '8a4b2560fa7c2e5fbac3c345cacc016f85032a2f'\nOld sha256sum was: '24725de93d13d6efd2abfa8659384bb82bdb7e44ee3c87f67296474a81694bb1'\nNew sha256sum is : '3a04e704db490d1d2b04263306c9d1dfafeca8611c4b06dd2c3aa281d92ee212'\n",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:55:50.920Z",
+  "@timestamp": "2026-11-03T11:57:29.136Z",
   "location": "syscheck",
-  "id": "1793678150.4387003",
-  "timestamp": "2026-11-03T03:55:50.920+0000"
+  "id": "1793707049.1927790",
+  "timestamp": "2026-11-03T11:57:29.136+0000"
+ },
+ {
+  "syscheck": {
+   "size_before": "727",
+   "uname_after": "root",
+   "mtime_after": "2026-11-03T11:57:29",
+   "inode_before": 1247576,
+   "size_after": "695",
+   "gid_after": "42",
+   "md5_before": "4741078350cae53ec1b43c19e4420b4b",
+   "diff": "No content changes were found for this file.",
+   "sha256_before": "d6afbc97e5b580eb9342f24ac2b7df265e51602a1b8e40810fe6e0dc2ce47b31",
+   "mtime_before": "2026-11-03T11:49:02",
+   "mode": "realtime",
+   "path": "/etc/shadow",
+   "sha1_after": "1102229e16496c254cd74322d5c11fea6977bdcf",
+   "changed_attributes": [
+    "size",
+    "inode",
+    "mtime",
+    "md5",
+    "sha1",
+    "sha256"
+   ],
+   "gname_after": "shadow",
+   "uid_after": "0",
+   "perm_after": "rw-r-----",
+   "event": "modified",
+   "md5_after": "68c25afa4dd4251c1bcbb37218630d29",
+   "sha1_before": "f3404d1ebbaeba0544dab388312761c75eef0ddc",
+   "sha256_after": "34cafc25bd39f17bd29f6496db09c1b325ce86a0cc9c7b0e426b34ac20fbfa13",
+   "inode_after": 1246035
+  },
+  "agent": {
+   "ip": "172.19.0.4",
+   "name": "endpoint-ubuntu",
+   "id": "001"
+  },
+  "manager": {
+   "name": "wazuh.manager"
+  },
+  "rule": {
+   "mail": false,
+   "level": 7,
+   "pci_dss": [
+    "11.5"
+   ],
+   "hipaa": [
+    "164.312.c.1",
+    "164.312.c.2"
+   ],
+   "tsc": [
+    "PI1.4",
+    "PI1.5",
+    "CC6.1",
+    "CC6.8",
+    "CC7.2",
+    "CC7.3"
+   ],
+   "description": "Integrity checksum changed.",
+   "groups": [
+    "ossec",
+    "syscheck",
+    "syscheck_entry_modified",
+    "syscheck_file"
+   ],
+   "nist_800_53": [
+    "SI.7"
+   ],
+   "gdpr": [
+    "II_5.1.f"
+   ],
+   "firedtimes": 7,
+   "mitre": {
+    "technique": [
+     "Stored Data Manipulation"
+    ],
+    "id": [
+     "T1565.001"
+    ],
+    "tactic": [
+     "Impact"
+    ]
+   },
+   "id": "550",
+   "gpg13": [
+    "4.11"
+   ]
+  },
+  "decoder": {
+   "name": "syscheck_integrity_changed"
+  },
+  "full_log": "File '/etc/shadow' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '727' to '695'\nOld modification time was: '1793706542', now it is '1793707049'\nOld inode was: '1247576', now it is '1246035'\nOld md5sum was: '4741078350cae53ec1b43c19e4420b4b'\nNew md5sum is : '68c25afa4dd4251c1bcbb37218630d29'\nOld sha1sum was: 'f3404d1ebbaeba0544dab388312761c75eef0ddc'\nNew sha1sum is : '1102229e16496c254cd74322d5c11fea6977bdcf'\nOld sha256sum was: 'd6afbc97e5b580eb9342f24ac2b7df265e51602a1b8e40810fe6e0dc2ce47b31'\nNew sha256sum is : '34cafc25bd39f17bd29f6496db09c1b325ce86a0cc9c7b0e426b34ac20fbfa13'\n",
+  "input": {
+   "type": "log"
+  },
+  "@timestamp": "2026-11-03T11:57:29.183Z",
+  "location": "syscheck",
+  "id": "1793707049.1929193",
+  "timestamp": "2026-11-03T11:57:29.183+0000"
+ },
+ {
+  "syscheck": {
+   "uname_after": "root",
+   "mtime_after": "2026-11-03T11:51:28",
+   "size_after": "46",
+   "gid_after": "0",
+   "mode": "realtime",
+   "path": "/etc/cron.d/maintenance",
+   "sha1_after": "cc261253422c540b2378f9f506f894f9e33abc8d",
+   "gname_after": "root",
+   "uid_after": "0",
+   "perm_after": "rw-rw-rw-",
+   "event": "deleted",
+   "md5_after": "5b0fb29371a54c8fee54a73e7f3045d2",
+   "sha256_after": "668698cc3abacd689c850aefceccfb32e3b86965fe5d7be425c4c8f999fcb162",
+   "inode_after": 1277982
+  },
+  "agent": {
+   "ip": "172.19.0.4",
+   "name": "endpoint-ubuntu",
+   "id": "001"
+  },
+  "manager": {
+   "name": "wazuh.manager"
+  },
+  "rule": {
+   "mail": false,
+   "level": 7,
+   "pci_dss": [
+    "11.5"
+   ],
+   "hipaa": [
+    "164.312.c.1",
+    "164.312.c.2"
+   ],
+   "tsc": [
+    "PI1.4",
+    "PI1.5",
+    "CC6.1",
+    "CC6.8",
+    "CC7.2",
+    "CC7.3"
+   ],
+   "description": "File deleted.",
+   "groups": [
+    "ossec",
+    "syscheck",
+    "syscheck_entry_deleted",
+    "syscheck_file"
+   ],
+   "nist_800_53": [
+    "SI.7"
+   ],
+   "gdpr": [
+    "II_5.1.f"
+   ],
+   "firedtimes": 4,
+   "mitre": {
+    "technique": [
+     "File Deletion",
+     "Data Destruction"
+    ],
+    "id": [
+     "T1070.004",
+     "T1485"
+    ],
+    "tactic": [
+     "Defense Evasion",
+     "Impact"
+    ]
+   },
+   "id": "553",
+   "gpg13": [
+    "4.11"
+   ]
+  },
+  "decoder": {
+   "name": "syscheck_deleted"
+  },
+  "full_log": "File '/etc/cron.d/maintenance' deleted\nMode: realtime\n",
+  "input": {
+   "type": "log"
+  },
+  "@timestamp": "2026-11-03T11:57:29.183Z",
+  "location": "syscheck",
+  "id": "1793707049.1930540",
+  "timestamp": "2026-11-03T11:57:29.183+0000"
  },
  {
   "syscheck": {
    "size_before": "3502",
    "uname_after": "root",
-   "mtime_after": "2026-11-03T03:55:50",
-   "inode_before": 1254167,
+   "mtime_after": "2026-11-03T11:57:29",
+   "inode_before": 1277991,
    "size_after": "3517",
    "gid_after": "0",
    "md5_before": "eb86be66ac8c93f39a7150d484752374",
    "diff": "42c42\n< PermitRootLogin yes\n---\n> #PermitRootLogin prohibit-password\n",
    "sha256_before": "59f055912c59db09669d75a91bf0cd36b0fa729331dc60d75ea00013380b9578",
-   "mtime_before": "2026-11-03T03:52:05",
+   "mtime_before": "2026-11-03T11:53:43",
    "mode": "realtime",
    "path": "/etc/ssh/sshd_config",
    "sha1_after": "f6bc31820b9b04c820b0f46a55f2d1eed0b65ba9",
@@ -4019,10 +4044,10 @@
    "md5_after": "0a12ef5cc3580c2e0533fba58dba866d",
    "sha1_before": "0e50a20bce73e3901a1f35d16e909eb8842304b7",
    "sha256_after": "64325541513d33ea1d2ccd19c77750d458e67e7967fd2e7ef81d92f0aa2ffe21",
-   "inode_after": 1254104
+   "inode_after": 1277986
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -4030,7 +4055,7 @@
    "name": "wazuh.manager"
   },
   "rule": {
-   "firedtimes": 4,
+   "firedtimes": 2,
    "mail": false,
    "level": 8,
    "description": "[SOC] Configuration du serveur SSH modifiée",
@@ -4056,19 +4081,19 @@
   "decoder": {
    "name": "syscheck_integrity_changed"
   },
-  "full_log": "File '/etc/ssh/sshd_config' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '3502' to '3517'\nOld modification time was: '1793677925', now it is '1793678150'\nOld inode was: '1254167', now it is '1254104'\nOld md5sum was: 'eb86be66ac8c93f39a7150d484752374'\nNew md5sum is : '0a12ef5cc3580c2e0533fba58dba866d'\nOld sha1sum was: '0e50a20bce73e3901a1f35d16e909eb8842304b7'\nNew sha1sum is : 'f6bc31820b9b04c820b0f46a55f2d1eed0b65ba9'\nOld sha256sum was: '59f055912c59db09669d75a91bf0cd36b0fa729331dc60d75ea00013380b9578'\nNew sha256sum is : '64325541513d33ea1d2ccd19c77750d458e67e7967fd2e7ef81d92f0aa2ffe21'\n",
+  "full_log": "File '/etc/ssh/sshd_config' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '3502' to '3517'\nOld modification time was: '1793706823', now it is '1793707049'\nOld inode was: '1277991', now it is '1277986'\nOld md5sum was: 'eb86be66ac8c93f39a7150d484752374'\nNew md5sum is : '0a12ef5cc3580c2e0533fba58dba866d'\nOld sha1sum was: '0e50a20bce73e3901a1f35d16e909eb8842304b7'\nNew sha1sum is : 'f6bc31820b9b04c820b0f46a55f2d1eed0b65ba9'\nOld sha256sum was: '59f055912c59db09669d75a91bf0cd36b0fa729331dc60d75ea00013380b9578'\nNew sha256sum is : '64325541513d33ea1d2ccd19c77750d458e67e7967fd2e7ef81d92f0aa2ffe21'\n",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:55:50.939Z",
+  "@timestamp": "2026-11-03T11:57:29.190Z",
   "location": "syscheck",
-  "id": "1793678150.4389753",
-  "timestamp": "2026-11-03T03:55:50.939+0000"
+  "id": "1793707049.1931229",
+  "timestamp": "2026-11-03T11:57:29.190+0000"
  },
  {
   "syscheck": {
    "uname_after": "root",
-   "mtime_after": "2026-11-03T03:48:19",
+   "mtime_after": "2026-11-03T11:49:58",
    "size_after": "34",
    "gid_after": "0",
    "mode": "realtime",
@@ -4080,10 +4105,10 @@
    "event": "deleted",
    "md5_after": "bafddd5ccd7650836e87ab927ed72a60",
    "sha256_after": "1fd364573b98f68c5d7eefccc1899f2bb39c4ccd3871a2aa81a0b8c81d95390b",
-   "inode_after": 1254104
+   "inode_after": 1278010
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -4148,15 +4173,15 @@
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:55:50.946Z",
+  "@timestamp": "2026-11-03T11:57:29.190Z",
   "location": "syscheck",
-  "id": "1793678150.4390987",
-  "timestamp": "2026-11-03T03:55:50.946+0000"
+  "id": "1793707049.1932463",
+  "timestamp": "2026-11-03T11:57:29.190+0000"
  },
  {
   "syscheck": {
    "uname_after": "root",
-   "mtime_after": "2026-11-03T03:50:35",
+   "mtime_after": "2026-11-03T11:52:13",
    "size_after": "104",
    "gid_after": "0",
    "mode": "realtime",
@@ -4168,10 +4193,10 @@
    "event": "deleted",
    "md5_after": "0f99ce71a7ad30b92786218a112f34d5",
    "sha256_after": "f8e046cc04816ee5a3da1008323d242f932ddd6930b7edd645349d4f5c036555",
-   "inode_after": 1254185
+   "inode_after": 1277986
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -4236,22 +4261,22 @@
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:55:50.946Z",
+  "@timestamp": "2026-11-03T11:57:29.192Z",
   "location": "syscheck",
-  "id": "1793678150.4391678",
-  "timestamp": "2026-11-03T03:55:50.946+0000"
+  "id": "1793707049.1933154",
+  "timestamp": "2026-11-03T11:57:29.192+0000"
  },
  {
   "syscheck": {
    "size_before": "90",
    "uname_after": "analyste",
-   "mtime_after": "2026-11-03T03:55:50",
-   "inode_before": 1254138,
+   "mtime_after": "2026-11-03T11:57:29",
+   "inode_before": 1245485,
    "size_after": "0",
    "gid_after": "1001",
-   "md5_before": "b7a2ce3264bb59942deb95ad782ab18c",
-   "sha256_before": "f23887ce12dafa6f1f8a82cc591df6ede4514686b3f69429d5fd5118d7889945",
-   "mtime_before": "2026-11-03T03:49:05",
+   "md5_before": "649ab5875344164302d697501124f105",
+   "sha256_before": "5482ad32110cb35250c28aa815f2fb9107c3cbdfe85a127f647d6e43ccd4f16d",
+   "mtime_before": "2026-11-03T11:50:43",
    "mode": "realtime",
    "path": "/home/analyste/.ssh/authorized_keys",
    "sha1_after": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
@@ -4268,12 +4293,12 @@
    "perm_after": "rw-rw-rw-",
    "event": "modified",
    "md5_after": "d41d8cd98f00b204e9800998ecf8427e",
-   "sha1_before": "622f56c1da8cbc6b8495a3fa558aa7ed7582462e",
+   "sha1_before": "3e5e97d9571aa251e54ef7219856875926d44bbc",
    "sha256_after": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-   "inode_after": 1253988
+   "inode_after": 1246209
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -4307,34 +4332,34 @@
   "decoder": {
    "name": "syscheck_integrity_changed"
   },
-  "full_log": "File '/home/analyste/.ssh/authorized_keys' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '90' to '0'\nOld modification time was: '1793677745', now it is '1793678150'\nOld inode was: '1254138', now it is '1253988'\nOld md5sum was: 'b7a2ce3264bb59942deb95ad782ab18c'\nNew md5sum is : 'd41d8cd98f00b204e9800998ecf8427e'\nOld sha1sum was: '622f56c1da8cbc6b8495a3fa558aa7ed7582462e'\nNew sha1sum is : 'da39a3ee5e6b4b0d3255bfef95601890afd80709'\nOld sha256sum was: 'f23887ce12dafa6f1f8a82cc591df6ede4514686b3f69429d5fd5118d7889945'\nNew sha256sum is : 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'\n",
+  "full_log": "File '/home/analyste/.ssh/authorized_keys' modified\nMode: realtime\nChanged attributes: size,inode,mtime,md5,sha1,sha256\nSize changed from '90' to '0'\nOld modification time was: '1793706643', now it is '1793707049'\nOld inode was: '1245485', now it is '1246209'\nOld md5sum was: '649ab5875344164302d697501124f105'\nNew md5sum is : 'd41d8cd98f00b204e9800998ecf8427e'\nOld sha1sum was: '3e5e97d9571aa251e54ef7219856875926d44bbc'\nNew sha1sum is : 'da39a3ee5e6b4b0d3255bfef95601890afd80709'\nOld sha256sum was: '5482ad32110cb35250c28aa815f2fb9107c3cbdfe85a127f647d6e43ccd4f16d'\nNew sha256sum is : 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'\n",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:55:50.951Z",
+  "@timestamp": "2026-11-03T11:57:29.198Z",
   "location": "syscheck",
-  "id": "1793678150.4392386",
-  "timestamp": "2026-11-03T03:55:50.951+0000"
+  "id": "1793707049.1933862",
+  "timestamp": "2026-11-03T11:57:29.198+0000"
  },
  {
   "syscheck": {
-   "uname_after": "root",
-   "mtime_after": "2026-11-03T03:51:20",
-   "size_after": "26936",
-   "gid_after": "0",
+   "uname_after": "analyste",
+   "mtime_after": "2026-11-03T11:46:52",
+   "size_after": "37",
+   "gid_after": "1001",
    "mode": "realtime",
-   "path": "/usr/sbin/sshd-update",
-   "sha1_after": "1f95d12eeacee1264c4feef76bd6ea772625c897",
-   "gname_after": "root",
-   "uid_after": "0",
-   "perm_after": "rwxr-xr-x",
+   "path": "/home/analyste/rapports/semaine45.txt",
+   "sha1_after": "740092e87520f2a9e64b6421aa02020f7ae0fc86",
+   "gname_after": "analyste",
+   "uid_after": "1001",
+   "perm_after": "rw-rw-rw-",
    "event": "deleted",
-   "md5_after": "7aaf1ee17c032a6fc4fc7f2310dffecd",
-   "sha256_after": "8a63c98320173f79e263115e10cefc170155e47d1fd4b5a70e4429d2699cae28",
-   "inode_after": 1254131
+   "md5_after": "cc007171aa426f23853d388e83e92224",
+   "sha256_after": "5e1d0957a6ba2fdd4e8a2b6278a012993aefbfcac146ff72cf9985285ddd00f8",
+   "inode_after": 1277975
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -4395,22 +4420,110 @@
   "decoder": {
    "name": "syscheck_deleted"
   },
+  "full_log": "File '/home/analyste/rapports/semaine45.txt' deleted\nMode: realtime\n",
+  "input": {
+   "type": "log"
+  },
+  "@timestamp": "2026-11-03T11:57:29.198Z",
+  "location": "syscheck",
+  "id": "1793707049.1935071",
+  "timestamp": "2026-11-03T11:57:29.198+0000"
+ },
+ {
+  "syscheck": {
+   "uname_after": "root",
+   "mtime_after": "2026-11-03T11:52:58",
+   "size_after": "26936",
+   "gid_after": "0",
+   "mode": "realtime",
+   "path": "/usr/sbin/sshd-update",
+   "sha1_after": "1f95d12eeacee1264c4feef76bd6ea772625c897",
+   "gname_after": "root",
+   "uid_after": "0",
+   "perm_after": "rwxr-xr-x",
+   "event": "deleted",
+   "md5_after": "7aaf1ee17c032a6fc4fc7f2310dffecd",
+   "sha256_after": "8a63c98320173f79e263115e10cefc170155e47d1fd4b5a70e4429d2699cae28",
+   "inode_after": 1277989
+  },
+  "agent": {
+   "ip": "172.19.0.4",
+   "name": "endpoint-ubuntu",
+   "id": "001"
+  },
+  "manager": {
+   "name": "wazuh.manager"
+  },
+  "rule": {
+   "mail": false,
+   "level": 7,
+   "pci_dss": [
+    "11.5"
+   ],
+   "hipaa": [
+    "164.312.c.1",
+    "164.312.c.2"
+   ],
+   "tsc": [
+    "PI1.4",
+    "PI1.5",
+    "CC6.1",
+    "CC6.8",
+    "CC7.2",
+    "CC7.3"
+   ],
+   "description": "File deleted.",
+   "groups": [
+    "ossec",
+    "syscheck",
+    "syscheck_entry_deleted",
+    "syscheck_file"
+   ],
+   "nist_800_53": [
+    "SI.7"
+   ],
+   "gdpr": [
+    "II_5.1.f"
+   ],
+   "firedtimes": 8,
+   "mitre": {
+    "technique": [
+     "File Deletion",
+     "Data Destruction"
+    ],
+    "id": [
+     "T1070.004",
+     "T1485"
+    ],
+    "tactic": [
+     "Defense Evasion",
+     "Impact"
+    ]
+   },
+   "id": "553",
+   "gpg13": [
+    "4.11"
+   ]
+  },
+  "decoder": {
+   "name": "syscheck_deleted"
+  },
   "full_log": "File '/usr/sbin/sshd-update' deleted\nMode: realtime\n",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:55:50.952Z",
+  "@timestamp": "2026-11-03T11:57:29.200Z",
   "location": "syscheck",
-  "id": "1793678150.4393595",
-  "timestamp": "2026-11-03T03:55:50.952+0000"
+  "id": "1793707049.1935788",
+  "timestamp": "2026-11-03T11:57:29.200+0000"
  },
  {
   "predecoder": {
    "program_name": "userdel",
-   "timestamp": "2026-11-03T03:55:50.842703+00:00"
+   "timestamp": "2026-11-03T11:57:29.073012+00:00"
   },
   "agent": {
-   "ip": "172.19.0.5",
+   "ip": "172.19.0.4",
    "name": "endpoint-ubuntu",
    "id": "001"
   },
@@ -4473,13 +4586,13 @@
   "decoder": {
    "name": "open-userdel"
   },
-  "full_log": "2026-11-03T03:55:50.842703+00:00 endpoint-ubuntu userdel[2135]: delete user 'support_it'",
+  "full_log": "2026-11-03T11:57:29.073012+00:00 endpoint-ubuntu userdel[2089]: delete user 'support_it'",
   "input": {
    "type": "log"
   },
-  "@timestamp": "2026-11-03T03:55:51.071Z",
+  "@timestamp": "2026-11-03T11:57:29.980Z",
   "location": "/var/log/auth.log",
-  "id": "1793678151.4394285",
-  "timestamp": "2026-11-03T03:55:51.071+0000"
+  "id": "1793707049.1936478",
+  "timestamp": "2026-11-03T11:57:29.980+0000"
  }
 ]
