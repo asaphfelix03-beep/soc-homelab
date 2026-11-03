@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOC Homelab Wazuh</title>
+<meta name="description" content="Résultats d'un SOC homelab Wazuh : détection mappée MITRE ATT&CK, temps de détection, bruit et posture CIS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light;
+  --bg:#f6f6f4; --surface-1:#fcfcfb; --border:#e4e3df; --grid:#ecebe7;
+  --text-primary:#0b0b0b; --text-secondary:#52514e; --text-muted:#7a7974;
+  --series-1:#2a78d6; --series-2:#eb6834;
+  --good:#0ca30c; --critical:#d03b3b; --good-text:#006300; --critical-text:#b02525;
+  --accent:#2a78d6; --threshold:#7a7974;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --bg:#111110; --surface-1:#1a1a19; --border:#2e2e2b; --grid:#262624;
+    --text-primary:#f0efec; --text-secondary:#c3c2b7; --text-muted:#8f8e86;
+    --series-1:#3987e5; --series-2:#d95926;
+    --good-text:#3cc43c; --critical-text:#ef7b7b; --accent:#5598e7; --threshold:#8f8e86;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:#111110; --surface-1:#1a1a19; --border:#2e2e2b; --grid:#262624;
+  --text-primary:#f0efec; --text-secondary:#c3c2b7; --text-muted:#8f8e86;
+  --series-1:#3987e5; --series-2:#d95926;
+  --good-text:#3cc43c; --critical-text:#ef7b7b; --accent:#5598e7; --threshold:#8f8e86;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text-primary);font:15px/1.5 Inter,system-ui,sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding:32px 16px 64px}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:flex-end;margin-bottom:24px}
+h1{font-size:28px;line-height:1.2;margin:0 0 6px;letter-spacing:-.01em}
+.sub{color:var(--text-secondary);margin:0;max-width:720px}
+.meta{color:var(--text-muted);font-size:13px;font-family:"JetBrains Mono",monospace}
+.theme-btn{background:var(--surface-1);color:var(--text-secondary);border:1px solid var(--border);border-radius:8px;padding:6px 10px;font:inherit;font-size:13px;cursor:pointer}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px}
+.card{background:var(--surface-1);border:1px solid var(--border);border-radius:12px;padding:18px}
+.kpi .label{color:var(--text-secondary);font-size:13px;font-weight:500}
+.kpi .value{font-size:34px;font-weight:700;letter-spacing:-.02em;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.kpi .note{color:var(--text-muted);font-size:13px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,480px),1fr));gap:16px;margin-bottom:16px}
+h2{font-size:16px;margin:0 0 4px}
+.card p.desc{color:var(--text-secondary);font-size:13px;margin:0 0 14px}
+.chart{position:relative;height:320px}
+.chart.tall{height:380px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--text-secondary);font-weight:600;border-bottom:1px solid var(--border);padding:8px 6px;white-space:nowrap}
+td{border-bottom:1px solid var(--grid);padding:8px 6px;vertical-align:top}
+td.num{white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums;font-family:"JetBrains Mono",monospace}
+code,.mono{font-family:"JetBrains Mono",monospace;font-size:12px}
+.tag{display:inline-flex;align-items:center;gap:4px;font-weight:600;white-space:nowrap}
+.ok{color:var(--good-text)} .ko{color:var(--critical-text)}
+.scroll{overflow-x:auto}
+details summary{cursor:pointer;color:var(--accent);font-size:13px;margin-top:10px}
+footer{color:var(--text-muted);font-size:13px;margin-top:28px}
+footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>SOC Homelab : détection &amp; analyse des alertes</h1>
+      <p class="sub">Wazuh 4.14.9 surveille un poste Ubuntu 24.04. Des scénarios inoffensifs reproduisent 10 techniques MITRE ATT&amp;CK ; chaque alerte est rapprochée du scénario qui l'a produite.</p>
+    </div>
+    <div style="text-align:right">
+      <div class="meta" id="period"></div>
+      <button class="theme-btn" id="themeBtn" type="button">Thème clair / sombre</button>
+    </div>
+  </header>
+
+  <section class="kpis" id="kpis"></section>
+
+  <section class="grid2">
+    <div class="card">
+      <h2>Apport des règles personnalisées</h2>
+      <p class="desc">Niveau d'alerte maximal par scénario, sur deux campagnes identiques : règles natives seules (témoin), puis règles natives + personnalisées. Sous le seuil de triage (niveau 7), l'alerte n'est pas traitée.</p>
+      <div class="chart tall"><canvas id="lift" role="img" aria-label="Niveau maximal par scénario, règles natives et règles personnalisées"></canvas></div>
+    </div>
+    <div class="card">
+      <h2>Temps de détection</h2>
+      <p class="desc">Secondes entre le début du scénario et la première alerte attendue.</p>
+      <div class="chart tall"><canvas id="ttd" role="img" aria-label="Temps de détection par scénario en secondes"></canvas></div>
+    </div>
+  </section>
+
+  <section class="card" style="margin-bottom:16px">
+    <h2>Couverture MITRE ATT&amp;CK</h2>
+    <p class="desc">Règle attendue et règle déclenchée avec les règles personnalisées, comparées à la meilleure alerte obtenue par les règles natives seules (campagne témoin).</p>
+    <div class="scroll"><table id="mitre"></table></div>
+  </section>
+
+  <section class="grid2">
+    <div class="card">
+      <h2>Volume d'alertes par niveau</h2>
+      <p class="desc">Campagne avec règles personnalisées, hors audit CIS et hors nettoyage. Les niveaux 0 à 6 sont du contexte ; à partir de 7, l'alerte demande une action.</p>
+      <div class="chart"><canvas id="levels" role="img" aria-label="Nombre d'alertes par niveau"></canvas></div>
+    </div>
+    <div class="card">
+      <h2>Posture CIS Ubuntu 24.04 : avant / après</h2>
+      <p class="desc" id="scaDesc"></p>
+      <div class="chart"><canvas id="sca" role="img" aria-label="Contrôles CIS réussis par section, avant et après durcissement"></canvas></div>
+    </div>
+  </section>
+
+  <section class="grid2">
+    <div class="card">
+      <h2>Bruit pendant l'activité normale</h2>
+      <p class="desc">Actions légitimes d'un administrateur : aucune règle personnalisée ne doit se déclencher.</p>
+      <div class="scroll"><table id="baseline"></table></div>
+    </div>
+    <div class="card">
+      <h2>Règles les plus fréquentes</h2>
+      <p class="desc">Les 10 règles qui ont produit le plus d'alertes (hors audit CIS et hors nettoyage).</p>
+      <div class="scroll"><table id="top"></table></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Chronologie des alertes (niveau 5 et plus)</h2>
+    <p class="desc">Les règles personnalisées sont préfixées par [SOC].</p>
+    <details open><summary>Afficher / masquer</summary>
+      <div class="scroll" style="max-height:420px;overflow-y:auto"><table id="timeline"></table></div>
+    </details>
+  </section>
+
+  <footer>Projet : <a href="https://github.com/asaphfelix03-beep/soc-homelab">github.com/asaphfelix03-beep/soc-homelab</a> · Ojewumi Asaph Felix · <span id="gen"></span></footer>
+</div>
+
+<script src="data.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+(function(){
+  const D = window.SOC_DATA;
+  const root = document.documentElement;
+  const css = n => getComputedStyle(root).getPropertyValue(n).trim();
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const fmtS = v => v == null ? "—" : (v < 1 ? v.toFixed(2) + " s" : v < 120 ? v.toFixed(1) + " s" : (v/60).toFixed(1) + " min");
+
+  // ---------- thème
+  try { const t = localStorage.getItem("soc-theme"); if (t) root.dataset.theme = t; } catch(e){}
+  document.getElementById("themeBtn").onclick = () => {
+    const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = dark ? "light" : "dark";
+    try { localStorage.setItem("soc-theme", root.dataset.theme); } catch(e){}
+    draw();
+  };
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);
+
+  // ---------- en-tête & KPI
+  const p = D.period;
+  document.getElementById("period").textContent = "Campagne du " + p.start.slice(0,10) + ", " + p.start.slice(11,16) + "–" + p.end.slice(11,16) + " UTC";
+  document.getElementById("gen").textContent = "Généré le " + D.generated_at.slice(0,10);
+  const det = D.detection, noise = D.noise, sca = D.sca || {};
+  const kpis = [
+    ["Détection, règles personnalisées", det.detected + "/" + det.scenarios, det.rate + " % des techniques testées"],
+    ["Détection, règles natives seules", det.builtin_triaged + "/" + det.scenarios, "campagne témoin, alerte de niveau 7 ou plus"],
+    ["Temps de détection médian", fmtS(det.ttd_median_s), "max " + fmtS(det.ttd_max_s)],
+    ["Faux positifs des règles maison", String(noise.custom_false_positives), "pendant l'activité normale"],
+    D.sca_after && D.sca_after.score != null
+      ? ["Score CIS après durcissement", D.sca_after.score + " %", "contre " + sca.score + " % avant (+" + (D.sca_after.passed - sca.passed) + " contrôles réussis)"]
+      : ["Score CIS du poste", sca.score != null ? sca.score + " %" : "—", sca.failed + " contrôles échoués"],
+  ];
+  document.getElementById("kpis").innerHTML = kpis.map(k =>
+    `<div class="card kpi"><div class="label">${esc(k[0])}</div><div class="value">${esc(k[1])}</div><div class="note">${esc(k[2])}</div></div>`).join("");
+
+  // ---------- tableaux
+  const S = D.scenarios;
+  document.getElementById("mitre").innerHTML =
+    "<thead><tr><th>Scénario</th><th>Technique</th><th>Règle attendue</th><th>Résultat</th><th>TTD</th><th>Règles natives seules (témoin)</th></tr></thead><tbody>" +
+    S.map(s => `<tr><td class="mono">${esc(s.scenario_id)}</td>
+      <td><span class="mono">${esc(s.mitre_id)}</span> ${esc(s.technique)}<br><span style="color:var(--text-muted)">${esc(s.description)}</span></td>
+      <td class="mono">${esc(s.expected_rules)}</td>
+      <td>${s.detected ? `<span class="tag ok">✓ Détecté</span><br><span class="mono">${esc(s.fired_expected)}</span>` : `<span class="tag ko">✗ Non détecté</span>`}</td>
+      <td class="num">${fmtS(s.ttd_seconds)}</td>
+      <td>${s.top_builtin_rule ? `${s.builtin_triaged ? '<span class="tag ok">✓ niv. ' + s.max_level_builtin + '</span>' : '<span class="tag ko">✗ niv. ' + s.max_level_builtin + '</span>'}<br>${esc(s.top_builtin_rule)}` : "—"}</td></tr>`).join("") + "</tbody>";
+
+  document.getElementById("baseline").innerHTML =
+    "<thead><tr><th>Activité</th><th>Alertes</th><th>Niveau ≥ 7</th><th>Faux positifs maison</th></tr></thead><tbody>" +
+    D.baseline.map(b => `<tr><td><span class="mono">${esc(b.scenario_id)}</span> ${esc(b.description)}</td><td class="num">${b.alerts}</td>
+      <td class="num">${b.alerts_triage_level}</td><td class="num">${b.custom_false_positives === 0 ? '<span class="tag ok">✓ 0</span>' : '<span class="tag ko">✗ ' + b.custom_false_positives + '</span>'}</td></tr>`).join("") + "</tbody>";
+
+  document.getElementById("top").innerHTML =
+    "<thead><tr><th>Règle</th><th>Description</th><th>Alertes</th></tr></thead><tbody>" +
+    D.top_rules.map(r => `<tr><td class="mono">${r.rule_id}</td><td>${esc(r.description)}</td><td class="num">${r.count}</td></tr>`).join("") + "</tbody>";
+
+  document.getElementById("timeline").innerHTML =
+    "<thead><tr><th>Heure (UTC)</th><th>Niv.</th><th>Règle</th><th>Description</th><th>Scénario</th></tr></thead><tbody>" +
+    D.timeline.map(t => `<tr><td class="mono">${t.timestamp}</td><td class="num">${t.level}</td><td class="mono">${t.rule_id}</td>
+      <td${t.custom ? ' style="font-weight:600"' : ""}>${esc(t.description)}</td><td class="mono">${esc(t.scenario_id || "—")}</td></tr>`).join("") + "</tbody>";
+
+  const after = D.sca_after || {};
+  if (sca.policy) document.getElementById("scaDesc").textContent = after.score != null
+    ? `Contrôles réussis par section. Score ${sca.score} % → ${after.score} % après hardening/harden.sh (${sca.passed} → ${after.passed} réussis, ${sca.na} non applicables dans un conteneur).`
+    : `${sca.policy} : ${sca.passed} réussis, ${sca.failed} échoués, ${sca.na} non applicables (conteneur).`;
+
+  // ---------- graphiques
+  const charts = [];
+  function base(){
+    Chart.defaults.font.family = "Inter, system-ui, sans-serif";
+    Chart.defaults.font.size = 12;
+    Chart.defaults.color = css("--text-secondary");
+    Chart.defaults.borderColor = css("--grid");
+  }
+  const tooltip = () => ({backgroundColor: css("--surface-1"), titleColor: css("--text-primary"), bodyColor: css("--text-secondary"),
+    borderColor: css("--border"), borderWidth: 1, padding: 10, cornerRadius: 8, boxPadding: 4});
+  const bar = (color) => ({backgroundColor: color, borderColor: css("--surface-1"), borderWidth: {top:0,bottom:0,left:0,right:2}, borderRadius: 4, borderSkipped: "start", barPercentage: .8, categoryPercentage: .7, maxBarThickness: 18});
+
+  // Ligne verticale du seuil de triage
+  const thresholdPlugin = {id: "threshold", afterDatasetsDraw(c, _, o){
+    if (!o || o.value == null) return;
+    const x = c.scales.x.getPixelForValue(o.value), {top, bottom} = c.chartArea, g = c.ctx;
+    g.save(); g.strokeStyle = css("--threshold"); g.setLineDash([4,4]); g.lineWidth = 1;
+    g.beginPath(); g.moveTo(x, top); g.lineTo(x, bottom); g.stroke();
+    g.setLineDash([]); g.fillStyle = css("--text-muted"); g.font = "12px Inter"; g.textAlign = "center"; g.fillText("seuil de triage (7)", x, top - 6); g.restore();
+  }};
+
+  // Valeur écrite au bout de chaque barre (les barres de 0,1 s sont sinon invisibles)
+  const valueLabels = {id: "valueLabels", afterDatasetsDraw(c){
+    const g = c.ctx; g.save(); g.fillStyle = css("--text-secondary"); g.font = "12px 'JetBrains Mono', monospace"; g.textBaseline = "middle";
+    c.getDatasetMeta(0).data.forEach((bar, i) => { const v = c.data.datasets[0].data[i]; if (v != null) g.fillText(fmtS(v), bar.x + 6, bar.y); });
+    g.restore();
+  }};
+
+  function draw(){
+    charts.splice(0).forEach(c => c.destroy());
+    base();
+    const labels = S.map(s => s.scenario_id + " · " + s.mitre_id);
+    charts.push(new Chart(document.getElementById("lift"), {
+      type: "bar", plugins: [thresholdPlugin],
+      data: {labels, datasets: [
+        {label: "Règles natives seules (témoin)", data: S.map(s => s.max_level_builtin), ...bar(css("--series-1"))},
+        {label: "Natives + personnalisées", data: S.map(s => s.max_level_in_run), ...bar(css("--series-2"))},
+      ]},
+      options: {indexAxis: "y", maintainAspectRatio: false, layout: {padding: {top: 18}}, interaction: {mode: "index", axis: "y", intersect: false},
+        scales: {x: {min: 0, max: 15, ticks: {stepSize: 3}, title: {display: true, text: "niveau d'alerte maximal"}}, y: {grid: {display: false}}},
+        plugins: {threshold: {value: 7}, legend: {position: "bottom", align: "start", labels: {usePointStyle: true, pointStyle: "rectRounded"}},
+          tooltip: {...tooltip(), callbacks: {afterTitle: i => S[i[0].dataIndex].technique}}}}
+    }));
+    charts.push(new Chart(document.getElementById("ttd"), {
+      type: "bar", plugins: [valueLabels],
+      data: {labels, datasets: [{label: "Temps de détection (s)", data: S.map(s => s.ttd_seconds), ...bar(css("--series-1"))}]},
+      options: {indexAxis: "y", maintainAspectRatio: false,
+        layout: {padding: {right: 56}}, scales: {x: {beginAtZero: true, title: {display: true, text: "secondes"}}, y: {grid: {display: false}}},
+        plugins: {legend: {display: false}, tooltip: {...tooltip(), callbacks: {label: i => " " + fmtS(i.raw) + " · règle " + (S[i.dataIndex].fired_expected || "—")}}}}
+    }));
+    const lv = Object.keys(D.level_distribution).map(Number).sort((a,b) => a-b);
+    charts.push(new Chart(document.getElementById("levels"), {
+      type: "bar",
+      data: {labels: lv.map(String), datasets: [{label: "Alertes", data: lv.map(l => D.level_distribution[l]),
+        ...bar(css("--series-1")), borderWidth: {left: 2, right: 2, top: 0, bottom: 0}, maxBarThickness: 28}]},
+      options: {maintainAspectRatio: false, scales: {x: {grid: {display: false}, title: {display: true, text: "niveau"}}, y: {beginAtZero: true, ticks: {precision: 0}}},
+        plugins: {legend: {display: false}, tooltip: {...tooltip(), callbacks: {title: i => "Niveau " + i[0].label, label: i => " " + i.raw + " alertes"}}}}
+    }));
+    if (sca.sections){
+      const sec = sca.sections;
+      const afterBy = Object.fromEntries((after.sections || []).map(s => [s.section, s]));
+      const total = s => s.passed + s.failed;
+      const datasets = [{label: "Avant durcissement", data: sec.map(s => s.passed), ...bar(css("--series-1"))}];
+      if (after.sections) datasets.push({label: "Après durcissement", data: sec.map(s => (afterBy[s.section] || {}).passed ?? null), ...bar(css("--series-2"))});
+      charts.push(new Chart(document.getElementById("sca"), {
+        type: "bar",
+        data: {labels: sec.map(s => s.section), datasets},
+        options: {indexAxis: "y", maintainAspectRatio: false, interaction: {mode: "index", axis: "y", intersect: false},
+          scales: {x: {beginAtZero: true, title: {display: true, text: "contrôles réussis"}}, y: {grid: {display: false}}},
+          plugins: {legend: {position: "bottom", align: "start", labels: {usePointStyle: true, pointStyle: "rectRounded"}},
+            tooltip: {...tooltip(), callbacks: {label: i => ` ${i.dataset.label} : ${i.raw} / ${total(sec[i.dataIndex])} applicables`}}}}
+      }));
+    }
+  }
+  draw();
+})();
+</script>
+</body>
+</html>

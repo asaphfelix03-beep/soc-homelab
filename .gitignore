@@ -1,0 +1,10 @@
+# Certificats et clés privées générés localement : ne jamais les publier
+lab/config/wazuh_indexer_ssl_certs/
+*.key
+*-key.pem
+# Python
+__pycache__/
+.venv/
+*.pyc
+# Fichiers locaux
+.env

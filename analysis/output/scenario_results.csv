@@ -1,0 +1,11 @@
+scenario_id,mitre_id,technique,description,expected_rules,fired_expected,detected,fully_detected,ttd_seconds,alerts_in_window,max_level_custom,max_level_in_run,mitre_match,max_level_builtin,builtin_triaged,builtin_ttd_seconds,builtin_alerts,top_builtin_rule,top_builtin_mitre,builtin_mitre_match
+S01,T1110.001,Password Guessing,6 mots de passe sudo erronés puis un succès (compte analyste),100113;100114,100113;100114,True,True,16.9,15,13,13,True,5,False,,15,5503 · PAM: User login failed.,T1110.001,True
+S02,T1136.001,Create Local Account,Création du compte support_it,5902,5902,True,True,0.5,8,0,8,True,8,True,0.1,8,5902 · New user added to the system.,T1136,True
+S03,T1098,Account Manipulation,support_it ajouté au groupe sudo juste après sa création,100112,100112,True,True,0.4,2,14,14,True,7,True,0.1,1,550 · Integrity checksum changed.,T1565.001,False
+S04,T1548.003,Sudo and Sudo Caching,Règle NOPASSWD ajoutée dans /etc/sudoers.d,100100,100100,True,True,0.1,1,12,12,True,5,False,,1,554 · File added to the system.,,False
+S05,T1098.004,SSH Authorized Keys,Clé publique ajoutée dans ~/.ssh/authorized_keys,100101,100101,True,True,0.1,1,10,10,True,7,True,0.1,1,550 · Integrity checksum changed.,T1565.001,False
+S06,T1053.003,Cron,Tâche planifiée créée dans /etc/cron.d,100102,100102,True,True,0.1,1,10,10,True,5,False,,1,554 · File added to the system.,,False
+S07,T1543.002,Systemd Service,Service systemd créé dans /etc/systemd/system,100103,100103,True,True,0.1,1,10,10,True,5,False,,1,554 · File added to the system.,,False
+S08,T1036.005,Match Legitimate Name or Location,Binaire copié dans /usr/sbin sous un nom crédible,100104,100104,True,True,0.1,1,12,12,True,5,False,,1,554 · File added to the system.,,False
+S09,T1021.004,SSH,PermitRootLogin activé dans sshd_config,100106,100106,True,True,0.2,1,8,8,True,7,True,0.1,1,550 · Integrity checksum changed.,T1565.001,False
+S10,T1571,Non-Standard Port,Deuxième serveur SSH lancé sur le port 2222,100116,100116,True,True,106.4,1,10,10,True,7,True,32.5,1,533 · Listened ports status (netstat) changed (new port opened or closed).,,False

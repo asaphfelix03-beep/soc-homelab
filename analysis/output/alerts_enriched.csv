@@ -1,0 +1,163 @@
+timestamp,rule_id,level,description,groups,mitre_ids,mitre_tactics,file,location,full_log,custom,posture,scenario_id,phase
+2026-11-03 03:43:14.978000+00:00,5503,5,PAM: User login failed.,"pam,syslog,authentication_failed",T1110.001,Credential Access,,/var/log/auth.log,2026-11-03T03:43:13.859224+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste,False,False,B03,baseline
+2026-11-03 03:43:15.749000+00:00,554,5,File added to the system.,"ossec,syscheck,syscheck_entry_added,syscheck_file",,,/home/analyste/.sudo_as_admin_successful,syscheck,"File '/home/analyste/.sudo_as_admin_successful' added
+Mode: realtime
+",False,False,B03,baseline
+2026-11-03 03:43:16.981000+00:00,5401,5,Failed attempt to run sudo.,"syslog,sudo",T1548.003,"Privilege Escalation,Defense Evasion",,/var/log/auth.log,2026-11-03T03:43:15.693575+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true,False,False,B03,baseline
+2026-11-03 03:43:16.983000+00:00,5402,3,Successful sudo to ROOT executed.,"syslog,sudo",T1548.003,"Privilege Escalation,Defense Evasion",,/var/log/auth.log,2026-11-03T03:43:15.742379+00:00 endpoint-ubuntu sudo: analyste : PWD=/ ; USER=root ; COMMAND=/usr/bin/true,False,False,B03,baseline
+2026-11-03 03:43:16.985000+00:00,5501,3,PAM: Login session opened.,"pam,syslog,authentication_success",T1078,"Defense Evasion,Persistence,Privilege Escalation,Initial Access",,/var/log/auth.log,2026-11-03T03:43:15.742761+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1001),False,False,B03,baseline
+2026-11-03 03:43:16.987000+00:00,5502,3,PAM: Login session closed.,"pam,syslog",,,,/var/log/auth.log,2026-11-03T03:43:15.745370+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session closed for user root,False,False,B03,baseline
+2026-11-03 03:44:00.984000+00:00,5402,3,Successful sudo to ROOT executed.,"syslog,sudo",T1548.003,"Privilege Escalation,Defense Evasion",,/var/log/auth.log,2026-11-03T03:44:00.930546+00:00 endpoint-ubuntu sudo: analyste : PWD=/ ; USER=root ; COMMAND=/usr/bin/ls /root,False,False,B01,baseline
+2026-11-03 03:44:01.024000+00:00,5502,3,PAM: Login session closed.,"pam,syslog",,,,/var/log/auth.log,2026-11-03T03:44:00.934717+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session closed for user root,False,False,B01,baseline
+2026-11-03 03:44:01.024000+00:00,5502,3,PAM: Login session closed.,"pam,syslog",,,,/var/log/auth.log,2026-11-03T03:44:00.993824+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session closed for user root,False,False,B01,baseline
+2026-11-03 03:44:01.024000+00:00,5501,3,PAM: Login session opened.,"pam,syslog,authentication_success",T1078,"Defense Evasion,Persistence,Privilege Escalation,Initial Access",,/var/log/auth.log,2026-11-03T03:44:00.930917+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1001),False,False,B01,baseline
+2026-11-03 03:44:01.024000+00:00,5501,3,PAM: Login session opened.,"pam,syslog,authentication_success",T1078,"Defense Evasion,Persistence,Privilege Escalation,Initial Access",,/var/log/auth.log,2026-11-03T03:44:00.990455+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1001),False,False,B01,baseline
+2026-11-03 03:44:01.024000+00:00,5402,3,Successful sudo to ROOT executed.,"syslog,sudo",T1548.003,"Privilege Escalation,Defense Evasion",,/var/log/auth.log,2026-11-03T03:44:00.990052+00:00 endpoint-ubuntu sudo: analyste : PWD=/ ; USER=root ; COMMAND=/usr/bin/cat /etc/hostname,False,False,B01,baseline
+2026-11-03 03:44:46.136000+00:00,554,5,File added to the system.,"ossec,syscheck,syscheck_entry_added,syscheck_file",,,/home/analyste/rapports/semaine45.txt,syscheck,"File '/home/analyste/rapports/semaine45.txt' added
+Mode: realtime
+",False,False,B02,baseline
+2026-11-03 03:46:17+00:00,5503,5,PAM: User login failed.,"pam,syslog,authentication_failed",T1110.001,Credential Access,,/var/log/auth.log,2026-11-03T03:46:16.306395+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste,False,False,S01,test
+2026-11-03 03:46:19.003000+00:00,5401,5,Failed attempt to run sudo.,"syslog,sudo",T1548.003,"Privilege Escalation,Defense Evasion",,/var/log/auth.log,2026-11-03T03:46:17.931620+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true,False,False,S01,test
+2026-11-03 03:46:21.001000+00:00,5503,5,PAM: User login failed.,"pam,syslog,authentication_failed",T1110.001,Credential Access,,/var/log/auth.log,2026-11-03T03:46:19.996089+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste,False,False,S01,test
+2026-11-03 03:46:23.003000+00:00,5401,5,Failed attempt to run sudo.,"syslog,sudo",T1548.003,"Privilege Escalation,Defense Evasion",,/var/log/auth.log,2026-11-03T03:46:21.701342+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true,False,False,S01,test
+2026-11-03 03:46:25.001000+00:00,5503,5,PAM: User login failed.,"pam,syslog,authentication_failed",T1110.001,Credential Access,,/var/log/auth.log,2026-11-03T03:46:23.760522+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste,False,False,S01,test
+2026-11-03 03:46:27.004000+00:00,5401,5,Failed attempt to run sudo.,"syslog,sudo",T1548.003,"Privilege Escalation,Defense Evasion",,/var/log/auth.log,2026-11-03T03:46:26.011602+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true,False,False,S01,test
+2026-11-03 03:46:29.002000+00:00,5503,5,PAM: User login failed.,"pam,syslog,authentication_failed",T1110.001,Credential Access,,/var/log/auth.log,2026-11-03T03:46:28.069428+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste,False,False,S01,test
+2026-11-03 03:46:31.004000+00:00,5401,5,Failed attempt to run sudo.,"syslog,sudo",T1548.003,"Privilege Escalation,Defense Evasion",,/var/log/auth.log,2026-11-03T03:46:29.675079+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true,False,False,S01,test
+2026-11-03 03:46:33.003000+00:00,100113,10,[SOC] 5 échecs d'authentification ou plus en 2 minutes,"local,soc_homelab,accounts,credential_access",T1110.001,Credential Access,,/var/log/auth.log,2026-11-03T03:46:31.742793+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste,True,False,S01,test
+2026-11-03 03:46:35.044000+00:00,5401,5,Failed attempt to run sudo.,"syslog,sudo",T1548.003,"Privilege Escalation,Defense Evasion",,/var/log/auth.log,2026-11-03T03:46:33.428015+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true,False,False,S01,test
+2026-11-03 03:46:37.003000+00:00,5503,5,PAM: User login failed.,"pam,syslog,authentication_failed",T1110.001,Credential Access,,/var/log/auth.log,2026-11-03T03:46:35.486285+00:00 endpoint-ubuntu sudo: pam_unix(sudo:auth): authentication failure; logname= uid=1001 euid=0 tty= ruser=analyste rhost=  user=analyste,False,False,S01,test
+2026-11-03 03:46:39.006000+00:00,5401,5,Failed attempt to run sudo.,"syslog,sudo",T1548.003,"Privilege Escalation,Defense Evasion",,/var/log/auth.log,2026-11-03T03:46:37.387384+00:00 endpoint-ubuntu sudo: analyste : 1 incorrect password attempt ; PWD=/ ; USER=root ; COMMAND=/usr/bin/true,False,False,S01,test
+2026-11-03 03:46:41.004000+00:00,100114,13,[SOC][CORRELATION] Authentification réussie après une série d'échecs,"local,soc_homelab,accounts,credential_access,correlation","T1110.001,T1078","Credential Access,Defense Evasion,Persistence,Privilege Escalation,Initial Access",,/var/log/auth.log,2026-11-03T03:46:39.462757+00:00 endpoint-ubuntu sudo: analyste : PWD=/ ; USER=root ; COMMAND=/usr/bin/true,True,False,S01,test
+2026-11-03 03:46:41.004000+00:00,100114,13,[SOC][CORRELATION] Authentification réussie après une série d'échecs,"local,soc_homelab,accounts,credential_access,correlation","T1110.001,T1078","Credential Access,Defense Evasion,Persistence,Privilege Escalation,Initial Access",,/var/log/auth.log,2026-11-03T03:46:39.463365+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session opened for user root(uid=0) by (uid=1001),True,False,S01,test
+2026-11-03 03:46:41.007000+00:00,5502,3,PAM: Login session closed.,"pam,syslog",,,,/var/log/auth.log,2026-11-03T03:46:39.466367+00:00 endpoint-ubuntu sudo: pam_unix(sudo:session): session closed for user root,False,False,S01,test
+2026-11-03 03:47:24.632000+00:00,550,7,Integrity checksum changed.,"ossec,syscheck,syscheck_entry_modified,syscheck_file",T1565.001,Impact,/etc/group,syscheck,"File '/etc/group' modified
+Mode: realtime
+Changed attributes: size,inode,mtime,md5,sha1,sha256
+Size changed from '636' to '655'
+Old modification time was: '1793677330', now it is '1793677644'
+Old inode was: '1254178', now it is '1253969'
+Old md5sum was: 'c0a5e3a0e6ba4d53b4b78868fc921804'
+New md5sum ",False,False,S02,test
+2026-11-03 03:47:24.676000+00:00,550,7,Integrity checksum changed.,"ossec,syscheck,syscheck_entry_modified,syscheck_file",T1565.001,Impact,/etc/passwd,syscheck,"File '/etc/passwd' modified
+Mode: realtime
+Changed attributes: size,inode,mtime,md5,sha1,sha256
+Size changed from '1145' to '1196'
+Old modification time was: '1793677374', now it is '1793677644'
+Old inode was: '1254195', now it is '1253984'
+Old md5sum was: '33604841db68247f2a06dc632b4a3ba0'
+New md5s",False,False,S02,test
+2026-11-03 03:47:24.676000+00:00,550,7,Integrity checksum changed.,"ossec,syscheck,syscheck_entry_modified,syscheck_file",T1565.001,Impact,/etc/shadow,syscheck,"File '/etc/shadow' modified
+Mode: realtime
+Changed attributes: size,inode,mtime,md5,sha1,sha256
+Size changed from '695' to '727'
+Old modification time was: '1793677330', now it is '1793677644'
+Old inode was: '1253969', now it is '1253988'
+Old md5sum was: '68c25afa4dd4251c1bcbb37218630d29'
+New md5sum",False,False,S02,test
+2026-11-03 03:47:24.708000+00:00,554,5,File added to the system.,"ossec,syscheck,syscheck_entry_added,syscheck_file",,,/home/support_it/.bashrc,syscheck,"File '/home/support_it/.bashrc' added
+Mode: realtime
+",False,False,S02,test
+2026-11-03 03:47:24.708000+00:00,554,5,File added to the system.,"ossec,syscheck,syscheck_entry_added,syscheck_file",,,/home/support_it/.bash_logout,syscheck,"File '/home/support_it/.bash_logout' added
+Mode: realtime
+",False,False,S02,test
+2026-11-03 03:47:24.710000+00:00,554,5,File added to the system.,"ossec,syscheck,syscheck_entry_added,syscheck_file",,,/home/support_it/.profile,syscheck,"File '/home/support_it/.profile' added
+Mode: realtime
+",False,False,S02,test
+2026-11-03 03:47:25.010000+00:00,5902,8,New user added to the system.,"syslog,adduser",T1136,Persistence,,/var/log/auth.log,"2026-11-03T03:47:24.600406+00:00 endpoint-ubuntu useradd[2029]: new user: name=support_it, UID=1002, GID=1002, home=/home/support_it, shell=/bin/bash, from=none",False,False,S02,test
+2026-11-03 03:47:25.010000+00:00,5901,8,New group added to the system.,"syslog,adduser",,,,/var/log/auth.log,"2026-11-03T03:47:24.600208+00:00 endpoint-ubuntu useradd[2029]: new group: name=support_it, GID=1002",False,False,S02,test
+2026-11-03 03:47:34.759000+00:00,550,7,Integrity checksum changed.,"ossec,syscheck,syscheck_entry_modified,syscheck_file",T1565.001,Impact,/etc/group,syscheck,"File '/etc/group' modified
+Mode: realtime
+Changed attributes: size,inode,mtime,md5,sha1,sha256
+Size changed from '655' to '666'
+Old modification time was: '1793677644', now it is '1793677654'
+Old inode was: '1253969', now it is '1254079'
+Old md5sum was: '34c027f9dfb93f965029cd0a785425dd'
+New md5sum ",False,False,S03,test
+2026-11-03 03:47:35.015000+00:00,100112,14,[SOC][CORRELATION] Nouveau compte créé puis promu administrateur en moins de 10 min,"local,soc_homelab,accounts,persistence,privilege_escalation,correlation","T1136.001,T1098",Persistence,,/var/log/auth.log,2026-11-03T03:47:34.744185+00:00 endpoint-ubuntu usermod[2046]: add 'support_it' to group 'sudo',True,False,S03,test
+2026-11-03 03:48:19.890000+00:00,100100,12,[SOC] Fichier sudoers créé ou modifié : /etc/sudoers.d/90-support,"local,soc_homelab,fim,privilege_escalation",T1548.003,"Privilege Escalation,Defense Evasion",/etc/sudoers.d/90-support,syscheck,"File '/etc/sudoers.d/90-support' added
+Mode: realtime
+",True,False,S04,test
+2026-11-03 03:49:05.032000+00:00,100101,10,[SOC] Clé SSH autorisée ajoutée ou modifiée : /home/analyste/.ssh/authorized_keys,"local,soc_homelab,fim,persistence",T1098.004,Persistence,/home/analyste/.ssh/authorized_keys,syscheck,"File '/home/analyste/.ssh/authorized_keys' added
+Mode: realtime
+",True,False,S05,test
+2026-11-03 03:49:50.152000+00:00,100102,10,[SOC] Tâche cron créée ou modifiée : /etc/cron.d/maintenance,"local,soc_homelab,fim,persistence",T1053.003,"Execution,Persistence,Privilege Escalation",/etc/cron.d/maintenance,syscheck,"File '/etc/cron.d/maintenance' added
+Mode: realtime
+",True,False,S06,test
+2026-11-03 03:50:35.287000+00:00,100103,10,[SOC] Service systemd créé ou modifié : /etc/systemd/system/update-helper.service,"local,soc_homelab,fim,persistence",T1543.002,"Persistence,Privilege Escalation",/etc/systemd/system/update-helper.service,syscheck,"File '/etc/systemd/system/update-helper.service' added
+Mode: realtime
+",True,False,S07,test
+2026-11-03 03:51:20.437000+00:00,100104,12,[SOC] Nouveau binaire dans un répertoire système : /usr/sbin/sshd-update,"local,soc_homelab,fim,defense_evasion",T1036.005,Defense Evasion,/usr/sbin/sshd-update,syscheck,"File '/usr/sbin/sshd-update' added
+Mode: realtime
+",True,False,S08,test
+2026-11-03 03:52:05.628000+00:00,100106,8,[SOC] Configuration du serveur SSH modifiée,"local,soc_homelab,fim,config_changed",T1021.004,Lateral Movement,/etc/ssh/sshd_config,syscheck,"File '/etc/ssh/sshd_config' modified
+Mode: realtime
+Changed attributes: size,inode,mtime,md5,sha1,sha256
+Size changed from '3517' to '3502'
+Old modification time was: '1793677322', now it is '1793677925'
+Old inode was: '1254352', now it is '1254167'
+Old md5sum was: '0a12ef5cc3580c2e0533fba58dba866d'",True,False,S09,test
+2026-11-03 03:54:37.067000+00:00,100116,10,[SOC] Nouveau port en écoute détecté sur le poste,"local,soc_homelab,network,command_and_control",T1571,Command and Control,,netstat listening ports,"ossec: output: 'netstat listening ports':
+Netid State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess
+tcp   LISTEN 0      128          0.0.0.0:22         0.0.0.0:*          
+tcp   LISTEN 0      128          0.0.0.0:2222       0.0.0.0:*          ",True,False,S10,test
+2026-11-03 03:55:50.862000+00:00,550,7,Integrity checksum changed.,"ossec,syscheck,syscheck_entry_modified,syscheck_file",T1565.001,Impact,/etc/passwd,syscheck,"File '/etc/passwd' modified
+Mode: realtime
+Changed attributes: size,inode,mtime,md5,sha1,sha256
+Size changed from '1196' to '1145'
+Old modification time was: '1793677644', now it is '1793678150'
+Old inode was: '1253984', now it is '1253976'
+Old md5sum was: '0be2627aefd02f977d8374a48815ab78'
+New md5s",False,False,C01,cleanup
+2026-11-03 03:55:50.874000+00:00,553,7,File deleted.,"ossec,syscheck,syscheck_entry_deleted,syscheck_file","T1070.004,T1485","Defense Evasion,Impact",/home/support_it/.bash_logout,syscheck,"File '/home/support_it/.bash_logout' deleted
+Mode: realtime
+",False,False,C01,cleanup
+2026-11-03 03:55:50.874000+00:00,553,7,File deleted.,"ossec,syscheck,syscheck_entry_deleted,syscheck_file","T1070.004,T1485","Defense Evasion,Impact",/etc/cron.d/maintenance,syscheck,"File '/etc/cron.d/maintenance' deleted
+Mode: realtime
+",False,False,C01,cleanup
+2026-11-03 03:55:50.874000+00:00,553,7,File deleted.,"ossec,syscheck,syscheck_entry_deleted,syscheck_file","T1070.004,T1485","Defense Evasion,Impact",/home/support_it/.profile,syscheck,"File '/home/support_it/.profile' deleted
+Mode: realtime
+",False,False,C01,cleanup
+2026-11-03 03:55:50.874000+00:00,553,7,File deleted.,"ossec,syscheck,syscheck_entry_deleted,syscheck_file","T1070.004,T1485","Defense Evasion,Impact",/home/support_it/.bashrc,syscheck,"File '/home/support_it/.bashrc' deleted
+Mode: realtime
+",False,False,C01,cleanup
+2026-11-03 03:55:50.920000+00:00,550,7,Integrity checksum changed.,"ossec,syscheck,syscheck_entry_modified,syscheck_file",T1565.001,Impact,/etc/shadow,syscheck,"File '/etc/shadow' modified
+Mode: realtime
+Changed attributes: size,inode,mtime,md5,sha1,sha256
+Size changed from '727' to '695'
+Old modification time was: '1793677644', now it is '1793678150'
+Old inode was: '1253988', now it is '1253979'
+Old md5sum was: '4741078350cae53ec1b43c19e4420b4b'
+New md5sum",False,False,C01,cleanup
+2026-11-03 03:55:50.920000+00:00,550,7,Integrity checksum changed.,"ossec,syscheck,syscheck_entry_modified,syscheck_file",T1565.001,Impact,/etc/group,syscheck,"File '/etc/group' modified
+Mode: realtime
+Changed attributes: size,inode,mtime,md5,sha1,sha256
+Size changed from '666' to '636'
+Old modification time was: '1793677654', now it is '1793678150'
+Old inode was: '1254079', now it is '1253980'
+Old md5sum was: 'e809c0d758472e5c061f887f3f11de45'
+New md5sum ",False,False,C01,cleanup
+2026-11-03 03:55:50.939000+00:00,100106,8,[SOC] Configuration du serveur SSH modifiée,"local,soc_homelab,fim,config_changed",T1021.004,Lateral Movement,/etc/ssh/sshd_config,syscheck,"File '/etc/ssh/sshd_config' modified
+Mode: realtime
+Changed attributes: size,inode,mtime,md5,sha1,sha256
+Size changed from '3502' to '3517'
+Old modification time was: '1793677925', now it is '1793678150'
+Old inode was: '1254167', now it is '1254104'
+Old md5sum was: 'eb86be66ac8c93f39a7150d484752374'",True,False,C01,cleanup
+2026-11-03 03:55:50.946000+00:00,553,7,File deleted.,"ossec,syscheck,syscheck_entry_deleted,syscheck_file","T1070.004,T1485","Defense Evasion,Impact",/etc/sudoers.d/90-support,syscheck,"File '/etc/sudoers.d/90-support' deleted
+Mode: realtime
+",False,False,C01,cleanup
+2026-11-03 03:55:50.946000+00:00,553,7,File deleted.,"ossec,syscheck,syscheck_entry_deleted,syscheck_file","T1070.004,T1485","Defense Evasion,Impact",/etc/systemd/system/update-helper.service,syscheck,"File '/etc/systemd/system/update-helper.service' deleted
+Mode: realtime
+",False,False,C01,cleanup
+2026-11-03 03:55:50.951000+00:00,100101,10,[SOC] Clé SSH autorisée ajoutée ou modifiée : /home/analyste/.ssh/authorized_keys,"local,soc_homelab,fim,persistence",T1098.004,Persistence,/home/analyste/.ssh/authorized_keys,syscheck,"File '/home/analyste/.ssh/authorized_keys' modified
+Mode: realtime
+Changed attributes: size,inode,mtime,md5,sha1,sha256
+Size changed from '90' to '0'
+Old modification time was: '1793677745', now it is '1793678150'
+Old inode was: '1254138', now it is '1253988'
+Old md5sum was: 'b7a2ce3264bb59942deb95a",True,False,C01,cleanup
+2026-11-03 03:55:50.952000+00:00,553,7,File deleted.,"ossec,syscheck,syscheck_entry_deleted,syscheck_file","T1070.004,T1485","Defense Evasion,Impact",/usr/sbin/sshd-update,syscheck,"File '/usr/sbin/sshd-update' deleted
+Mode: realtime
+",False,False,C01,cleanup
+2026-11-03 03:55:51.071000+00:00,5903,3,Group (or user) deleted from the system.,"syslog,adduser",T1531,Impact,,/var/log/auth.log,2026-11-03T03:55:50.842703+00:00 endpoint-ubuntu userdel[2135]: delete user 'support_it',False,False,C01,cleanup

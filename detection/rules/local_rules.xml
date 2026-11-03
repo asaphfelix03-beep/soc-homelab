@@ -1,0 +1,124 @@
+<!--
+  SOC Homelab - Règles de détection personnalisées
+  Auteur : Ojewumi Asaph Felix
+  Plage d'identifiants : 100100 - 100199
+  Chaque règle est reliée à une technique MITRE ATT&CK.
+-->
+
+<!-- ===================== Persistance & élévation (FIM) ===================== -->
+<group name="local,soc_homelab,fim,">
+
+  <!-- T1548.003 : modification des droits sudo -->
+  <rule id="100100" level="12">
+    <if_sid>550,554</if_sid>
+    <field name="file">^/etc/sudoers</field>
+    <description>[SOC] Fichier sudoers créé ou modifié : $(file)</description>
+    <mitre><id>T1548.003</id></mitre>
+    <group>privilege_escalation,</group>
+  </rule>
+
+  <!-- T1098.004 : ajout d'une clé SSH autorisée -->
+  <rule id="100101" level="10">
+    <if_sid>550,554</if_sid>
+    <field name="file">/.ssh/authorized_keys$</field>
+    <description>[SOC] Clé SSH autorisée ajoutée ou modifiée : $(file)</description>
+    <mitre><id>T1098.004</id></mitre>
+    <group>persistence,</group>
+  </rule>
+
+  <!-- T1053.003 : tâche planifiée cron -->
+  <rule id="100102" level="10">
+    <if_sid>550,554</if_sid>
+    <field name="file">^/etc/cron.d/|^/etc/crontab$|^/var/spool/cron/crontabs/</field>
+    <description>[SOC] Tâche cron créée ou modifiée : $(file)</description>
+    <mitre><id>T1053.003</id></mitre>
+    <group>persistence,</group>
+  </rule>
+
+  <!-- T1543.002 : nouveau service systemd -->
+  <rule id="100103" level="10">
+    <if_sid>550,554</if_sid>
+    <field name="file">^/etc/systemd/system/\S+.service$</field>
+    <description>[SOC] Service systemd créé ou modifié : $(file)</description>
+    <mitre><id>T1543.002</id></mitre>
+    <group>persistence,</group>
+  </rule>
+
+  <!-- T1036.005 : nouveau binaire déposé dans un répertoire système -->
+  <rule id="100104" level="12">
+    <if_sid>554</if_sid>
+    <field name="file">^/usr/bin/|^/usr/sbin/</field>
+    <description>[SOC] Nouveau binaire dans un répertoire système : $(file)</description>
+    <mitre><id>T1036.005</id></mitre>
+    <group>defense_evasion,</group>
+  </rule>
+
+  <!-- T1021.004 : configuration du serveur SSH modifiée -->
+  <rule id="100106" level="8">
+    <if_sid>550</if_sid>
+    <field name="file">^/etc/ssh/sshd_config$</field>
+    <description>[SOC] Configuration du serveur SSH modifiée</description>
+    <mitre><id>T1021.004</id></mitre>
+    <group>config_changed,</group>
+  </rule>
+
+</group>
+
+<!-- ===================== Comptes & authentification ===================== -->
+<group name="local,soc_homelab,accounts,">
+
+  <!-- T1098 : utilisateur ajouté au groupe sudo (usermod / gpasswd) -->
+  <rule id="100110" level="12">
+    <program_name>^usermod$|^gpasswd$</program_name>
+    <match>to group 'sudo'|to group sudo|to group 'admin'</match>
+    <description>[SOC] Utilisateur ajouté au groupe administrateur (sudo)</description>
+    <mitre><id>T1098</id></mitre>
+    <group>privilege_escalation,</group>
+  </rule>
+
+  <!-- Corrélation T1136.001 + T1098 : compte créé puis promu admin en moins de 10 min -->
+  <rule id="100112" level="14" timeframe="600">
+    <if_sid>100110</if_sid>
+    <if_matched_sid>5902</if_matched_sid>
+    <same_location />
+    <description>[SOC][CORRELATION] Nouveau compte créé puis promu administrateur en moins de 10 min</description>
+    <mitre><id>T1136.001</id><id>T1098</id></mitre>
+    <group>persistence,privilege_escalation,correlation,</group>
+  </rule>
+
+  <!-- T1110.001 : échecs d'authentification répétés sur un même compte.
+       La règle 5503 (échec PAM) couvre sudo, su, login et SSH.
+       Note : if_matched_group ne compte pas ces événements dans Wazuh 4.14
+       (testé avec wazuh-logtest), d'où l'usage de if_matched_sid. -->
+  <rule id="100113" level="10" frequency="5" timeframe="120">
+    <if_matched_sid>5503</if_matched_sid>
+    <same_user />
+    <description>[SOC] 5 échecs d'authentification ou plus en 2 minutes</description>
+    <mitre><id>T1110.001</id></mitre>
+    <group>credential_access,</group>
+  </rule>
+
+  <!-- Corrélation T1110.001 : succès juste après une série d'échecs -->
+  <rule id="100114" level="13" timeframe="300">
+    <if_sid>5402,5403,5501,5715,5303</if_sid>
+    <if_matched_sid>100113</if_matched_sid>
+    <same_location />
+    <description>[SOC][CORRELATION] Authentification réussie après une série d'échecs</description>
+    <mitre><id>T1110.001</id><id>T1078</id></mitre>
+    <group>credential_access,correlation,</group>
+  </rule>
+
+</group>
+
+<!-- ===================== Réseau ===================== -->
+<group name="local,soc_homelab,network,">
+
+  <!-- T1571 : nouveau port en écoute sur le poste -->
+  <rule id="100116" level="10">
+    <if_sid>533</if_sid>
+    <description>[SOC] Nouveau port en écoute détecté sur le poste</description>
+    <mitre><id>T1571</id></mitre>
+    <group>command_and_control,</group>
+  </rule>
+
+</group>

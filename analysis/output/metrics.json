@@ -1,0 +1,830 @@
+{
+ "generated_at": "2026-11-03T04:22:22+00:00",
+ "period": {
+  "start": "2026-11-03T03:43:13.651000+00:00",
+  "end": "2026-11-03T03:55:50.872000+00:00"
+ },
+ "totals": {
+  "alerts": 58,
+  "alerts_operational": 45,
+  "alerts_posture": 0,
+  "custom_alerts": 11
+ },
+ "detection": {
+  "scenarios": 10,
+  "detected": 10,
+  "fully_detected": 10,
+  "rate": 100.0,
+  "builtin_triaged": 5,
+  "builtin_rate": 50.0,
+  "mitre_match": 10,
+  "builtin_mitre_match": 2,
+  "builtin_ttd_median_s": 0.1,
+  "ttd_median_s": 0.15,
+  "ttd_max_s": 106.4
+ },
+ "noise": {
+  "baseline_alerts": 13,
+  "baseline_triage_alerts": 0,
+  "custom_false_positives": 0,
+  "test_alerts": 32,
+  "test_alerts_triage": 17
+ },
+ "level_distribution": {
+  "3": 10,
+  "5": 18,
+  "7": 4,
+  "8": 3,
+  "10": 5,
+  "12": 2,
+  "13": 2,
+  "14": 1
+ },
+ "top_rules": [
+  {
+   "rule_id": 5401,
+   "description": "Failed attempt to run sudo.",
+   "count": 7
+  },
+  {
+   "rule_id": 5503,
+   "description": "PAM: User login failed.",
+   "count": 6
+  },
+  {
+   "rule_id": 554,
+   "description": "File added to the system.",
+   "count": 5
+  },
+  {
+   "rule_id": 550,
+   "description": "Integrity checksum changed.",
+   "count": 4
+  },
+  {
+   "rule_id": 5502,
+   "description": "PAM: Login session closed.",
+   "count": 4
+  },
+  {
+   "rule_id": 5501,
+   "description": "PAM: Login session opened.",
+   "count": 3
+  },
+  {
+   "rule_id": 5402,
+   "description": "Successful sudo to ROOT executed.",
+   "count": 3
+  },
+  {
+   "rule_id": 100114,
+   "description": "[SOC][CORRELATION] Authentification réussie après une série d'échecs",
+   "count": 2
+  },
+  {
+   "rule_id": 5901,
+   "description": "New group added to the system.",
+   "count": 1
+  },
+  {
+   "rule_id": 100100,
+   "description": "[SOC] Fichier sudoers créé ou modifié : /etc/sudoers.d/90-support",
+   "count": 1
+  }
+ ],
+ "scenarios": [
+  {
+   "scenario_id": "S01",
+   "mitre_id": "T1110.001",
+   "technique": "Password Guessing",
+   "description": "6 mots de passe sudo erronés puis un succès (compte analyste)",
+   "expected_rules": "100113;100114",
+   "fired_expected": "100113;100114",
+   "detected": true,
+   "fully_detected": true,
+   "ttd_seconds": 16.9,
+   "alerts_in_window": 15,
+   "max_level_custom": 13,
+   "max_level_in_run": 13,
+   "mitre_match": true,
+   "max_level_builtin": 5,
+   "builtin_triaged": false,
+   "builtin_ttd_seconds": null,
+   "builtin_alerts": 15,
+   "top_builtin_rule": "5503 · PAM: User login failed.",
+   "top_builtin_mitre": "T1110.001",
+   "builtin_mitre_match": true
+  },
+  {
+   "scenario_id": "S02",
+   "mitre_id": "T1136.001",
+   "technique": "Create Local Account",
+   "description": "Création du compte support_it",
+   "expected_rules": "5902",
+   "fired_expected": "5902",
+   "detected": true,
+   "fully_detected": true,
+   "ttd_seconds": 0.5,
+   "alerts_in_window": 8,
+   "max_level_custom": 0,
+   "max_level_in_run": 8,
+   "mitre_match": true,
+   "max_level_builtin": 8,
+   "builtin_triaged": true,
+   "builtin_ttd_seconds": 0.1,
+   "builtin_alerts": 8,
+   "top_builtin_rule": "5902 · New user added to the system.",
+   "top_builtin_mitre": "T1136",
+   "builtin_mitre_match": true
+  },
+  {
+   "scenario_id": "S03",
+   "mitre_id": "T1098",
+   "technique": "Account Manipulation",
+   "description": "support_it ajouté au groupe sudo juste après sa création",
+   "expected_rules": "100112",
+   "fired_expected": "100112",
+   "detected": true,
+   "fully_detected": true,
+   "ttd_seconds": 0.4,
+   "alerts_in_window": 2,
+   "max_level_custom": 14,
+   "max_level_in_run": 14,
+   "mitre_match": true,
+   "max_level_builtin": 7,
+   "builtin_triaged": true,
+   "builtin_ttd_seconds": 0.1,
+   "builtin_alerts": 1,
+   "top_builtin_rule": "550 · Integrity checksum changed.",
+   "top_builtin_mitre": "T1565.001",
+   "builtin_mitre_match": false
+  },
+  {
+   "scenario_id": "S04",
+   "mitre_id": "T1548.003",
+   "technique": "Sudo and Sudo Caching",
+   "description": "Règle NOPASSWD ajoutée dans /etc/sudoers.d",
+   "expected_rules": "100100",
+   "fired_expected": "100100",
+   "detected": true,
+   "fully_detected": true,
+   "ttd_seconds": 0.1,
+   "alerts_in_window": 1,
+   "max_level_custom": 12,
+   "max_level_in_run": 12,
+   "mitre_match": true,
+   "max_level_builtin": 5,
+   "builtin_triaged": false,
+   "builtin_ttd_seconds": null,
+   "builtin_alerts": 1,
+   "top_builtin_rule": "554 · File added to the system.",
+   "top_builtin_mitre": "",
+   "builtin_mitre_match": false
+  },
+  {
+   "scenario_id": "S05",
+   "mitre_id": "T1098.004",
+   "technique": "SSH Authorized Keys",
+   "description": "Clé publique ajoutée dans ~/.ssh/authorized_keys",
+   "expected_rules": "100101",
+   "fired_expected": "100101",
+   "detected": true,
+   "fully_detected": true,
+   "ttd_seconds": 0.1,
+   "alerts_in_window": 1,
+   "max_level_custom": 10,
+   "max_level_in_run": 10,
+   "mitre_match": true,
+   "max_level_builtin": 7,
+   "builtin_triaged": true,
+   "builtin_ttd_seconds": 0.1,
+   "builtin_alerts": 1,
+   "top_builtin_rule": "550 · Integrity checksum changed.",
+   "top_builtin_mitre": "T1565.001",
+   "builtin_mitre_match": false
+  },
+  {
+   "scenario_id": "S06",
+   "mitre_id": "T1053.003",
+   "technique": "Cron",
+   "description": "Tâche planifiée créée dans /etc/cron.d",
+   "expected_rules": "100102",
+   "fired_expected": "100102",
+   "detected": true,
+   "fully_detected": true,
+   "ttd_seconds": 0.1,
+   "alerts_in_window": 1,
+   "max_level_custom": 10,
+   "max_level_in_run": 10,
+   "mitre_match": true,
+   "max_level_builtin": 5,
+   "builtin_triaged": false,
+   "builtin_ttd_seconds": null,
+   "builtin_alerts": 1,
+   "top_builtin_rule": "554 · File added to the system.",
+   "top_builtin_mitre": "",
+   "builtin_mitre_match": false
+  },
+  {
+   "scenario_id": "S07",
+   "mitre_id": "T1543.002",
+   "technique": "Systemd Service",
+   "description": "Service systemd créé dans /etc/systemd/system",
+   "expected_rules": "100103",
+   "fired_expected": "100103",
+   "detected": true,
+   "fully_detected": true,
+   "ttd_seconds": 0.1,
+   "alerts_in_window": 1,
+   "max_level_custom": 10,
+   "max_level_in_run": 10,
+   "mitre_match": true,
+   "max_level_builtin": 5,
+   "builtin_triaged": false,
+   "builtin_ttd_seconds": null,
+   "builtin_alerts": 1,
+   "top_builtin_rule": "554 · File added to the system.",
+   "top_builtin_mitre": "",
+   "builtin_mitre_match": false
+  },
+  {
+   "scenario_id": "S08",
+   "mitre_id": "T1036.005",
+   "technique": "Match Legitimate Name or Location",
+   "description": "Binaire copié dans /usr/sbin sous un nom crédible",
+   "expected_rules": "100104",
+   "fired_expected": "100104",
+   "detected": true,
+   "fully_detected": true,
+   "ttd_seconds": 0.1,
+   "alerts_in_window": 1,
+   "max_level_custom": 12,
+   "max_level_in_run": 12,
+   "mitre_match": true,
+   "max_level_builtin": 5,
+   "builtin_triaged": false,
+   "builtin_ttd_seconds": null,
+   "builtin_alerts": 1,
+   "top_builtin_rule": "554 · File added to the system.",
+   "top_builtin_mitre": "",
+   "builtin_mitre_match": false
+  },
+  {
+   "scenario_id": "S09",
+   "mitre_id": "T1021.004",
+   "technique": "SSH",
+   "description": "PermitRootLogin activé dans sshd_config",
+   "expected_rules": "100106",
+   "fired_expected": "100106",
+   "detected": true,
+   "fully_detected": true,
+   "ttd_seconds": 0.2,
+   "alerts_in_window": 1,
+   "max_level_custom": 8,
+   "max_level_in_run": 8,
+   "mitre_match": true,
+   "max_level_builtin": 7,
+   "builtin_triaged": true,
+   "builtin_ttd_seconds": 0.1,
+   "builtin_alerts": 1,
+   "top_builtin_rule": "550 · Integrity checksum changed.",
+   "top_builtin_mitre": "T1565.001",
+   "builtin_mitre_match": false
+  },
+  {
+   "scenario_id": "S10",
+   "mitre_id": "T1571",
+   "technique": "Non-Standard Port",
+   "description": "Deuxième serveur SSH lancé sur le port 2222",
+   "expected_rules": "100116",
+   "fired_expected": "100116",
+   "detected": true,
+   "fully_detected": true,
+   "ttd_seconds": 106.4,
+   "alerts_in_window": 1,
+   "max_level_custom": 10,
+   "max_level_in_run": 10,
+   "mitre_match": true,
+   "max_level_builtin": 7,
+   "builtin_triaged": true,
+   "builtin_ttd_seconds": 32.5,
+   "builtin_alerts": 1,
+   "top_builtin_rule": "533 · Listened ports status (netstat) changed (new port opened or closed).",
+   "top_builtin_mitre": "",
+   "builtin_mitre_match": false
+  }
+ ],
+ "baseline": [
+  {
+   "scenario_id": "B03",
+   "description": "Une seule faute de frappe sur le mot de passe sudo",
+   "alerts": 6,
+   "alerts_triage_level": 0,
+   "custom_false_positives": 0,
+   "max_level": 5,
+   "rules": "Failed attempt to run sudo.; File added to the system.; PAM: Login session closed.; PAM: Login session opened.; PAM: User login failed.; Successful sudo to ROOT executed."
+  },
+  {
+   "scenario_id": "B01",
+   "description": "Commandes sudo légitimes de l'administrateur",
+   "alerts": 6,
+   "alerts_triage_level": 0,
+   "custom_false_positives": 0,
+   "max_level": 3,
+   "rules": "PAM: Login session closed.; PAM: Login session opened.; Successful sudo to ROOT executed."
+  },
+  {
+   "scenario_id": "B02",
+   "description": "Édition de documents dans /home/analyste",
+   "alerts": 1,
+   "alerts_triage_level": 0,
+   "custom_false_positives": 0,
+   "max_level": 5,
+   "rules": "File added to the system."
+  }
+ ],
+ "timeline": [
+  {
+   "timestamp": "03:43:14",
+   "rule_id": 5503,
+   "level": 5,
+   "description": "PAM: User login failed.",
+   "scenario_id": "B03",
+   "custom": false
+  },
+  {
+   "timestamp": "03:43:15",
+   "rule_id": 554,
+   "level": 5,
+   "description": "File added to the system.",
+   "scenario_id": "B03",
+   "custom": false
+  },
+  {
+   "timestamp": "03:43:16",
+   "rule_id": 5401,
+   "level": 5,
+   "description": "Failed attempt to run sudo.",
+   "scenario_id": "B03",
+   "custom": false
+  },
+  {
+   "timestamp": "03:44:46",
+   "rule_id": 554,
+   "level": 5,
+   "description": "File added to the system.",
+   "scenario_id": "B02",
+   "custom": false
+  },
+  {
+   "timestamp": "03:46:17",
+   "rule_id": 5503,
+   "level": 5,
+   "description": "PAM: User login failed.",
+   "scenario_id": "S01",
+   "custom": false
+  },
+  {
+   "timestamp": "03:46:19",
+   "rule_id": 5401,
+   "level": 5,
+   "description": "Failed attempt to run sudo.",
+   "scenario_id": "S01",
+   "custom": false
+  },
+  {
+   "timestamp": "03:46:21",
+   "rule_id": 5503,
+   "level": 5,
+   "description": "PAM: User login failed.",
+   "scenario_id": "S01",
+   "custom": false
+  },
+  {
+   "timestamp": "03:46:23",
+   "rule_id": 5401,
+   "level": 5,
+   "description": "Failed attempt to run sudo.",
+   "scenario_id": "S01",
+   "custom": false
+  },
+  {
+   "timestamp": "03:46:25",
+   "rule_id": 5503,
+   "level": 5,
+   "description": "PAM: User login failed.",
+   "scenario_id": "S01",
+   "custom": false
+  },
+  {
+   "timestamp": "03:46:27",
+   "rule_id": 5401,
+   "level": 5,
+   "description": "Failed attempt to run sudo.",
+   "scenario_id": "S01",
+   "custom": false
+  },
+  {
+   "timestamp": "03:46:29",
+   "rule_id": 5503,
+   "level": 5,
+   "description": "PAM: User login failed.",
+   "scenario_id": "S01",
+   "custom": false
+  },
+  {
+   "timestamp": "03:46:31",
+   "rule_id": 5401,
+   "level": 5,
+   "description": "Failed attempt to run sudo.",
+   "scenario_id": "S01",
+   "custom": false
+  },
+  {
+   "timestamp": "03:46:33",
+   "rule_id": 100113,
+   "level": 10,
+   "description": "[SOC] 5 échecs d'authentification ou plus en 2 minutes",
+   "scenario_id": "S01",
+   "custom": true
+  },
+  {
+   "timestamp": "03:46:35",
+   "rule_id": 5401,
+   "level": 5,
+   "description": "Failed attempt to run sudo.",
+   "scenario_id": "S01",
+   "custom": false
+  },
+  {
+   "timestamp": "03:46:37",
+   "rule_id": 5503,
+   "level": 5,
+   "description": "PAM: User login failed.",
+   "scenario_id": "S01",
+   "custom": false
+  },
+  {
+   "timestamp": "03:46:39",
+   "rule_id": 5401,
+   "level": 5,
+   "description": "Failed attempt to run sudo.",
+   "scenario_id": "S01",
+   "custom": false
+  },
+  {
+   "timestamp": "03:46:41",
+   "rule_id": 100114,
+   "level": 13,
+   "description": "[SOC][CORRELATION] Authentification réussie après une série d'échecs",
+   "scenario_id": "S01",
+   "custom": true
+  },
+  {
+   "timestamp": "03:46:41",
+   "rule_id": 100114,
+   "level": 13,
+   "description": "[SOC][CORRELATION] Authentification réussie après une série d'échecs",
+   "scenario_id": "S01",
+   "custom": true
+  },
+  {
+   "timestamp": "03:47:24",
+   "rule_id": 550,
+   "level": 7,
+   "description": "Integrity checksum changed.",
+   "scenario_id": "S02",
+   "custom": false
+  },
+  {
+   "timestamp": "03:47:24",
+   "rule_id": 550,
+   "level": 7,
+   "description": "Integrity checksum changed.",
+   "scenario_id": "S02",
+   "custom": false
+  },
+  {
+   "timestamp": "03:47:24",
+   "rule_id": 550,
+   "level": 7,
+   "description": "Integrity checksum changed.",
+   "scenario_id": "S02",
+   "custom": false
+  },
+  {
+   "timestamp": "03:47:24",
+   "rule_id": 554,
+   "level": 5,
+   "description": "File added to the system.",
+   "scenario_id": "S02",
+   "custom": false
+  },
+  {
+   "timestamp": "03:47:24",
+   "rule_id": 554,
+   "level": 5,
+   "description": "File added to the system.",
+   "scenario_id": "S02",
+   "custom": false
+  },
+  {
+   "timestamp": "03:47:24",
+   "rule_id": 554,
+   "level": 5,
+   "description": "File added to the system.",
+   "scenario_id": "S02",
+   "custom": false
+  },
+  {
+   "timestamp": "03:47:25",
+   "rule_id": 5902,
+   "level": 8,
+   "description": "New user added to the system.",
+   "scenario_id": "S02",
+   "custom": false
+  },
+  {
+   "timestamp": "03:47:25",
+   "rule_id": 5901,
+   "level": 8,
+   "description": "New group added to the system.",
+   "scenario_id": "S02",
+   "custom": false
+  },
+  {
+   "timestamp": "03:47:34",
+   "rule_id": 550,
+   "level": 7,
+   "description": "Integrity checksum changed.",
+   "scenario_id": "S03",
+   "custom": false
+  },
+  {
+   "timestamp": "03:47:35",
+   "rule_id": 100112,
+   "level": 14,
+   "description": "[SOC][CORRELATION] Nouveau compte créé puis promu administrateur en moins de 10 min",
+   "scenario_id": "S03",
+   "custom": true
+  },
+  {
+   "timestamp": "03:48:19",
+   "rule_id": 100100,
+   "level": 12,
+   "description": "[SOC] Fichier sudoers créé ou modifié : /etc/sudoers.d/90-support",
+   "scenario_id": "S04",
+   "custom": true
+  },
+  {
+   "timestamp": "03:49:05",
+   "rule_id": 100101,
+   "level": 10,
+   "description": "[SOC] Clé SSH autorisée ajoutée ou modifiée : /home/analyste/.ssh/authorized_keys",
+   "scenario_id": "S05",
+   "custom": true
+  },
+  {
+   "timestamp": "03:49:50",
+   "rule_id": 100102,
+   "level": 10,
+   "description": "[SOC] Tâche cron créée ou modifiée : /etc/cron.d/maintenance",
+   "scenario_id": "S06",
+   "custom": true
+  },
+  {
+   "timestamp": "03:50:35",
+   "rule_id": 100103,
+   "level": 10,
+   "description": "[SOC] Service systemd créé ou modifié : /etc/systemd/system/update-helper.service",
+   "scenario_id": "S07",
+   "custom": true
+  },
+  {
+   "timestamp": "03:51:20",
+   "rule_id": 100104,
+   "level": 12,
+   "description": "[SOC] Nouveau binaire dans un répertoire système : /usr/sbin/sshd-update",
+   "scenario_id": "S08",
+   "custom": true
+  },
+  {
+   "timestamp": "03:52:05",
+   "rule_id": 100106,
+   "level": 8,
+   "description": "[SOC] Configuration du serveur SSH modifiée",
+   "scenario_id": "S09",
+   "custom": true
+  },
+  {
+   "timestamp": "03:54:37",
+   "rule_id": 100116,
+   "level": 10,
+   "description": "[SOC] Nouveau port en écoute détecté sur le poste",
+   "scenario_id": "S10",
+   "custom": true
+  }
+ ],
+ "sca": {
+  "policy": "CIS Ubuntu Linux 24.04 LTS Benchmark v1.0.0.",
+  "score": 48,
+  "passed": 100,
+  "failed": 107,
+  "na": 72,
+  "sections": [
+   {
+    "section": "1. Configuration initiale",
+    "passed": 12,
+    "failed": 27,
+    "na": 22
+   },
+   {
+    "section": "2. Services",
+    "passed": 29,
+    "failed": 12,
+    "na": 0
+   },
+   {
+    "section": "3. Réseau",
+    "passed": 4,
+    "failed": 8,
+    "na": 5
+   },
+   {
+    "section": "4. Pare-feu",
+    "passed": 1,
+    "failed": 11,
+    "na": 9
+   },
+   {
+    "section": "5. Accès & authentification",
+    "passed": 29,
+    "failed": 30,
+    "na": 8
+   },
+   {
+    "section": "6. Journalisation & audit",
+    "passed": 8,
+    "failed": 18,
+    "na": 28
+   },
+   {
+    "section": "7. Maintenance système",
+    "passed": 17,
+    "failed": 1,
+    "na": 0
+   }
+  ],
+  "failed_examples": [
+   {
+    "id": 35510,
+    "title": "Ensure /tmp is a separate partition."
+   },
+   {
+    "id": 35511,
+    "title": "Ensure nodev option set on /tmp partition."
+   },
+   {
+    "id": 35512,
+    "title": "Ensure nosuid option set on /tmp partition."
+   },
+   {
+    "id": 35513,
+    "title": "Ensure noexec option set on /tmp partition."
+   },
+   {
+    "id": 35518,
+    "title": "Ensure separate partition exists for /home."
+   },
+   {
+    "id": 35519,
+    "title": "Ensure nodev option set on /home partition."
+   },
+   {
+    "id": 35520,
+    "title": "Ensure nosuid option set on /home partition."
+   },
+   {
+    "id": 35521,
+    "title": "Ensure separate partition exists for /var."
+   },
+   {
+    "id": 35522,
+    "title": "Ensure nodev option set on /var partition."
+   },
+   {
+    "id": 35523,
+    "title": "Ensure nosuid option set on /var partition."
+   },
+   {
+    "id": 35524,
+    "title": "Ensure separate partition exists for /var/tmp."
+   },
+   {
+    "id": 35525,
+    "title": "Ensure nodev option set on /var/tmp partition."
+   }
+  ]
+ },
+ "sca_after": {
+  "policy": "CIS Ubuntu Linux 24.04 LTS Benchmark v1.0.0.",
+  "score": 62,
+  "passed": 130,
+  "failed": 77,
+  "na": 72,
+  "sections": [
+   {
+    "section": "1. Configuration initiale",
+    "passed": 15,
+    "failed": 24,
+    "na": 22
+   },
+   {
+    "section": "2. Services",
+    "passed": 36,
+    "failed": 5,
+    "na": 0
+   },
+   {
+    "section": "3. Réseau",
+    "passed": 4,
+    "failed": 8,
+    "na": 5
+   },
+   {
+    "section": "4. Pare-feu",
+    "passed": 1,
+    "failed": 11,
+    "na": 9
+   },
+   {
+    "section": "5. Accès & authentification",
+    "passed": 46,
+    "failed": 13,
+    "na": 8
+   },
+   {
+    "section": "6. Journalisation & audit",
+    "passed": 10,
+    "failed": 16,
+    "na": 28
+   },
+   {
+    "section": "7. Maintenance système",
+    "passed": 18,
+    "failed": 0,
+    "na": 0
+   }
+  ],
+  "failed_examples": [
+   {
+    "id": 35510,
+    "title": "Ensure /tmp is a separate partition."
+   },
+   {
+    "id": 35511,
+    "title": "Ensure nodev option set on /tmp partition."
+   },
+   {
+    "id": 35512,
+    "title": "Ensure nosuid option set on /tmp partition."
+   },
+   {
+    "id": 35513,
+    "title": "Ensure noexec option set on /tmp partition."
+   },
+   {
+    "id": 35518,
+    "title": "Ensure separate partition exists for /home."
+   },
+   {
+    "id": 35519,
+    "title": "Ensure nodev option set on /home partition."
+   },
+   {
+    "id": 35520,
+    "title": "Ensure nosuid option set on /home partition."
+   },
+   {
+    "id": 35521,
+    "title": "Ensure separate partition exists for /var."
+   },
+   {
+    "id": 35522,
+    "title": "Ensure nodev option set on /var partition."
+   },
+   {
+    "id": 35523,
+    "title": "Ensure nosuid option set on /var partition."
+   },
+   {
+    "id": 35524,
+    "title": "Ensure separate partition exists for /var/tmp."
+   },
+   {
+    "id": 35525,
+    "title": "Ensure nodev option set on /var/tmp partition."
+   }
+  ]
+ }
+}
