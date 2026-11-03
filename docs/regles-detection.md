@@ -10,11 +10,11 @@ Fichier source : [`detection/rules/local_rules.xml`](../detection/rules/local_ru
 | 100101 | 10 | T1098.004 SSH Authorized Keys | FIM | Ajout ou modification d'un fichier `authorized_keys` |
 | 100102 | 10 | T1053.003 Cron | FIM | Tâche planifiée dans `/etc/cron.d`, `/etc/crontab` ou les crontabs utilisateur |
 | 100103 | 10 | T1543.002 Systemd Service | FIM | Nouveau fichier `.service` dans `/etc/systemd/system` |
-| 100104 | 12 | T1036.005 Match Legitimate Name or Location | FIM | Nouveau binaire déposé dans `/usr/bin` ou `/usr/sbin` |
+| 100104 | 12 | T1036.005 Match Legitimate Resource Name or Location | FIM | Nouveau binaire déposé dans `/usr/bin` ou `/usr/sbin` |
 | 100106 | 8 | T1021.004 SSH | FIM | Modification de `/etc/ssh/sshd_config` |
 | 100110 | 12 | T1098 Account Manipulation | auth.log | Utilisateur ajouté au groupe `sudo` ou `admin` (`usermod`, `gpasswd`) |
 | 100112 | 14 | T1136.001 + T1098 | Corrélation | Compte **créé puis promu administrateur** en moins de 10 minutes |
-| 100113 | 10 | T1110.001 Password Guessing | Corrélation | 5 échecs d'authentification PAM sur le même compte en 2 minutes |
+| 100113 | 10 | T1110.001 Password Guessing | Seuil (fréquence) | 5 échecs d'authentification PAM sur le même compte en 2 minutes |
 | 100114 | 13 | T1110.001 + T1078 | Corrélation | **Succès** d'authentification moins de 5 minutes après la règle 100113 |
 | 100116 | 10 | T1571 Non-Standard Port | Commande | Nouveau port en écoute sur le poste (sortie de `ss -lntu` modifiée) |
 

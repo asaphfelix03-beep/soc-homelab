@@ -9,7 +9,7 @@ Ce guide permet de reproduire tout le projet sur ta machine : déploiement de Wa
 | RAM | 8 Go (16 Go conseillés : l'indexer réserve 1 Go à lui seul) |
 | Disque | 15 Go libres |
 | Logiciels | Docker + Docker Compose v2, Git, Python 3.10+ |
-| Windows | Docker Desktop avec le backend **WSL 2** |
+| Windows | Docker Desktop avec le backend **WSL 2**. Lance toutes les commandes de ce guide depuis un terminal **Ubuntu (WSL)** : les scripts sont en bash et utilisent `date` GNU (ils ne marchent ni dans PowerShell ni sous macOS sans `coreutils`) |
 
 ## 1. Récupérer le projet
 
@@ -57,7 +57,7 @@ Vérifie que l'agent du poste est connecté :
 docker exec soc-homelab-wazuh.manager-1 /var/ossec/bin/agent_control -l
 ```
 
-> **Changer les mots de passe.** Les valeurs par défaut sont celles de la documentation Wazuh. Le lab n'écoute que sur `127.0.0.1`, mais si tu l'exposes un jour sur un réseau, change-les en suivant la [documentation officielle](https://documentation.wazuh.com/current/deployment-options/docker/wazuh-container.html#change-the-password-of-wazuh-users).
+> **Changer les mots de passe.** Les valeurs par défaut sont celles de la documentation Wazuh. Le lab n'écoute que sur `127.0.0.1`, mais si tu l'exposes un jour sur un réseau, change-les en suivant la [documentation officielle](https://documentation.wazuh.com/current/deployment-options/docker/changing-default-password.html).
 
 ## 5. Lancer la campagne de validation
 

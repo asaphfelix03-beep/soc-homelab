@@ -54,13 +54,13 @@ Seule différence : le fichier `local_rules.xml`. On mesure donc l'apport réel 
 | Scénario | Technique | A : règle déclenchée (niveau) | TTD (s) | B : meilleure alerte native (niveau) |
 |---|---|---|---|---|
 | S01 | T1110.001 Password Guessing | 100113 + 100114 (13) | 16,9 | 5503 PAM: User login failed (5) |
-| S02 | T1136.001 Create Local Account | 5902 native (8) | 0,5 | 5902 New user added (8) |
+| S02 | T1136.001 Local Account | 5902 native (8) | 0,5 | 5902 New user added (8) |
 | S03 | T1098 Account Manipulation | 100112 corrélation (14) | 0,4 | 550 Integrity checksum changed (7) |
 | S04 | T1548.003 Sudo | 100100 (12) | 0,1 | 554 File added to the system (5) |
 | S05 | T1098.004 SSH Authorized Keys | 100101 (10) | 0,1 | 550 Integrity checksum changed (7) |
 | S06 | T1053.003 Cron | 100102 (10) | 0,1 | 554 File added to the system (5) |
 | S07 | T1543.002 Systemd Service | 100103 (10) | 0,1 | 554 File added to the system (5) |
-| S08 | T1036.005 Match Legitimate Name | 100104 (12) | 0,1 | 554 File added to the system (5) |
+| S08 | T1036.005 Match Legitimate Resource Name or Location | 100104 (12) | 0,1 | 554 File added to the system (5) |
 | S09 | T1021.004 SSH | 100106 (8) | 0,2 | 550 Integrity checksum changed (7) |
 | S10 | T1571 Non-Standard Port | 100116 (10) | 106,4 | 533 Listened ports changed (7) |
 
@@ -76,7 +76,7 @@ Seule différence : le fichier `local_rules.xml`. On mesure donc l'apport réel 
 
 ### 4.3 Lecture
 
-- **Les règles natives voient presque tout, mais elles ne disent pas quoi.** Dans les 10 cas, la campagne témoin lève bien une alerte, mais générique (« File added to the system », « Integrity checksum changed »). L'analyste doit ouvrir l'alerte et lire le chemin du fichier pour comprendre qu'il s'agit d'une tâche cron ou d'une règle sudoers. En niveau 5, ces alertes passent sous le seuil de triage et seraient noyées dans le bruit.
+- **Les règles natives voient presque tout, mais elles ne disent pas quoi.** Dans les 10 cas, la campagne témoin lève bien une alerte. Seules S01 (échecs PAM) et S02 (création de compte) portent la bonne technique ; les 8 autres sont génériques (« File added to the system », « Integrity checksum changed »). L'analyste doit ouvrir l'alerte et lire le chemin du fichier pour comprendre qu'il s'agit d'une tâche cron ou d'une règle sudoers. En niveau 5, ces alertes passent sous le seuil de triage et seraient noyées dans le bruit.
 - **Le nom de la menace et la technique MITRE accélèrent le triage.** Avec les règles personnalisées, chaque alerte dit ce qui se passe (« [SOC] Tâche cron créée : /etc/cron.d/maintenance ») et porte la bonne technique, ce qui permet de mesurer la couverture ATT&CK.
 - **La corrélation transforme deux signaux faibles en un incident.** S03 : sans corrélation, on voit une modification de `/etc/group` (niveau 7). Avec la règle 100112, on voit « compte créé puis promu administrateur en moins de 10 minutes » (niveau 14). S01 : six échecs de niveau 5 deviennent une alerte de niveau 10 (100113), puis la connexion réussie qui suit monte en niveau 13 (100114).
 - **Le temps de détection est quasi instantané pour le FIM temps réel** (0,1 s). S10 dépend de la fréquence de la commande de surveillance des ports (120 s) : 106 s ici. En production, il faudrait choisir entre réactivité et charge.

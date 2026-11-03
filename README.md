@@ -51,13 +51,13 @@ flowchart LR
 | ID | Technique MITRE | Action reproduite sur le poste | Règle |
 |---|---|---|---|
 | S01 | T1110.001 Password Guessing | 6 mots de passe sudo erronés puis un succès | 100113 → 100114 |
-| S02 | T1136.001 Create Local Account | Création d'un compte `support_it` | 5902 (native) |
+| S02 | T1136.001 Local Account | Création d'un compte `support_it` | 5902 (native) |
 | S03 | T1098 Account Manipulation | Ce compte est ajouté au groupe `sudo` 10 s plus tard | 100110 → 100112 |
 | S04 | T1548.003 Sudo and Sudo Caching | Règle `NOPASSWD` dans `/etc/sudoers.d` | 100100 |
 | S05 | T1098.004 SSH Authorized Keys | Clé publique ajoutée à `authorized_keys` | 100101 |
 | S06 | T1053.003 Cron | Tâche dans `/etc/cron.d` | 100102 |
 | S07 | T1543.002 Systemd Service | Service dans `/etc/systemd/system` | 100103 |
-| S08 | T1036.005 Match Legitimate Name | Binaire copié dans `/usr/sbin` sous un nom crédible | 100104 |
+| S08 | T1036.005 Match Legitimate Resource Name or Location | Binaire copié dans `/usr/sbin` sous un nom crédible | 100104 |
 | S09 | T1021.004 SSH | `PermitRootLogin yes` dans `sshd_config` | 100106 |
 | S10 | T1571 Non-Standard Port | Second serveur SSH sur le port 2222 | 100116 |
 | B01-B03 | – | Activité normale d'administration (mesure du bruit) | aucune attendue |
