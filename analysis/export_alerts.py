@@ -1,7 +1,7 @@
 """Exporte les alertes Wazuh et les résultats SCA du lab vers analysis/data/.
 
 Usage (depuis la racine du projet, lab démarré) :
-    python analysis/export_alerts.py --since 2026-11-03T02:40:00Z
+    python analysis/export_alerts.py --ground-truth tests/results/ground_truth.csv
 
 Variables d'environnement optionnelles :
     INDEXER_URL (https://127.0.0.1:9200), INDEXER_USER, INDEXER_PASSWORD
@@ -98,17 +98,36 @@ def export_sca(agent: str) -> dict:
     return out
 
 
+def window_from_ground_truth(path: Path, margin_s: int = 60) -> tuple[str, str]:
+    """Début du premier scénario et fin du dernier (+ marge), lus dans ground_truth.csv."""
+    import csv
+    from datetime import datetime, timedelta
+    with path.open() as f:
+        rows = list(csv.DictReader(f))
+    if not rows:
+        raise SystemExit(f"{path} est vide : lance d'abord la campagne.")
+    parse = lambda v: datetime.fromisoformat(v.replace("Z", "+00:00"))
+    start = min(parse(r["start_utc"]) for r in rows)
+    end = max(parse(r["end_utc"]) for r in rows) + timedelta(seconds=margin_s)
+    fmt = "%Y-%m-%dT%H:%M:%SZ"
+    return start.strftime(fmt), end.strftime(fmt)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--since", help="début de la fenêtre (ISO 8601 UTC), obligatoire sauf avec --no-alerts")
+    ap.add_argument("--ground-truth", help="fichier ground_truth.csv : la fenêtre est lue dedans (+60 s de marge)")
+    ap.add_argument("--since", help="début de la fenêtre (ISO 8601 UTC), si --ground-truth n'est pas donné")
     ap.add_argument("--until", help="fin de la fenêtre (ISO 8601 UTC)")
     ap.add_argument("--agent", default=os.getenv("AGENT_NAME", "endpoint-ubuntu"))
     ap.add_argument("--out", default=str(DATA), help="dossier de sortie (défaut : analysis/data)")
     ap.add_argument("--sca-file", default="sca.json", help="nom du fichier SCA (ex. sca_apres.json)")
     ap.add_argument("--no-alerts", action="store_true", help="n'exporter que les résultats SCA")
     args = ap.parse_args()
+    if args.ground_truth:
+        args.since, args.until = window_from_ground_truth(Path(args.ground_truth))
+        print(f"Fenêtre de la campagne : {args.since} -> {args.until}")
     if not args.no_alerts and not args.since:
-        ap.error("--since est obligatoire pour exporter les alertes")
+        ap.error("--ground-truth ou --since est obligatoire pour exporter les alertes")
 
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)

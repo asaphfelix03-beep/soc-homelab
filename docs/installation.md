@@ -70,24 +70,33 @@ cd ..
 
 La campagne dure environ 15 minutes. Elle écrit la vérité terrain dans `tests/results/ground_truth.csv` et remet le poste dans son état initial à la fin.
 
-## 6. Exporter et analyser
+## 6. Lancer la campagne témoin (test A/B)
+
+Même campagne, avec les règles personnalisées désactivées. Le script les restaure à la fin.
 
 ```bash
+./tests/run_control.sh
+```
+
+Environ 16 minutes. Vérité terrain : `tests/results/ground_truth_builtin_only.csv`.
+
+## 7. Exporter et analyser
+
+Sous Ubuntu/WSL, utilise un environnement virtuel (`pip` refuse d'installer dans le Python du système) :
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
-python analysis/export_alerts.py --since 2026-11-03T03:08:00Z --until 2026-11-03T03:25:00Z
+```
+
+Exporte les deux campagnes. L'export lit la fenêtre de temps dans le fichier de vérité terrain et enregistre aussi le score CIS **avant** durcissement :
+
+```bash
+python analysis/export_alerts.py --ground-truth tests/results/ground_truth.csv
+python analysis/export_alerts.py --ground-truth tests/results/ground_truth_builtin_only.csv --out analysis/data/builtin_only --sca-file sca_temoin.json
 python analysis/analyze.py
 ```
-
-Remplace les dates par la fenêtre de ta propre campagne : la première et la dernière ligne de `ground_truth.csv`.
-
-## 7. Ouvrir le dashboard
-
-```bash
-cd docs/dashboard
-python -m http.server 8000
-```
-
-Puis ouvre http://localhost:8000. Pour le publier, active GitHub Pages sur le dossier `docs/` du dépôt.
 
 ## 8. Bonus : durcissement CIS
 
@@ -96,7 +105,21 @@ docker exec -i soc-homelab-endpoint-ubuntu-1 bash < hardening/harden.sh
 docker exec soc-homelab-endpoint-ubuntu-1 /var/ossec/bin/wazuh-control restart   # relance le scan SCA
 ```
 
-Après 1 à 2 minutes, réexporte les résultats SCA et compare le score.
+Attends 1 à 2 minutes (fin du scan SCA), puis exporte le score **après** durcissement et relance l'analyse :
+
+```bash
+python analysis/export_alerts.py --no-alerts --sca-file sca_apres.json
+python analysis/analyze.py
+```
+
+## 9. Ouvrir le dashboard
+
+```bash
+cd docs/dashboard
+python3 -m http.server 8000
+```
+
+Puis ouvre http://localhost:8000. Pour le publier, active GitHub Pages sur le dossier `docs/` du dépôt (Settings → Pages → branche `main`, dossier `/docs`).
 
 ## Arrêter et nettoyer
 

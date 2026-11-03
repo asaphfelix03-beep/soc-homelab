@@ -108,7 +108,7 @@ Les chiffres publiés viennent de campagnes rejouées **après** toutes les corr
 
 - Un seul poste, Linux, en conteneur. Pas de Windows, pas de réseau d'entreprise.
 - Les scénarios reproduisent des traces d'attaque avec des actions légitimes. Ils ne couvrent pas les techniques d'évasion d'un vrai attaquant (désactivation de l'agent, effacement des journaux, exécution en mémoire).
-- Une seule exécution de chaque campagne finale : les temps de détection varient d'une exécution à l'autre, notamment S10 (entre 0 et 120 s selon le moment).
+- Les temps de détection varient d'une exécution à l'autre, notamment S10 (entre 0 et 120 s selon le moment où tombe le contrôle des ports) : 106 s dans la campagne publiée, 86 s lors de la vérification ci-dessous.
 - Trois activités normales : c'est trop peu pour estimer un taux de faux positifs en production.
 
 ## Pistes d'amélioration
@@ -121,5 +121,8 @@ Les chiffres publiés viennent de campagnes rejouées **après** toutes les corr
 6. **Répéter chaque campagne 5 fois** pour donner des intervalles de temps de détection plutôt qu'une valeur unique.
 
 ## 7. Reproduire
+
+**Reproductibilité vérifiée.** Après publication, le lab a été entièrement supprimé (conteneurs, volumes, image), puis redéployé à partir d'un clone neuf du dépôt GitHub en suivant [installation.md](installation.md). Résultats : 10/10 techniques détectées par les mêmes règles aux mêmes niveaux, 0 faux positif, et un score CIS de 48 % → 62 % avec un seul passage de `harden.sh`. Les indicateurs recalculés depuis les données publiées sont identiques au commit (pandas 3.0.5 et 3.1.0).
+
 
 Voir [installation.md](installation.md). Toutes les données brutes sont dans [`analysis/data/`](../analysis/data/), les résultats dans [`analysis/output/`](../analysis/output/).

@@ -204,7 +204,8 @@ def main() -> None:
     sca = sca_summary()
     sca_after = sca_summary(DATA / "sca_apres.json") if (DATA / "sca_apres.json").exists() else {}
 
-    alerts.to_csv(OUT / "alerts_enriched.csv", index=False)
+    # Format d'horodatage explicite : le CSV reste identique quelle que soit la version de pandas
+    alerts.assign(timestamp=alerts["timestamp"].dt.strftime("%Y-%m-%dT%H:%M:%S.%fZ")).to_csv(OUT / "alerts_enriched.csv", index=False)
     res.to_csv(OUT / "scenario_results.csv", index=False)
     base.to_csv(OUT / "baseline_results.csv", index=False)
 
